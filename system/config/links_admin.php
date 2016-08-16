@@ -160,6 +160,7 @@ $link['kategoria'] = array('js' => ADMIN_JS . 'pages/kategoria.js');
 $link['kert'] = array('js' => ADMIN_JS . 'pages/kert.js');
 $link['kilatas'] = array('js' => ADMIN_JS . 'pages/kilatas.js');
 $link['parkolas'] = array('js' => ADMIN_JS . 'pages/parkolas.js');
+$link['szerkezet'] = array('js' => ADMIN_JS . 'pages/szerkezet.js');
 
 return $link;
 ?>

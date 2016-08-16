@@ -12,7 +12,8 @@ class Datatables_model extends Admin_model {
       'ingatlan_energetika' => 'energetika',
       'ingatlan_kert' => 'kert',
       'ingatlan_kilatas' => 'kilatas',
-      'ingatlan_parkolas' => 'parkolas'
+      'ingatlan_parkolas' => 'parkolas',
+      'ingatlan_szerkezet' => 'szerkezet'  
     );
 
     /**

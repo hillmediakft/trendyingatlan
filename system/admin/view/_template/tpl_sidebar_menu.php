@@ -96,7 +96,12 @@
                     <a href="admin/datatables/ingatlan_parkolas" class="nav-link">
                         <span class="title">Parkolás</span>
                     </a>
-                </li>                                  
+                </li> 
+                <li class="<?php $this->menu_active('datatables','ingatlan_szerkezet'); ?>">
+                    <a href="admin/datatables/ingatlan_szerkezet" class="nav-link">
+                        <span class="title">Szerkezet</span>
+                    </a>
+                </li>                 
             </ul>
         </li> 
 

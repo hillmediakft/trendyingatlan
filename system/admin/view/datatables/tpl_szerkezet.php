@@ -8,7 +8,7 @@
                 <a href="admin/home">Kezdőoldal</a> 
                 <i class="fa fa-angle-right"></i>
             </li>
-            <li><span>Jellemzők - kategória</span></li>
+            <li><span>Jellemzők - szerkezet</span></li>
         </ul>
     </div>
     <!-- END PAGE TITLE & BREADCRUMB-->
@@ -26,27 +26,29 @@
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
             <div class="portlet">
                     <div class="portlet-title">
-                        <div class="caption"><i class="fa fa-file-text-o"></i>Ingatlan kategória lista</div>
+                        <div class="caption"><i class="fa fa-file-text-o"></i>Ingatlan szerkezet lista</div>
 
                         <div class="actions">
                             <div class="btn-group">
-                                    <button id="kategoria_new" class="btn blue">
-                                        <i class="fa fa-plus"></i> Új kategória 
+                                    <button id="szerkezet_new" class="btn blue">
+                                        <i class="fa fa-plus"></i> Új szerkezet 
                                     </button>
                                 </div>
+                            
+
                         </div>
 
                     </div>
                 <div class="portlet-body">
 
-                    <table class="table table-striped table-hover table-bordered" id="kategoria">
+                    <table class="table table-striped table-hover table-bordered" id="szerkezet">
                         <thead>
                             <tr class="heading">
                                 <th>
                                     #id
                                 </th>
                                 <th>
-                                    Kategória megnevezése
+                                    Szerkezet megnevezése
                                 </th>
                                 <th></th>
                                 <th></th>
@@ -54,13 +56,13 @@
                         </thead>
                         <tbody>
                             
-                            <?php foreach ($this->kategoria as $value) { ?>
+                            <?php foreach ($this->szerkezet as $value) { ?>
                             <tr>
                                 <td>
-                                    <?php echo $value['kat_id'];?>
+                                    <?php echo $value['szerkezet_id'];?>
                                 </td>
                                 <td>
-                                    <?php echo $value['kat_nev'];?>
+                                    <?php echo $value['szerkezet_leiras'];?>
                                 </td>
                                 <td>
                                     <a class="edit" href="javascript:;">
@@ -80,4 +82,4 @@
             <!-- END EXAMPLE TABLE PORTLET-->
         </div>
     </div> <!-- END PAGE CONTENT -->
-</div>
+</div> 

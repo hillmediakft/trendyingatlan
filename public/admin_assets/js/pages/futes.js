@@ -57,7 +57,7 @@ var Futes = function () {
                 // data tables specific                
                 "decimal":        "",
                 "emptyTable":     "Nincs megjeleníthető adat!",
-                "info":           "_START_ - _END_ elem &nbsp; _TOTAL_ elemből",
+                "info":           "_START_ - _END_ elem &nbsp;/ _TOTAL_ elemből",
                 "infoEmpty":      "Nincs megjeleníthető adat!",
                 "infoFiltered":   "(Szűrve _MAX_ elemből)",
                 "infoPostFix":    "",
@@ -90,7 +90,7 @@ var Futes = function () {
                 [5, 15, 20, "Összes"] // change per page values here
             ],
             // set the initial value
-            "pageLength": 20,
+            "pageLength": 10,
             "pagingType": "bootstrap_full_number",
             "order": [
                 [0, "asc"]
@@ -109,9 +109,8 @@ var Futes = function () {
         $('#futes_new').click(function (e) {
             e.preventDefault();
 
-            // ha van szerkesztett elem, VAGY létre van hozva egy új hozzáadása elem
-            if (nNew || nEditing) {
-                
+             if (nNew && nEditing) {
+
                 App.alert({
                     container: $('#ajax_message'), // $('#elem'); - alerts parent container(by default placed after the page breadcrumbs)
                     place: "append", // "append" or "prepend" in container 
@@ -120,33 +119,18 @@ var Futes = function () {
                     close: true, // make alert closable
                     reset: true, // close all previouse alerts first
                     // focus: true, // auto scroll to the alert after shown
-                    closeInSeconds: 10 // auto close after defined seconds
-                    // icon: "warning" // put icon before the message
+                    closeInSeconds: 7, // auto close after defined seconds
+                    icon: "warning" // put icon before the message
                 });
 
-                return;
-/*
-                if (confirm("A szerkesztett sort nem mentette el. Akarja menteni?")) {
-                    //saveRow(oTable, nEditing); // save
-                    //$(nEditing).find("td:first").html("Untitled");
-                    nEditing = null;
-                    nNew = false;
+            } else {
 
-                } else {
-                    oTable.fnDeleteRow(nEditing); // cancel
-                    nEditing = null;
-                    nNew = false;
-
-                    return;
-                }
-*/
+                var aiNew = oTable.fnAddData(['', '', '', '']);
+                var nRow = oTable.fnGetNodes(aiNew[0]);
+                editRow(oTable, nRow);
+                nEditing = nRow;
+                nNew = true;
             }
-
-            var aiNew = oTable.fnAddData(['', '', '', '']);
-            var nRow = oTable.fnGetNodes(aiNew[0]);
-            editRow(oTable, nRow);
-            nEditing = nRow;
-            nNew = true;
         });
 
         table.on('click', '.delete', function (e) {
