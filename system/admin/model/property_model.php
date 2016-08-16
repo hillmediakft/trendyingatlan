@@ -336,80 +336,103 @@ class Property_model extends Admin_model {
     /**
      * 	(AJAX) Lakás törlése
      *
-     * 	@param	integer	$id 	a törlendő rekord id-je
+     * 	@param	integer||array	$id 	a törlendő rekord id-je
      * 	@return	bool	true || false
      */
-    public function delete_property_AJAX($id)
+    public function delete_property_AJAX($id_data)
     {
-//a lakáshoz tartozó fileok nevének lekérdezése	
-        $this->query->set_table(array('ingatlanok'));
-        $this->query->set_columns(array('kepek', 'docs'));
-        $this->query->set_where('id', '=', $id);
-        $files_arr = $this->query->select();
-        if (!empty($files_arr[0]['kepek'])) {
-            //képek nevét tartalmazó tömb
-            $photos_arr = json_decode($files_arr[0]['kepek']);
-        }
-        if (!empty($files_arr[0]['docs'])) {
-            //dokumentumok nevét tartalmazó tömb
-            $docs_arr = json_decode($files_arr[0]['docs']);
+        // a sikeres törlések számát tárolja
+        $success_counter = 0;
+        // a sikertelen törlések számát tárolja
+        $fail_counter = 0;
+
+        // ha nem tömb az $id_data
+        if(!is_array($id_data)){
+            $id_data = array($id_data);
         }
 
-//lakás törlése	
-        $this->query->reset();
-        $this->query->set_table(array('ingatlanok'));
-        //a delete() metódus integert (lehet 0 is) vagy false-ot ad vissza
-        $result = $this->query->delete('id', '=', $id);
+        foreach ($id_data as $id) {
 
-// ha a törlési sql parancsban nincs hiba
-        if ($result !== false) {
-            if ($result > 0) {
-//sikeres törlés
-//ha az adatbázisban léteznek képek
-                if (isset($photos_arr)) {
-                    $photo_path = Config::get('ingatlan_photo.upload_path');
-//képek törlése
-                    foreach ($photos_arr as $filename) {
-                        $thumb_path = Util::thumb_path($photo_path . $filename);
-                        $small_path = Util::small_path($photo_path . $filename);
-                        // nagy kép törlése
-                        if (!Util::del_file($photo_path . $filename)) {
-                            Message::log($filename . ' - nevü file törlése nem sikerült!');
-                        };
-                        // small kép törlése
-                        if (!Util::del_file($small_path)) {
-                            Message::log($filename . ' - nevü file törlése nem sikerült!');
-                        };
-                        // thumb kép törlése
-                        if (!Util::del_file($thumb_path)) {
-                            Message::log($filename . ' - nevü file törlése nem sikerült!');
-                        };
-                    }
-                }
-                // ha az adatbázisban léteznek dokumentumok
-                if (isset($docs_arr)) {
-                    $docs_path = Config::get('ingatlan_doc.upload_path');
-                    //dokumentumok törlése
-                    foreach ($docs_arr as $filename) {
-                        if (!Util::del_file($docs_path . $filename)) {
-                            Message::log($filename . ' - nevü file törlése nem sikerült!');
-                        };
-                    }
-                }
-                // ha minden sikerült
-                return true;
-            } else {
-                //sikertelen törlés (0 sor lett törölve)
-                return false;
+            $value = (int) $value;
+
+    //a lakáshoz tartozó fileok nevének lekérdezése	
+            $this->query->set_table(array('ingatlanok'));
+            $this->query->set_columns(array('kepek', 'docs'));
+            $this->query->set_where('id', '=', $id);
+            $files_arr = $this->query->select();
+            if (!empty($files_arr[0]['kepek'])) {
+                //képek nevét tartalmazó tömb
+                $photos_arr = json_decode($files_arr[0]['kepek']);
             }
-        } else {
-            // ha a törlési sql parancsban hiba van
-            echo json_encode(array(
-                "status" => 'error',
-                "message" => 'Adatbázis lekérdezési hiba!'
-            ));
-            exit();
-        }
+            if (!empty($files_arr[0]['docs'])) {
+                //dokumentumok nevét tartalmazó tömb
+                $docs_arr = json_decode($files_arr[0]['docs']);
+            }
+
+    //lakás törlése	
+            $this->query->reset();
+            $this->query->set_table(array('ingatlanok'));
+            //a delete() metódus integert (lehet 0 is) vagy false-ot ad vissza
+            $result = $this->query->delete('id', '=', $id);
+
+    // ha a törlési sql parancsban nincs hiba
+            if ($result !== false) {
+                if ($result > 0) {
+    //sikeres törlés
+    //ha az adatbázisban léteznek képek
+                    if (isset($photos_arr)) {
+                        $photo_path = Config::get('ingatlan_photo.upload_path');
+    //képek törlése
+                        foreach ($photos_arr as $filename) {
+                            $thumb_path = Util::thumb_path($photo_path . $filename);
+                            $small_path = Util::small_path($photo_path . $filename);
+                            // nagy kép törlése
+                            if (!Util::del_file($photo_path . $filename)) {
+                                Message::log($filename . ' - nevü file törlése nem sikerült!');
+                            };
+                            // small kép törlése
+                            if (!Util::del_file($small_path)) {
+                                Message::log($filename . ' - nevü file törlése nem sikerült!');
+                            };
+                            // thumb kép törlése
+                            if (!Util::del_file($thumb_path)) {
+                                Message::log($filename . ' - nevü file törlése nem sikerült!');
+                            };
+                        }
+                    }
+                    // ha az adatbázisban léteznek dokumentumok
+                    if (isset($docs_arr)) {
+                        $docs_path = Config::get('ingatlan_doc.upload_path');
+                        //dokumentumok törlése
+                        foreach ($docs_arr as $filename) {
+                            if (!Util::del_file($docs_path . $filename)) {
+                                Message::log($filename . ' - nevü file törlése nem sikerült!');
+                            };
+                        }
+                    }
+                    
+                    // sikeres törlés
+                    $success_counter += $result;
+                
+                } else {
+                    //sikertelen törlés (0 sor lett törölve)
+                    $fail_counter += 1;
+                }
+            } else {
+                // ha a törlési sql parancsban hiba van
+                return $respond = array(
+                    "status" => 'error',
+                    "message" => 'Adatbázis lekérdezési hiba!'
+                );
+            }
+
+        } // end foreach
+
+        return $respond = array(
+            'status' => 'success',
+            'message' => ($success_counter + $fail_counter) . ' ingatlan törölve.'
+        );
+
     }
 
     /**
@@ -1058,6 +1081,326 @@ class Property_model extends Admin_model {
         $result = $sth->fetch(PDO::FETCH_NUM);
         return (int) $result[0];
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * Ingatlanok lisistájának megjelenítése ajax-al
+     */
+    public function ajax_get_propertys($request_data) {
+        // ebbe a tömbbe kerülnek a csoportos műveletek üzenetei
+        //$messages = array();
+
+        //$user_role = Session::get('user_role_id');
+
+        if (isset($request_data['customActionType']) && isset($request_data['customActionName'])) {
+
+            switch ($request_data['customActionName']) {
+
+                case 'group_delete':
+                    // az id-ket tartalmazó tömböt kapja paraméterként
+                    //$result = $this->delete_property_AJAX($request_data['id']);
+
+                    $result['status'] = 'error';
+                    $result['message'] = 'lorem ipsum dolor sit amet';
+
+
+                    if ($result['status'] == 'success') {
+                        $messages = $result['message'];
+                        //$messages['success'] = $result['message'];
+                    }
+                    if ($result['status'] == 'error') {
+                        $messages = $result['message'];
+                        //$messages['error'] = $result['message'];
+                    }
+                    
+                    break;
+
+                case 'group_make_active':
+                    $result = $this->change_status_query($request_data['id'], 1);
+
+                    if ($result['success'] > 0) {
+                        $messages['success'] = $result['success'] . Message::show(' munka státusza aktívra változott.');
+                    }
+                    if ($result['error'] > 0) {
+                        $messages['error'] = $result['error'] . Message::show(' munka státusza nem változott meg!');
+                    }
+                    break;
+
+                case 'group_make_inactive':
+                    $result = $this->change_status_query($request_data['id'], 0);
+
+                    if ($result['success'] > 0) {
+                        $messages['success'] = $result['success'] . Message::show(' munka státusza inaktívra változott.');
+                    }
+                    if ($result['error'] > 0) {
+                        $messages['error'] = $result['error'] . Message::show(' munka státusza nem változott meg!');
+                    }
+                    break;
+            }
+        }
+
+
+        //összes sor számának lekérdezése
+        $total_records = $this->query->count('ingatlanok');
+
+        $display_length = intval($request_data['length']);
+        $display_length = ($display_length < 0) ? $total_records : $display_length;
+        $display_start = intval($request_data['start']);
+        $display_draw = intval($request_data['draw']);
+
+        $this->query->reset();
+        $this->query->set_table(array('ingatlanok'));
+        $this->query->set_columns('SQL_CALC_FOUND_ROWS 
+            `ingatlanok`.`id`,
+            `ingatlanok`.`kepek`,
+            `ingatlanok`.`kategoria`,
+            `ingatlanok`.`status`,
+            `ingatlanok`.`kiemeles`,
+            `ingatlanok`.`tipus`,
+            `ingatlanok`.`ar_elado`,
+            `ingatlanok`.`ar_kiado`,
+            `ingatlanok`.`alapterulet`,
+            `ingatlanok`.`szobaszam`,
+            `ingatlanok`.`megtekintes`,
+            `ingatlan_kategoria`.`kat_nev`,
+            `users`.`user_first_name`,
+            `users`.`user_last_name`,
+            `district_list`.`district_name`,
+            `city_list`.`city_name`'
+        );
+
+        $this->query->set_join('left', 'ingatlan_kategoria', 'ingatlanok.kategoria', '=', 'ingatlan_kategoria.kat_id');
+        $this->query->set_join('left', 'users', 'ingatlanok.ref_id', '=', 'users.user_id');
+        $this->query->set_join('left', 'district_list', 'ingatlanok.kerulet', '=', 'district_list.district_id');
+        $this->query->set_join('left', 'city_list', 'ingatlanok.varos', '=', 'city_list.city_id');
+
+
+        $this->query->set_offset($display_start);
+        $this->query->set_limit($display_length);
+
+        //szűrés beállítások
+        if (isset($request_data['action']) && $request_data['action'] == 'filter') {
+
+            if (isset($request_data['id']) && !empty($request_data['id'])) {
+                $this->query->set_where('id', '=', $request_data['id']);
+            }
+            if (isset($request_data['status']) && ($request_data['status'] != '')) {
+                $this->query->set_where('status', '=', $request_data['status']);
+            }
+            if (isset($request_data['kiemeles']) && ($request_data['kiemeles'] != '')) {
+                $this->query->set_where('kiemeles', '=', $request_data['kiemeles']);
+            }
+            if (isset($request_data['ref_id']) && !empty($request_data['ref_id'])) {
+                $this->query->set_where('ref_id', '=', $request_data['ref_id']);
+            }
+            if (isset($request_data['tipus']) && !empty($request_data['tipus'])) {
+                $this->query->set_where('tipus', '=', $request_data['tipus']);
+            }
+            if (isset($request_data['kategoria']) && !empty($request_data['kategoria'])) {
+                $this->query->set_where('kategoria', '=', $request_data['kategoria']);
+            }
+            if (isset($request_data['megye']) && !empty($request_data['megye'])) {
+                $this->query->set_where('megye', '=', $request_data['megye']);
+            }
+            if (isset($request_data['varos']) && !empty($request_data['varos'])) {
+                $this->query->set_where('varos', '=', $request_data['varos']);
+            }
+            if (isset($request_data['kerulet']) && !empty($request_data['kerulet'])) {
+                $this->query->set_where('kerulet', '=', $request_data['kerulet']);
+            }
+            if (isset($request_data['tulaj_nev']) && !empty($request_data['tulaj_nev'])) {
+                $this->query->set_where('tulaj_nev', 'LIKE', '%' . $request_data['tulaj_nev'] . '%');
+            }
+
+            /*         * ************************* ÁR ALAPJÁN KERESÉS **************************** */
+
+            // csak minimum ár van megadva
+            if ((isset($request_data['min_ar']) && !empty($request_data['min_ar'])) AND ( $request_data['min_ar'] > 0) AND ( isset($request_data['max_ar']) AND $request_data['max_ar'] == '')) {
+                if (isset($request_data['tipus']) && $request_data['tipus'] == 1) {
+                    $this->query->set_where('ar_elado', '>=', $request_data['min_ar']);
+                } elseif (isset($request_data['tipus']) && $request_data['tipus'] == 2) {
+                    $this->query->set_where('ar_kiado', '>=', $request_data['min_ar']);
+                }
+            }
+
+            // csak maximum ár van megadva
+            if ((isset($request_data['max_ar']) && !empty($request_data['max_ar'])) AND ( $request_data['max_ar'] > 0) AND ( isset($request_data['min_ar']) AND $request_data['min_ar'] == '')) {
+                if (isset($request_data['tipus']) && $request_data['tipus'] == 1) {
+                    $this->query->set_where('ar_elado', '<=', $request_data['max_ar']);
+                } elseif (isset($request_data['tipus']) && $request_data['tipus'] == 2) {
+                    $this->query->set_where('ar_kiado', '<=', $request_data['max_ar']);
+                }
+            }
+            // minimum és maximum ár is meg van adva
+            if ((isset($request_data['min_ar']) && !empty($request_data['min_ar'])) AND ( $request_data['min_ar'] > 0) AND ( isset($request_data['max_ar']) && !empty($request_data['max_ar'])) AND ( $request_data['max_ar'] > 0)) {
+                if (isset($request_data['tipus']) && $request_data['tipus'] == 1) {
+                    $this->query->set_where('ar_elado', '>=', $request_data['min_ar']);
+                    $this->query->set_where('ar_elado', '<=', $request_data['max_ar']);
+                } elseif (isset($request_data['tipus']) && $request_data['tipus'] == 2) {
+                    $this->query->set_where('ar_kiado', '>=', $request_data['min_ar']);
+                    $this->query->set_where('ar_kiado', '<=', $request_data['max_ar']);
+                }
+            }
+
+
+            /*         * ************************* TERÜLET ALAPJÁN KERESÉS **************************** */
+
+            // csak minimum terület van megadva
+            if ((isset($request_data['min_alapterulet']) && !empty($request_data['min_alapterulet'])) AND ( $request_data['min_alapterulet'] > 0) AND ( isset($request_data['max_alapterulet']) AND $request_data['max_alapterulet'] == '')) {
+                $this->query->set_where('alapterulet', '>=', $request_data['min_alapterulet']);
+            }
+
+            // csak maximum terulet van megadva
+            if ((isset($request_data['max_alapterulet']) && !empty($request_data['max_alapterulet'])) AND ( $request_data['max_alapterulet'] > 0) AND ( isset($request_data['min_alapterulet']) AND $request_data['min_alapterulet'] == '')) {
+                $this->query->set_where('alapterulet', '<=', $request_data['max_alapterulet']);
+            }
+            // minimum és maximum ár is meg van adva
+            if ((isset($request_data['min_alapterulet']) && !empty($request_data['min_alapterulet'])) AND ( $request_data['min_alapterulet'] > 0) AND ( isset($request_data['max_alapterulet']) && !empty($request_data['max_alapterulet'])) AND ( $request_data['max_alapterulet'] > 0)) {
+                $this->query->set_where('alapterulet', '>=', $request_data['min_alapterulet']);
+                $this->query->set_where('alapterulet', '<=', $request_data['max_alapterulet']);
+            }
+
+            /*         * ********************* MINIMUM SZOBASZÁM ********************** */
+            // minimum szobaszám
+            if (isset($request_data['szobaszam']) && !empty($request_data['szobaszam']) AND $request_data['szobaszam'] > 0) {
+                $this->query->set_where('szobaszam', '>=', $request_data['szobaszam']);
+            }
+
+
+
+
+        }
+
+        //rendezés
+        if (isset($request_data['order'][0]['column']) && isset($request_data['order'][0]['dir'])) {
+            $num = $request_data['order'][0]['column']; //ez az oszlop száma
+            $dir = $request_data['order'][0]['dir']; // asc vagy desc
+            $order = $request_data['columns'][$num]['name']; // az oszlopokat az adatbázis mezői szerint kell elnevezni (a javascript datattables columnDefs beállításában)
+
+            $this->query->set_orderby(array($order), $dir);
+        }
+
+        // lekérdezés
+        $result = $this->query->select();
+        // szűrés utáni visszaadott eredmények száma
+        $filtered_records = $this->query->found_rows();
+
+        // ebbe a tömbbe kerülnek az elküldendő adatok
+        $data = array();
+
+        foreach ($result as $value) {
+
+            // id attribútum hozzáadása egy sorhoz 
+            //$temp['DT_RowId'] = 'ez_az_id_' . $value['job_id'];
+            // class attribútum hozzáadása egy sorhoz 
+            //$temp['DT_RowClass'] = 'proba_osztaly';
+            // csak a datatables 1.10.5 verzió felett
+            //$temp['DT_RowAttr'] = array('data-proba' => 'ertek_proba');
+
+
+            $temp['checkbox'] = (1) ? '<input type="checkbox" class="checkboxes" name="ingatlan_id_' . $value['id'] . '" value="' . $value['id'] . '"/>' : '';
+
+            $temp['id'] = '#' . $value['id'];
+
+            if (!empty($value['kepek'])) {
+                $photo_names = json_decode($value['kepek']);
+                //$photo_name = array_shift($photo_names);
+                //unset($photo_names);      
+                $temp['kepek'] = '<img src="' . Util::thumb_path(Config::get('ingatlan_photo.upload_path') . $photo_names[0]) . '" alt="" />';
+            } else {
+                $temp['kepek'] = '<img src="' . ADMIN_ASSETS . 'img/placeholder_80x60.jpg" alt="" />';
+            }
+
+            $temp['tipus'] = ($value['tipus'] == 1) ? 'eladó' : 'kiadó';
+
+            $temp['kategoria'] = $value['kat_nev'];
+            
+            $temp['varos'] = $value['city_name'];
+            
+            $temp['alapterulet'] = $value['alapterulet'];
+            
+            $temp['szobaszam'] = $value['szobaszam'];
+            
+            $temp['megtekintes'] = $value['megtekintes'];
+            
+            $temp['ar'] = (!empty($value['ar_elado'])) ? $value['ar_elado'] : $value['ar_kiado'];
+
+            $temp['status'] = ($value['status'] == 1) ? '<span class="label label-sm label-success">Aktív</span>' : '<span class="label label-sm label-danger">Inaktív</span>';
+
+
+        //----- MENU HTML -----------------
+
+            $temp['menu'] = '           
+              <div class="actions">
+                <div class="btn-group">';
+
+            $temp['menu'] .= '<a class="btn btn-sm grey-steel" title="Műveletek" href="#" data-toggle="dropdown">
+                <i class="fa fa-cogs"></i>
+                  </a>          
+                  <ul class="dropdown-menu pull-right">
+                <li><a data-toggle="modal" data-target="#ajax_modal" href="' . $this->request->get_uri('site_url') . 'property/view_property_ajax/' . $value['id'] . '"><i class="fa fa-eye"></i> Részletek</a></li>';
+
+            // update
+            $temp['menu'] .= (1) ? '<li><a href="' . $this->request->get_uri('site_url') . 'property/update/' . $value['id'] . '"><i class="fa fa-pencil"></i> Szerkeszt</a></li>' : '';
+
+            // törlés
+            if (1) {
+                $temp['menu'] .= '<li><a href="javascript:;" class="delete_item" data-id="' . $value['id'] . '"> <i class="fa fa-trash"></i> Töröl</a></li>';
+            } else {
+                $temp['menu'] .= '<li class="disabled-link"><a href="javascript:;" title="Nincs jogosultsága törölni" class="disable-target"><i class="fa fa-trash"></i> Töröl</a></li>';
+            }
+
+            // status
+            if ($value['status'] == 0) {
+                $temp['menu'] .= '<li><a data-id="' . $value['id'] . '" href="javascript:;" class="change_status" data-action="make_active"><i class="fa fa-check"></i> Aktivál</a></li>';
+            } else {
+                $temp['menu'] .= '<li><a data-id="' . $value['id'] . '" href="javascript:;" class="change_status" data-action="make_inactive"><i class="fa fa-ban"></i> Blokkol</a></li>';
+            }
+
+            $temp['menu'] .= '</ul></div></div>';
+
+
+        // adatok berakása a data tömbbe
+            $data[] = $temp;
+        }
+
+        // adatok a javascriptnek        
+        $json_data = array(
+          "draw" => $display_draw,
+          "recordsTotal" => $total_records,
+          "recordsFiltered" => $filtered_records,
+          "data" => $data
+          //"customActionStatus" => 'OK',
+          //"customActionMessage" => $messages
+        );
+
+        if (isset($request_data['customActionType']) && isset($request_data['customActionName'])) {
+            $json_data["customActionStatus"] = 'OK';
+            $json_data["customActionMessage"] = $messages;
+        }
+
+
+
+        return $json_data;
+    }
+
+
 
 }
 ?>

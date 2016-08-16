@@ -3,6 +3,180 @@
  **/
 var Property = function () {
 
+
+// ------------------------------------------------------
+
+
+                    var propertyTable_2 = function() {
+                        
+                        //var table_teszt = $("#property");
+
+                        var grid = new Datatable();
+
+                        grid.init({
+                            src: $("#property"),
+                            onSuccess: function (grid) {
+                                // execute some code after table records loaded
+                                //console.log('onSuccess metodus');
+                            },
+                            onError: function (grid) {
+                                // execute some code on network or other general error  
+                            },
+                            loadingMessage: 'Betöltés...',
+                            dataTable: {
+                                //"autoWidth": false,
+
+                                // A php feldolgozónak küld a táblázatról információkat, azért hogy a szerver a megfelelő adatokat adhasson vissza pl. szűrésnél
+                                "columnDefs": [
+                                
+                                    {"name": "chechbox", "searchable": false, "orderable": false, "targets": 0},
+                                    {"name": "id", "searchable": true, "orderable": true, "targets": 1},
+                                    {"name": "kepek", "searchable": false, "orderable": false, "targets": 2},
+                                    {"name": "tipus", "searchable": true, "orderable": true, "targets": 3},
+                                    {"name": "kategoria", "searchable": true, "orderable": true, "targets": 4},
+                                    {"name": "varos", "searchable": true, "orderable": true, "targets": 5},
+                                    {"name": "alapterulet", "searchable": true, "orderable": true, "targets": 6},
+                                    {"name": "szobaszam", "searchable": true, "orderable": true, "targets": 7},
+                                    {"name": "megtekintes", "searchable": false, "orderable": true, "targets": 8},
+                                    {"name": "ar_elado", "searchable": true, "orderable": true, "targets": 9},
+                                    {"name": "status", "searchable": true, "orderable": true, "targets": 10},
+                                    {"name": "menu", "searchable": false, "orderable": false, "targets": 11}
+                                
+                                ],
+                                
+                                // ha a php feldolgozó asszociatív tömböt ad vissza adatként (pl.: 'name' => 'László', 'age' => '38', 'haircolor' => 'blonde' ...), akkor meg kell adni az egyes elem nevét!    
+                                // (ha a php számmal indexelt tömböt ad vissza (pl.: 'László', '38', 'Blonde' ...), akkor nem kell ez a beállítás!) 
+                          
+                                "columns": [
+                                    { "data": "checkbox" },
+                                    { "data": "id" },
+                                    { "data": "kepek" },
+                                    { "data": "tipus" },
+                                    { "data": "kategoria" },
+                                    { "data": "varos" },
+                                    { "data": "alapterulet" },
+                                    { "data": "szobaszam" },
+                                    { "data": "megtekintes" },
+                                    { "data": "ar" },
+                                    { "data": "status" },
+                                    { "data": "menu" }
+                                ],      
+
+                                "lengthMenu": [
+                                    [10, 20, 50, 100, 150],
+                                    [10, 20, 50, 100, 150] // change per page values here 
+                                ],
+
+                                "pageLength": 10, // default record count per page
+
+                                "ajax": {
+                                    "url": "admin/property/ajax_get_property", // ajax source
+                                },
+                                
+                                //kikapcsolja mindenhol a sorbarendezés ikont (class="sorting_disable")
+                                //"ordering": false,
+                                
+                                "order": [
+                                    [1, "desc"]
+                                ] // set first column as a default sort by asc
+                            }
+                        });
+
+
+                         // handle group actionsubmit button click
+                        grid.getTableWrapper().on('click', '.table-group-action-submit', function (e) {
+                            e.preventDefault();
+                            
+                            var action = $(".table-group-action-input", grid.getTableWrapper());
+                            if (action.val() != "" && grid.getSelectedRowsCount() > 0) {
+                            
+                                var confirm_str = '';
+                                if(action.val() == 'group_make_active'){
+                                    confirm_str = "Biztosan végre akarja hajtani az aktiválását?";
+                                }
+                                else if(action.val() == 'group_make_inactive'){
+                                    confirm_str = "Biztosan végre akarja hajtani az inaktiválást?";
+                                }
+                                else if(action.val() == 'group_delete'){
+                                    confirm_str = "Biztosan törölni akarja a rekordot?";
+                                }
+                                
+                                bootbox.setDefaults({
+                                    locale: "hu", 
+                                });
+                                bootbox.confirm(confirm_str, function(result) {
+                                    if (result) {
+
+                                        grid.setAjaxParam("customActionType", "group_action");
+                                        grid.setAjaxParam("customActionName", action.val());
+                                        grid.setAjaxParam("id", grid.getSelectedRows());
+                                        grid.getDataTable().ajax.reload();
+                                        grid.clearAjaxParams();
+                                
+                                    }
+                                });             
+                            
+                            } else if (action.val() == "") {
+                                App.alert({
+                                    type: 'danger',
+                                    //icon: 'warning',
+                                    message: 'Válasszon csoportműveletet!',
+                                    container: grid.getTableWrapper(),
+                                    place: 'prepend'
+                                });
+                            } else if (grid.getSelectedRowsCount() === 0) {
+                                App.alert({
+                                    type: 'danger',
+                                    //icon: 'warning',
+                                    message: 'Nem jelölt ki semmit!',
+                                    container: grid.getTableWrapper(),
+                                    place: 'prepend'
+                                });
+                            }
+                        });
+
+
+/*
+                        table_teszt.find('.group-checkable').change(function () {
+                            var set = jQuery(this).attr("data-set");
+                            var checked = jQuery(this).is(":checked");
+                            jQuery(set).each(function () {
+                                if (checked) {
+                                    $(this).attr("checked", true);
+                                } else {
+                                    $(this).attr("checked", false);
+                                }
+                            });
+                            jQuery.uniform.update(set);
+                        });
+*/
+
+
+
+
+                    };
+
+// ------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     var propertyTable = function () {
 
         var table = $('#property');
@@ -99,6 +273,18 @@ var Property = function () {
 */
     };
 
+
+
+
+
+
+
+
+
+
+
+/*
+
     var enableDisableButtons = function () {
 
         var deletePropertySubmit = $('button[name="delete_property_submit"]');
@@ -114,6 +300,8 @@ var Property = function () {
             deletePropertySubmit.attr('disabled', !checkboxes.is(':checked'));
         });
     };
+*/
+
 
     var resetSearchForm = function () {
         $('#reset_search_form').on('click', function () {
@@ -225,6 +413,10 @@ var Property = function () {
             }
         });
     };
+
+
+
+
 
     var locationsInput = function () {
 
@@ -350,14 +542,16 @@ var Property = function () {
                 return;
             }
 
-            propertyTable();
-            enableDisableButtons();
+            //propertyTable();
+            propertyTable_2();
+
+            //enableDisableButtons();
             resetSearchForm();
             changeKiemelesConfirm();
             printTable();
             // handleModal();
-            enableDistrict();
             locationsInput();
+            enableDistrict();
 
            
             vframework.changeStatus({

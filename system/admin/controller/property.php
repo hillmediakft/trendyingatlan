@@ -74,6 +74,28 @@ class Property extends Admin_controller {
         die('work in progress');
     }
 
+
+
+            /**
+             *  (AJAX) Az ingatlanok listáját adja vissza és kezeli a csoportos művelteket is
+             */
+            public function ajax_get_property()
+            {
+                if ($this->request->is_ajax()) {
+                    $request_data = $this->request->get_post();  //$_REQUEST;
+                    $json_data = $this->property_model->ajax_get_propertys($request_data);
+                    // adatok visszaküldése a javascriptnek
+                    echo json_encode($json_data);
+                
+                } else {
+                    Util::redirect('error');
+                }       
+            }
+
+
+
+
+
     /**
      * 	Új lakás hozzáadása
      */
