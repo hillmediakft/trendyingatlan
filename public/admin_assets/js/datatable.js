@@ -45,22 +45,23 @@ var Datatable = function() {
                     "pageLength": 10, // default records per page
                     "language": { // language settings
                         // metronic spesific
-                        "metronicGroupActions": "_TOTAL_ records selected:  ",
+                        "metronicGroupActions": "_TOTAL_ kiválasztva:  ",
                         "metronicAjaxRequestGeneralError": "Could not complete request. Please check your internet connection",
 
                         // data tables spesific
-                        "lengthMenu": "<span class='seperator'>|</span>View _MENU_ records",
-                        "info": "<span class='seperator'>|</span>Found total _TOTAL_ records",
-                        "infoEmpty": "No records found to show",
-                        "emptyTable": "No data available in table",
-                        "zeroRecords": "No matching records found",
+                        "lengthMenu": "<span class='seperator'>|</span> _MENU_ rekord",
+                        "info": "<span class='seperator'>|</span>Összesen: _TOTAL_ datatable",
+                        "infoEmpty": "Nincs megjeleníthető rekord!",
+						"sInfoFiltered": "(_MAX_-ból szűrve)",
+                        "emptyTable": "Nincs megjeleníthető adat!",
+                        "zeroRecords": "A szűrési feltételeknek 0 rekord felel meg!",
                         "paginate": {
                             "previous": "Prev",
                             "next": "Next",
                             "last": "Last",
                             "first": "First",
-                            "page": "Page",
-                            "pageOf": "of"
+                            "page": "",
+                            "pageOf": "/"
                         }
                     },
 
@@ -188,7 +189,8 @@ var Datatable = function() {
                 var set = $('tbody > tr > td:nth-child(1) input[type="checkbox"]', table);
                 var checked = $(this).is(":checked");
                 $(set).each(function() {
-                    $(this).attr("checked", checked);
+					$(this).prop("checked", checked);
+             //       $(this).attr("checked", checked);
                 });
                 $.uniform.update(set);
                 countSelectedRecords();
