@@ -30,9 +30,9 @@ $link['datatable'] = array(
 		ADMIN_ASSETS . 'plugins/datatables/plugins/bootstrap/datatables.bootstrap.css'
 	),
 	'js' => array(
-		ADMIN_JS . 'datatable.js',
 		ADMIN_ASSETS . 'plugins/datatables/datatables.min.js',
-		ADMIN_ASSETS . 'plugins/datatables/plugins/bootstrap/datatables.bootstrap.js'
+		ADMIN_ASSETS . 'plugins/datatables/plugins/bootstrap/datatables.bootstrap.js',
+		ADMIN_JS . 'datatable.js',
 	)
 );
 
