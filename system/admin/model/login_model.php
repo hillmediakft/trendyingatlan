@@ -28,12 +28,14 @@ class Login_model extends Admin_model
      */
     public function login()
     {
+		$user_name = $this->request->get_post('user_name');
+		$user_password = $this->request->has_post('user_password');
         // we do negative-first checks here
-        if ( !$this->request->has_post('user_name') OR empty( $this->request->get_post('user_name') ) ) {
+        if ( !$this->request->has_post('user_name') OR empty( $user_name ) ) {
             Message::set('error', 'username_field_empty');
             return false;
         }
-        if ( !$this->request->has_post('user_password') OR empty( $this->request->get_post('user_password') ) ) {
+        if ( !$this->request->has_post('user_password') OR empty( $user_password ) ) {
             Message::set('error', 'password_field_empty');
             return false;
         }
