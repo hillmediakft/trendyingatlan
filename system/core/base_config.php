@@ -50,7 +50,7 @@ else {
 	error_reporting(E_ALL);
 	ini_set("display_errors", 1);
 	
-	define('BASE_URL', 'http://xxx/'); //Az oldal elérési útjának beállítása
+	define('BASE_URL', 'http://trendyingatlan.hu/'); //Az oldal elérési útjának beállítása
 	define('BASE_PATH', ''); //A domainnév utáni elérési út beállítása
 	define('ENV', 'production'); //online éles környezet
 
