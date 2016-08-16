@@ -1,4 +1,4 @@
-var Kilatas = function () {
+var Szerkezet = function () {
 
     var handleTable = function () {
 
@@ -42,11 +42,11 @@ var Kilatas = function () {
             oTable.fnDraw();
         }
 
-        var table = $('#kilatas');
+        var table = $('#szerkezet');
 
         var oTable = table.dataTable({
- 
-             "language": {
+
+            "language": {
                 // metronic specific
                     //"metronicGroupActions": "_TOTAL_ sor kiválasztva: ",
                     //"metronicAjaxRequestGeneralError": "A kérés nem hajtható végre, ellenőrizze az internet kapcsolatot!",
@@ -93,7 +93,7 @@ var Kilatas = function () {
             ] // set first column as a default sort by asc
         });
 /*
-        var tableWrapper = $("#kilatas_wrapper");
+        var tableWrapper = $("#szerkezet_wrapper");
         tableWrapper.find(".dataTables_length select").select2({
             showSearchInput: false //hide search box with special css class
         }); // initialize select2 dropdown
@@ -102,13 +102,14 @@ var Kilatas = function () {
         var nEditing = null;
         var nNew = false;
 
-        $('#kilatas_new').click(function (e) {
+        $('#szerkezet_new').click(function (e) {
             e.preventDefault();
 
-                if (nNew && nEditing) {
+            if (nNew && nEditing) {
 
                 App.alert({
                     container: $('#ajax_message'), // $('#elem'); - alerts parent container(by default placed after the page breadcrumbs)
+                    place: "append", // "append" or "prepend" in container 
                     type: 'warning', // alert's type (success, danger, warning, info)
                     message: "A szerkesztett elemet mentse el, vagy klikkel-jen a mégse gombra.", // alert's message
                     icon: "warning" // put icon before the message
@@ -137,16 +138,16 @@ var Kilatas = function () {
                 }
                 else {
                     var nRow = reference.parents('tr')[0];
-                    var kilatasId = $(reference.closest('tr')).find('td:first').html();
-                    kilatasId = $.trim(kilatasId);
+                    var szerkezetId = $(reference.closest('tr')).find('td:first').html();
+                    szerkezetId = $.trim(szerkezetId);
                     var message = $('#ajax_message');
                     $.ajax({
                         type: "POST",
                         data: {
-                            id: kilatasId,
+                            id: szerkezetId,
                             action: 'delete',
-                            table: 'ingatlan_kilatas',
-                            id_name: 'kilatas_id'
+                            table: 'ingatlan_szerkezet',
+                            id_name: 'szerkezet_id'
                         },
                         url: "admin/datatables/ajax_delete",
                         dataType: "json",
@@ -181,8 +182,6 @@ var Kilatas = function () {
                             console.log(e);
                         }
                     });
-
-                  
 
                 }
 
@@ -227,18 +226,18 @@ var Kilatas = function () {
                 bootbox.confirm("Biztosan menteni akarja a módosítást?", function (result) {
                     if (result) {
 
-                        var kilatasId = $(reference.closest('tr')).find('td:first').html();
-                        kilatasId = $.trim(kilatasId);
+                        var szerkezetId = $(reference.closest('tr')).find('td:first').html();
+                        szerkezetId = $.trim(szerkezetId);
                         data = $(reference.closest('tr')).find('input').val();
                         var message = $('#ajax_message');
                         $.ajax({
                             type: "POST",
                             data: {
-                                id: kilatasId,
+                                id: szerkezetId,
                                 action: 'update_insert',
-                                table: 'ingatlan_kilatas',
-                                id_name: 'kilatas_id',
-                                leiras_name: 'kilatas_leiras',
+                                table: 'ingatlan_szerkezet',
+                                id_name: 'szerkezet_id',
+                                leiras_name: 'szerkezet_leiras',
                                 data: data
                             },
                             url: "admin/datatables/ajax_update_insert",
@@ -299,5 +298,5 @@ var Kilatas = function () {
 }();
 
 jQuery(document).ready(function () {
-    Kilatas.init();
+    Szerkezet.init();
 });

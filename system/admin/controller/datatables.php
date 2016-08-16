@@ -162,7 +162,27 @@ class Datatables extends Admin_controller {
 
         $this->view->set_layout('tpl_layout');
         $this->view->render('datatables/tpl_parkolas');
-    }      
+    }
+    
+    /**
+     * Ingatlan szerkezet kategória
+     *
+     * @return void
+     */
+    public function ingatlan_szerkezet()
+    {
+        $this->view = new View();
+
+        $this->view->title = 'Szerkezet oldal';
+        $this->view->description = 'Szerkezet description';
+
+        $this->view->add_links(array('datatable', 'bootbox', 'szerkezet'));
+
+        $this->view->szerkezet = $this->datatables_model->get_jellemzo_list('ingatlan_szerkezet');
+
+        $this->view->set_layout('tpl_layout');
+        $this->view->render('datatables/tpl_szerkezet');
+    }    
     
 
     /**

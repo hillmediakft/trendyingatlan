@@ -1,4 +1,4 @@
-var Kilatas = function () {
+var Kategoria = function () {
 
     var handleTable = function () {
 
@@ -42,11 +42,11 @@ var Kilatas = function () {
             oTable.fnDraw();
         }
 
-        var table = $('#kilatas');
+        var table = $('#kategoria');
 
         var oTable = table.dataTable({
- 
-             "language": {
+            
+            "language": {
                 // metronic specific
                     //"metronicGroupActions": "_TOTAL_ sor kiválasztva: ",
                     //"metronicAjaxRequestGeneralError": "A kérés nem hajtható végre, ellenőrizze az internet kapcsolatot!",
@@ -54,7 +54,7 @@ var Kilatas = function () {
                 // data tables specific                
                 "decimal":        "",
                 "emptyTable":     "Nincs megjeleníthető adat!",
-                "info":           "_START_ - _END_ elem &nbsp;/ _TOTAL_ elemből",
+                "info":           "_START_ - _END_ elem &nbsp; _TOTAL_ elemből",
                 "infoEmpty":      "Nincs megjeleníthető adat!",
                 "infoFiltered":   "(Szűrve _MAX_ elemből)",
                 "infoPostFix":    "",
@@ -75,7 +75,7 @@ var Kilatas = function () {
                     "sortAscending":  ": aktiválja a növekvő rendezéshez",
                     "sortDescending": ": aktiválja a csökkenő rendezéshez"
                 }
-            },
+            },            
             "columnDefs": [
                 {"orderable": true, "searchable": true, "targets": 0},
                 {"orderable": true, "searchable": true, "targets": 1},
@@ -93,7 +93,7 @@ var Kilatas = function () {
             ] // set first column as a default sort by asc
         });
 /*
-        var tableWrapper = $("#kilatas_wrapper");
+        var tableWrapper = $("#kategoria_wrapper");
         tableWrapper.find(".dataTables_length select").select2({
             showSearchInput: false //hide search box with special css class
         }); // initialize select2 dropdown
@@ -102,27 +102,50 @@ var Kilatas = function () {
         var nEditing = null;
         var nNew = false;
 
-        $('#kilatas_new').click(function (e) {
+       // kategória hozzáadása
+        $('#kategoria_new').click(function (e) {
             e.preventDefault();
 
-                if (nNew && nEditing) {
-
+            // ha van szerkesztett elem, VAGY létre van hozva egy új hozzáadása elem
+            if (nNew || nEditing) {
+                
                 App.alert({
                     container: $('#ajax_message'), // $('#elem'); - alerts parent container(by default placed after the page breadcrumbs)
+                    place: "append", // "append" or "prepend" in container 
                     type: 'warning', // alert's type (success, danger, warning, info)
                     message: "A szerkesztett elemet mentse el, vagy klikkel-jen a mégse gombra.", // alert's message
-                    icon: "warning" // put icon before the message
+                    close: true, // make alert closable
+                    reset: true, // close all previouse alerts first
+                    // focus: true, // auto scroll to the alert after shown
+                    closeInSeconds: 10 // auto close after defined seconds
+                    // icon: "warning" // put icon before the message
                 });
 
-            } else {
+                return;
+/*
+                if (confirm("A szerkesztett sort nem mentette el. Akarja menteni?")) {
+                    //saveRow(oTable, nEditing); // save
+                    //$(nEditing).find("td:first").html("Untitled");
+                    nEditing = null;
+                    nNew = false;
 
-                var aiNew = oTable.fnAddData(['', '', '', '']);
-                var nRow = oTable.fnGetNodes(aiNew[0]);
-                editRow(oTable, nRow);
-                nEditing = nRow;
-                nNew = true;
+                } else {
+                    oTable.fnDeleteRow(nEditing); // cancel
+                    nEditing = null;
+                    nNew = false;
+
+                    return;
+                }
+*/
             }
+
+            var aiNew = oTable.fnAddData(['', '', '', '']);
+            var nRow = oTable.fnGetNodes(aiNew[0]);
+            editRow(oTable, nRow);
+            nEditing = nRow;
+            nNew = true;
         });
+
 
         table.on('click', '.delete', function (e) {
             e.preventDefault();
@@ -137,16 +160,16 @@ var Kilatas = function () {
                 }
                 else {
                     var nRow = reference.parents('tr')[0];
-                    var kilatasId = $(reference.closest('tr')).find('td:first').html();
-                    kilatasId = $.trim(kilatasId);
+                    var kategoriaId = $(reference.closest('tr')).find('td:first').html();
+                    kategoriaId = $.trim(kategoriaId);
                     var message = $('#ajax_message');
                     $.ajax({
                         type: "POST",
                         data: {
-                            id: kilatasId,
+                            id: kategoriaId,
                             action: 'delete',
-                            table: 'ingatlan_kilatas',
-                            id_name: 'kilatas_id'
+                            table: 'ingatlan_kategoria',
+                            id_name: 'kat_id'
                         },
                         url: "admin/datatables/ajax_delete",
                         dataType: "json",
@@ -181,8 +204,6 @@ var Kilatas = function () {
                             console.log(e);
                         }
                     });
-
-                  
 
                 }
 
@@ -227,18 +248,18 @@ var Kilatas = function () {
                 bootbox.confirm("Biztosan menteni akarja a módosítást?", function (result) {
                     if (result) {
 
-                        var kilatasId = $(reference.closest('tr')).find('td:first').html();
-                        kilatasId = $.trim(kilatasId);
+                        var kategoriaId = $(reference.closest('tr')).find('td:first').html();
+                        kategoriaId = $.trim(kategoriaId);
                         data = $(reference.closest('tr')).find('input').val();
                         var message = $('#ajax_message');
                         $.ajax({
                             type: "POST",
                             data: {
-                                id: kilatasId,
+                                id: kategoriaId,
                                 action: 'update_insert',
-                                table: 'ingatlan_kilatas',
-                                id_name: 'kilatas_id',
-                                leiras_name: 'kilatas_leiras',
+                                table: 'ingatlan_kategoria',
+                                id_name: 'kat_id',
+                                leiras_name: 'kat_nev',
                                 data: data
                             },
                             url: "admin/datatables/ajax_update_insert",
@@ -299,5 +320,5 @@ var Kilatas = function () {
 }();
 
 jQuery(document).ready(function () {
-    Kilatas.init();
+    Kategoria.init();
 });

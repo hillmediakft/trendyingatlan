@@ -162,3 +162,34 @@ cursor: move;
 }
 */
 /**************** UI sortable MOD END ******************* */
+
+/* checkbox elem megfelelő pozícionálása */
+  .radio input[type="radio"], .radio-inline input[type="radio"], .checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"] {
+    margin-left: -10px;
+    position: absolute;
+}
+
+/* search form portlet - kereső az ingatlanok oldalon */
+.search-portlet .portlet > .portlet-title {
+    border-bottom: none;
+}
+
+.search-portlet .portlet.light {
+    padding: 0px 20px 0px;
+}
+
+.search-portlet .portlet.light.bg-inverse {
+    background: #f1f1f1;
+}
+
+.search-portlet .portlet.light > .portlet-title {
+    min-height: 32px;
+}
+
+.search-portlet .portlet.light > .portlet-title > .caption {
+    padding: 7px 0px 0 0px;
+}
+
+.search-portlet .portlet.light > .portlet-title > .tools {
+    padding: 7px 0px 0 0px;
+}

@@ -45,107 +45,99 @@ var Kategoria = function () {
         var table = $('#kategoria');
 
         var oTable = table.dataTable({
-            
-            "language": {
-                // metronic specific
-                    //"metronicGroupActions": "_TOTAL_ sor kiválasztva: ",
-                    //"metronicAjaxRequestGeneralError": "A kérés nem hajtható végre, ellenőrizze az internet kapcsolatot!",
+            // Uncomment below line("dom" parameter) to fix the dropdown overflow issue in the datatable cells. The default datatable layout
+            // setup uses scrollable div(table-scrollable) with overflow:auto to enable vertical scroll(see: assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js). 
+            // So when dropdowns used the scrollable div should be removed. 
+            //"dom": "<'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
 
-                // data tables specific                
-                "decimal":        "",
-                "emptyTable":     "Nincs megjeleníthető adat!",
-                "info":           "_START_ - _END_ elem &nbsp; _TOTAL_ elemből",
-                "infoEmpty":      "Nincs megjeleníthető adat!",
-                "infoFiltered":   "(Szűrve _MAX_ elemből)",
-                "infoPostFix":    "",
-                "thousands":      ",",
-                "lengthMenu":     " _MENU_ elem/oldal",
-                "loadingRecords": "Betöltés...",
-                "processing":     "Feldolgozás...",
-                "search":         "Keresés:",
-                "zeroRecords":    "Nincs egyező elem",
-                "paginate": {
-                    "previous":   "Előző",
-                    "next":       "Következő",
-                    "last":       "Utolsó",
-                    "first":      "Első",
-                    "pageOf":     "&nbsp;/&nbsp;"
-                },
-                "aria": {
-                    "sortAscending":  ": aktiválja a növekvő rendezéshez",
-                    "sortDescending": ": aktiválja a csökkenő rendezéshez"
-                }
-            },            
-            "columnDefs": [
-                {"orderable": true, "searchable": true, "targets": 0},
-                {"orderable": true, "searchable": true, "targets": 1},
-                {"orderable": false, "searchable": false, "targets": 2},
-                {"orderable": false, "searchable": false, "targets": 3},
-            ],
+            "columns": [{
+                    "orderable": true
+                }, {
+                    "orderable": true
+                }, {
+                    "orderable": false
+                }, {
+                    "orderable": false
+                }],
             "lengthMenu": [
                 [5, 15, 20, -1],
                 [5, 15, 20, "Összes"] // change per page values here
             ],
             // set the initial value
-            "pageLength": 20,
+            "pageLength": 10,
+            "language": {
+                // metronic specific
+                //"metronicGroupActions": "_TOTAL_ sor kiválasztva: ",
+                //"metronicAjaxRequestGeneralError": "A kérés nem hajtható végre, ellenőrizze az internet kapcsolatot!",
+
+                // data tables specific                
+                "decimal": "",
+                "emptyTable": "Nincs megjeleníthető adat!",
+                "info": "_START_ - _END_ elem &nbsp;/ _TOTAL_ elemből",
+                "infoEmpty": "Nincs megjeleníthető adat!",
+                "infoFiltered": "(Szűrve _MAX_ elemből)",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": " _MENU_ elem/oldal",
+                "loadingRecords": "Betöltés...",
+                "processing": "Feldolgozás...",
+                "search": "Keresés:",
+                "zeroRecords": "Nincs egyező elem",
+                "paginate": {
+                    "previous": "Előző",
+                    "next": "Következő",
+                    "last": "Utolsó",
+                    "first": "Első",
+                    "pageOf": "&nbsp;/&nbsp;"
+                },
+                "aria": {
+                    "sortAscending": ": aktiválja a növekvő rendezéshez",
+                    "sortDescending": ": aktiválja a csökkenő rendezéshez"
+                }
+            },
+            "columnDefs": [{// set default column settings
+                    'orderable': true,
+                    'targets': [0]
+                }, {
+                    "searchable": true,
+                    "targets": [0]
+                }],
             "order": [
                 [0, "asc"]
             ] // set first column as a default sort by asc
         });
-/*
-        var tableWrapper = $("#kategoria_wrapper");
-        tableWrapper.find(".dataTables_length select").select2({
-            showSearchInput: false //hide search box with special css class
-        }); // initialize select2 dropdown
-*/
+
+        /*      var tableWrapper = $("#kategoria_wrapper");
+         
+         tableWrapper.find(".dataTables_length select").select2({
+         showSearchInput: false //hide search box with special css class
+         }); // initialize select2 dropdown */
 
         var nEditing = null;
         var nNew = false;
 
-       // kategória hozzáadása
         $('#kategoria_new').click(function (e) {
             e.preventDefault();
 
-            // ha van szerkesztett elem, VAGY létre van hozva egy új hozzáadása elem
-            if (nNew || nEditing) {
-                
+            if (nNew && nEditing) {
+
                 App.alert({
                     container: $('#ajax_message'), // $('#elem'); - alerts parent container(by default placed after the page breadcrumbs)
                     place: "append", // "append" or "prepend" in container 
                     type: 'warning', // alert's type (success, danger, warning, info)
                     message: "A szerkesztett elemet mentse el, vagy klikkel-jen a mégse gombra.", // alert's message
-                    close: true, // make alert closable
-                    reset: true, // close all previouse alerts first
-                    // focus: true, // auto scroll to the alert after shown
-                    closeInSeconds: 10 // auto close after defined seconds
-                    // icon: "warning" // put icon before the message
+                    icon: "warning" // put icon before the message
                 });
 
-                return;
-/*
-                if (confirm("A szerkesztett sort nem mentette el. Akarja menteni?")) {
-                    //saveRow(oTable, nEditing); // save
-                    //$(nEditing).find("td:first").html("Untitled");
-                    nEditing = null;
-                    nNew = false;
+            } else {
 
-                } else {
-                    oTable.fnDeleteRow(nEditing); // cancel
-                    nEditing = null;
-                    nNew = false;
-
-                    return;
-                }
-*/
+                var aiNew = oTable.fnAddData(['', '', '', '']);
+                var nRow = oTable.fnGetNodes(aiNew[0]);
+                editRow(oTable, nRow);
+                nEditing = nRow;
+                nNew = true;
             }
-
-            var aiNew = oTable.fnAddData(['', '', '', '']);
-            var nRow = oTable.fnGetNodes(aiNew[0]);
-            editRow(oTable, nRow);
-            nEditing = nRow;
-            nNew = true;
         });
-
 
         table.on('click', '.delete', function (e) {
             e.preventDefault();
@@ -157,8 +149,7 @@ var Kategoria = function () {
                 if (result == false) {
 
                     return;
-                }
-                else {
+                } else {
                     var nRow = reference.parents('tr')[0];
                     var kategoriaId = $(reference.closest('tr')).find('td:first').html();
                     kategoriaId = $.trim(kategoriaId);
@@ -174,13 +165,10 @@ var Kategoria = function () {
                         url: "admin/datatables/ajax_delete",
                         dataType: "json",
                         beforeSend: function () {
-                            App.blockUI({
-                                boxed: true,
-                                message: 'Feldolgozás...'
-                            });
+                            $('#loadingDiv').show();
                         },
                         complete: function () {
-                            App.unblockUI();
+                            $('#loadingDiv').hide();
                         },
                         success: function (result) {
                             if (result.status == 'success') {
@@ -188,8 +176,8 @@ var Kategoria = function () {
                                 $('#ajax_message .alert-success').delay(2500).slideUp(750, function () {
                                     $(this).remove();
                                 });
-                                
-                                  oTable.fnDeleteRow(nRow);
+
+                                oTable.fnDeleteRow(nRow);
 
                             }
 
@@ -201,9 +189,11 @@ var Kategoria = function () {
                             }
                         },
                         error: function (result, status, e) {
-                            console.log(e);
+                            alert(e);
                         }
                     });
+
+
 
                 }
 
@@ -265,22 +255,19 @@ var Kategoria = function () {
                             url: "admin/datatables/ajax_update_insert",
                             dataType: "json",
                             beforeSend: function () {
-                                App.blockUI({
-                                    boxed: true,
-                                    message: 'Feldolgozás...'
-                                });
+                                $('#loadingDiv').show();
                             },
                             complete: function () {
-                                App.unblockUI();
+                                $('#loadingDiv').hide();
                             },
                             success: function (result) {
                                 if (result.status == 'success') {
                                     message.append('<div class="alert alert-success">' + result.message + '</div>');
-                                    
+
                                     $('#ajax_message .alert-success').delay(2500).slideUp(750, function () {
                                         $(this).remove();
                                     });
-                                    
+
                                     saveRow(oTable, nEditing, result.last_insert_id);
                                     nEditing = null;
 
@@ -294,10 +281,10 @@ var Kategoria = function () {
                                 }
                             },
                             error: function (result, status, e) {
-                                console.log(e);
+                                alert(e);
                             }
                         });
-   
+
                     }
                 });
 
@@ -322,3 +309,5 @@ var Kategoria = function () {
 jQuery(document).ready(function () {
     Kategoria.init();
 });
+
+
