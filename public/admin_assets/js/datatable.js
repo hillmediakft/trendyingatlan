@@ -50,7 +50,7 @@ var Datatable = function() {
 
                         // data tables spesific
                         "lengthMenu": "<span class='seperator'>|</span> _MENU_ rekord",
-                        "info": "<span class='seperator'>|</span>Összesen: _TOTAL_ datatable",
+                        "info": "<span class='seperator'>|</span>Összesen: _TOTAL_",
                         "infoEmpty": "Nincs megjeleníthető rekord!",
 						"sInfoFiltered": "(_MAX_-ból szűrve)",
                         "emptyTable": "Nincs megjeleníthető adat!",
