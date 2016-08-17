@@ -92,19 +92,14 @@ var Energetika = function () {
                 [0, "asc"]
             ] // set first column as a default sort by asc
         });
-/*
-        var tableWrapper = $("#energetika_wrapper");
-        tableWrapper.find(".dataTables_length select").select2({
-            showSearchInput: false //hide search box with special css class
-        }); // initialize select2 dropdown
-*/
+
 
         var nEditing = null;
         var nNew = false;
 
         $('#energetika_new').click(function (e) {
             e.preventDefault();
-            if (nNew && nEditing) {
+            if (nNew || nEditing) {
 
                 App.alert({
                     container: $('#ajax_message'), // $('#elem'); - alerts parent container(by default placed after the page breadcrumbs)
@@ -119,7 +114,6 @@ var Energetika = function () {
                 });
 
             } else {
-
                 var aiNew = oTable.fnAddData(['', '', '', '']);
                 var nRow = oTable.fnGetNodes(aiNew[0]);
                 editRow(oTable, nRow);
@@ -128,6 +122,8 @@ var Energetika = function () {
             }
         });
 
+
+        // törlés
         table.on('click', '.delete', function (e) {
             e.preventDefault();
             reference = $(this);
@@ -135,15 +131,13 @@ var Energetika = function () {
                 locale: "hu",
             });
             bootbox.confirm("Biztosan törölni akarja?", function (result) {
-                if (result == false) {
-
-                    return;
-                }
-                else {
+                if (result) {
+                    
+                    var ajax_message = $('#ajax_message');
                     var nRow = reference.parents('tr')[0];
                     var energetikaId = $(reference.closest('tr')).find('td:first').html();
                     energetikaId = $.trim(energetikaId);
-                    var message = $('#ajax_message');
+                    
                     $.ajax({
                         type: "POST",
                         data: {
@@ -164,41 +158,52 @@ var Energetika = function () {
                             App.unblockUI();
                         },
                         success: function (result) {
-                            if (result.status == 'success') {
-                                message.append('<div class="alert alert-success">' + result.message + '</div>');
-                                $('#ajax_message .alert-success').delay(2500).slideUp(750, function () {
-                                    $(this).remove();
-                                });
-                                
-                                  oTable.fnDeleteRow(nRow);
 
+                            if (result.status == 'success') {
+                                App.alert({
+                                    type: 'success',
+                                    //icon: 'warning',
+                                    message: result.message,
+                                    container: ajax_message,
+                                    place: 'append',
+                                    close: true, // make alert closable
+                                    reset: false, // close all previouse alerts first
+                                    //focus: true, // auto scroll to the alert after shown
+                                    closeInSeconds: 3 // auto close after defined seconds
+                                }); 
+                                
+                                // sor törlése a DOM-ból    
+                                oTable.fnDeleteRow(nRow);
                             }
 
                             if (result.status == 'error') {
-                                message.append('<div class="alert alert-danger">' + result.message + '</div>');
-                                $('#ajax_message .alert-danger').delay(2500).slideUp(750, function () {
-                                    $(this).remove();
-                                });
+                                App.alert({
+                                    container: ajax_message, // $('#elem'); - alerts parent container(by default placed after the page breadcrumbs)
+                                    place: "append", // "append" or "prepend" in container 
+                                    type: 'danger', // alert's type (success, danger, warning, info)
+                                    message: result.message, // alert's message
+                                    close: true, // make alert closable
+                                    reset: true, // close all previouse alerts first
+                                    // focus: true, // auto scroll to the alert after shown
+                                    closeInSeconds: 4 // auto close after defined seconds
+                                    // icon: "warning" // put icon before the message
+                                }); 
                             }
                         },
                         error: function (result, status, e) {
-                            console.log(e);
+                            console.log(errorThrown);
+                            console.log("Hiba történt: " + textStatus);
+                            console.log("Rendszerválasz: " + xhr.responseText);
                         }
                     });
-
-                  
 
                 }
 
             });
 
-            /*           if (confirm("Are you sure to delete this row ?") == false) {
-             return;
-             } */
-
-
         });
 
+        // mégsem
         table.on('click', '.cancel', function (e) {
             e.preventDefault();
             if (nNew) {
@@ -211,6 +216,8 @@ var Energetika = function () {
             }
         });
 
+
+        // edit, insert
         table.on('click', '.edit', function (e) {
             e.preventDefault();
             reference = $(this);
@@ -231,10 +238,11 @@ var Energetika = function () {
                 bootbox.confirm("Biztosan menteni akarja a módosítást?", function (result) {
                     if (result) {
 
+                        var ajax_message = $('#ajax_message');
                         var energetikaId = $(reference.closest('tr')).find('td:first').html();
                         energetikaId = $.trim(energetikaId);
-                        data = $(reference.closest('tr')).find('input').val();
-                        var message = $('#ajax_message');
+                        var data = $(reference.closest('tr')).find('input').val();
+                        
                         $.ajax({
                             type: "POST",
                             data: {
@@ -257,27 +265,45 @@ var Energetika = function () {
                                 App.unblockUI();
                             },
                             success: function (result) {
+                                
+
                                 if (result.status == 'success') {
-                                    message.append('<div class="alert alert-success">' + result.message + '</div>');
                                     
-                                    $('#ajax_message .alert-success').delay(2500).slideUp(750, function () {
-                                        $(this).remove();
+                                    App.alert({
+                                        container: ajax_message, // $('#elem'); - alerts parent container(by default placed after the page breadcrumbs)
+                                        place: "append", // "append" or "prepend" in container 
+                                        type: 'success', // alert's type (success, danger, warning, info)
+                                        message: result.message, // alert's message
+                                        close: true, // make alert closable
+                                        // reset: true, // close all previouse alerts first
+                                        // focus: true, // auto scroll to the alert after shown
+                                        closeInSeconds: 4 // auto close after defined seconds
+                                        // icon: "warning" // put icon before the message
                                     });
                                     
                                     saveRow(oTable, nEditing, result.last_insert_id);
                                     nEditing = null;
-
+                                    nNew = false;    
                                 }
 
                                 if (result.status == 'error') {
-                                    message.append('<div class="alert alert-danger">' + result.message + '</div>');
-                                    $('#ajax_message .alert-danger').delay(2500).slideUp(750, function () {
-                                        $(this).remove();
-                                    });
+                                    App.alert({
+                                        container: ajax_message, // $('#elem'); - alerts parent container(by default placed after the page breadcrumbs)
+                                        place: "append", // "append" or "prepend" in container 
+                                        type: 'danger', // alert's type (success, danger, warning, info)
+                                        message: result.message, // alert's message
+                                        close: true, // make alert closable
+                                        // reset: true, // close all previouse alerts first
+                                        // focus: true, // auto scroll to the alert after shown
+                                        closeInSeconds: 4 // auto close after defined seconds
+                                        // icon: "warning" // put icon before the message
+                                    }); 
                                 }
                             },
                             error: function (result, status, e) {
-                                alert(e);
+                              console.log(errorThrown);
+                              console.log("Hiba történt: " + textStatus);
+                              console.log("Rendszerválasz: " + xhr.responseText);
                             }
                         });
    

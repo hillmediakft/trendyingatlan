@@ -224,7 +224,7 @@ class Datatables extends Admin_controller {
                 $data = $this->request->get_post('data');
 
                 $result = $this->datatables_model->update_insert($id, $table, $id_name, $leiras_name, $data);
-                if ($result) {
+                if ($result !== false) {
                     echo json_encode(array("status" => 'success', "message" => 'A művelet sikeresen végrehajtva!', 'last_insert_id' => $result));
                 } else {
                     echo json_encode(array("status" => 'error', "message" => 'Hiba történt!'));
