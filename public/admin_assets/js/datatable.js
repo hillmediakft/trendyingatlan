@@ -44,7 +44,25 @@ var Datatable = function() {
                     "dom": "<'row'<'col-md-8 col-sm-12'pli><'col-md-4 col-sm-12'<'table-group-actions pull-right'>>r><'table-responsive't><'row'<'col-md-8 col-sm-12'pli><'col-md-4 col-sm-12'>>", // datatable layout
                     "pageLength": 10, // default records per page
                     "language": { // language settings
-                         "url": "public/admin_assets/plugins/datatables/plugins/i18n/Hungarian.json"
+                        // metronic spesific
+                        "metronicGroupActions": "_TOTAL_ kiválasztva:  ",
+                        "metronicAjaxRequestGeneralError": "Could not complete request. Please check your internet connection",
+
+                        // data tables spesific
+                        "lengthMenu": "<span class='seperator'>|</span> _MENU_ rekord",
+                        "info": "<span class='seperator'>|</span>Összesen: _TOTAL_",
+                        "infoEmpty": "Nincs megjeleníthető rekord!",
+						"sInfoFiltered": "(_MAX_-ból szűrve)",
+                        "emptyTable": "Nincs megjeleníthető adat!",
+                        "zeroRecords": "A szűrési feltételeknek 0 rekord felel meg!",
+                        "paginate": {
+                            "previous": "Prev",
+                            "next": "Next",
+                            "last": "Last",
+                            "first": "First",
+                            "page": "",
+                            "pageOf": "/"
+                        }
                     },
 
                     "orderCellsTop": true,

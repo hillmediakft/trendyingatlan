@@ -1,5 +1,5 @@
 {
-	"metronicGroupActions": "_TOTAL_ kiválasztva:  ",
+   "metronicGroupActions": "_TOTAL_ records selected:  ",
    "metronicAjaxRequestGeneralError": "Could not complete request. Please check your internet connection",
    "sEmptyTable":     "Nincs rendelkezésre álló adat",
    "sInfo":           "Találatok: _START_ - _END_ Összesen: _TOTAL_",
