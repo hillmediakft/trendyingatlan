@@ -20,44 +20,6 @@ class Users_model extends Admin_model {
         $this->email_verify = false;
     }
 
-    /*
-     * Felhasználók adatainak lekérdezése
-     */
-/*    public function all_user()
-    {
-        $this->query->reset();
-        $this->query->set_table(array('users'));
-        $this->query->set_columns(array(
-            'users.user_id',
-            'users.user_name',
-            'users.user_first_name',
-            'users.user_last_name',
-            'users.user_active',
-            'users.user_email',
-            'users.user_role_id',
-            'users.user_phone',
-            'users.user_photo',
-            'roles.role_name'
-        ));
-        $this->query->set_join('left', 'roles', 'users.user_role_id', '=', 'roles.role_id');
-        return $this->query->select();
-    }
-*/    
-
-
-    /**
-     * Jelszó kompatibilitás library betöltése
-     *
-     * @access private
-     */
-    private function load_password_compatibility()
-    {
-        if (version_compare(PHP_VERSION, '5.5.0', '<')) {
-            // if you are using PHP 5.3 or PHP 5.4 you have to include the password_api_compatibility_library.php
-            // (this library adds the PHP 5.5 password hashing functions to older versions of PHP)
-            require_once(LIBS . '/password_compatibility_library.php');
-        }
-    } 
 
     /**
      *  Felhasználók adatainak lekérdezése

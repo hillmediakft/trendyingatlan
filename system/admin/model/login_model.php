@@ -28,6 +28,9 @@ class Login_model extends Admin_model
      */
     public function login()
     {
+        // jelszó kompatibilitás library betöltése régebbi php verzió esetén
+        $this->load_password_compatibility();
+        
 		$user_name = $this->request->get_post('user_name');
 		$user_password = $this->request->has_post('user_password');
         // we do negative-first checks here
