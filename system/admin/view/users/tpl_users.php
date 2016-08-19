@@ -63,7 +63,7 @@
 
                         <table class="table table-striped table-bordered table-hover table-checkable" id="users">
                             <thead>
-                                <tr>
+                                <tr class="heading">
                                     <th class="table-checkbox">
                                         <input type="checkbox" class="group-checkable" data-set="#users .checkboxes"/>
                                     </th>
