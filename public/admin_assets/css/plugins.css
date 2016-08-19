@@ -918,6 +918,12 @@ table.dataTable th.sorting_2,
 table.dataTable th.sorting_3 {
   background: #fbfcfd !important; }
 
+.table-responsive table.dataTable, 
+.table-responsive table.dataTable th, 
+.table-responsive table.dataTable td {
+    box-sizing: border-box;
+}
+
 /***
 Extended pagination
 ***/
@@ -2321,3 +2327,4 @@ pre[class*="language-"] {
   color: #e1e5ec;
   border-color: #2ab4c0;
   background: #e43a45; }
+
