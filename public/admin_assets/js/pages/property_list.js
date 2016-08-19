@@ -180,11 +180,10 @@ var Property = function () {
 */
 
     var changeKiemelesConfirm = function () {
-        $('[id*=delete_kiemeles], [id*=add_kiemeles]').on('click', function (e) {
+        $('table#property').on('click', '.change_kiemeles', function (e) {
             e.preventDefault();
             var action = $(this).attr('data-action');
-            var propertyId = $(this).attr('rel');
-            //var url = $(this).attr('href');
+            var propertyId = $(this).attr('data-id');
             var elem = this;
             //var propertyName = $(this).closest("tr").find('td:nth-child(2)').text();
 
@@ -221,10 +220,10 @@ var Property = function () {
             success: function (result) {
                 if (result.status == 'success') {
                     if (action == 'delete_kiemeles') {
-                        $(elem).html('<i class="fa fa-plus"></i> Kiemelés');
+                        $(elem).html('<i class="fa fa-plus-circle"></i> Kiemelés');
                         $(elem).attr('data-action', 'add_kiemeles');
-                        //$(elem).attr('href', 'admin/property/make_active');
-                        $('#id_element_' + propertyId + ' span').remove();
+                        $(elem).closest('tr').find('td:nth-child(2) span').remove();
+                        // $('#id_element_' + propertyId + ' span').remove();
                         
                         App.alert({
                             type: 'success',
@@ -242,8 +241,8 @@ var Property = function () {
                     else if (action == 'add_kiemeles') {
                         $(elem).html('<i class="fa fa-minus-circle"></i> Kiemelés törlése');
                         $(elem).attr('data-action', 'delete_kiemeles');
-                        //$(elem).attr('href', 'admin/property/make_inactive');
-                        $('#id_element_' + propertyId).append('<span class="label label-sm label-success">Kiemelt</span>');
+                        $(elem).closest('tr').find('td:nth-child(2)').append('<span class="label label-sm label-success">Kiemelt</span>');
+                        //$('#id_element_' + propertyId).append('<span class="label label-sm label-success">Kiemelt</span>');
                         
                         App.alert({
                             type: 'success',
