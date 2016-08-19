@@ -3,306 +3,171 @@
  **/
 var Property = function () {
 
-
-// ------------------------------------------------------
-
-
-                    var propertyTable_2 = function() {
-                        
-                        //var table_teszt = $("#property");
-
-                        var grid = new Datatable();
-
-                        grid.init({
-                            src: $("#property"),
-                            onSuccess: function (grid) {
-                                // execute some code after table records loaded
-                                //console.log('onSuccess metodus');
-                            },
-                            onError: function (grid) {
-                                // execute some code on network or other general error  
-                            },
-                            loadingMessage: 'Betöltés...',
-                            dataTable: {
-                                //"autoWidth": false,
-
-                                // A php feldolgozónak küld a táblázatról információkat, azért hogy a szerver a megfelelő adatokat adhasson vissza pl. szűrésnél
-                                "columnDefs": [
-                                
-                                    {"name": "chechbox", "searchable": false, "orderable": false, "targets": 0},
-                                    {"name": "id", "searchable": true, "orderable": true, "targets": 1},
-                                    {"name": "kepek", "searchable": false, "orderable": false, "targets": 2},
-                                    {"name": "tipus", "searchable": true, "orderable": true, "targets": 3},
-                                    {"name": "kategoria", "searchable": true, "orderable": true, "targets": 4},
-                                    {"name": "varos", "searchable": true, "orderable": true, "targets": 5},
-                                    {"name": "alapterulet", "searchable": true, "orderable": true, "targets": 6},
-                                    {"name": "szobaszam", "searchable": true, "orderable": true, "targets": 7},
-                                    {"name": "megtekintes", "searchable": false, "orderable": true, "targets": 8},
-                                    {"name": "ar_elado", "searchable": true, "orderable": true, "targets": 9},
-                                    {"name": "status", "searchable": true, "orderable": true, "targets": 10},
-                                    {"name": "menu", "searchable": false, "orderable": false, "targets": 11}
-                                
-                                ],
-                                
-                                // ha a php feldolgozó asszociatív tömböt ad vissza adatként (pl.: 'name' => 'László', 'age' => '38', 'haircolor' => 'blonde' ...), akkor meg kell adni az egyes elem nevét!    
-                                // (ha a php számmal indexelt tömböt ad vissza (pl.: 'László', '38', 'Blonde' ...), akkor nem kell ez a beállítás!) 
-                          
-                                "columns": [
-                                    { "data": "checkbox" },
-                                    { "data": "id" },
-                                    { "data": "kepek" },
-                                    { "data": "tipus" },
-                                    { "data": "kategoria" },
-                                    { "data": "varos" },
-                                    { "data": "alapterulet" },
-                                    { "data": "szobaszam" },
-                                    { "data": "megtekintes" },
-                                    { "data": "ar" },
-                                    { "data": "status" },
-                                    { "data": "menu" }
-                                ],      
-
-                                "lengthMenu": [
-                                    [10, 20, 50, 100, 150],
-                                    [10, 20, 50, 100, 150] // change per page values here 
-                                ],
-
-                                "pageLength": 10, // default record count per page
-
-                                "ajax": {
-                                    "url": "admin/property/ajax_get_property", // ajax source
-                                },
-                                
-                                //kikapcsolja mindenhol a sorbarendezés ikont (class="sorting_disable")
-                                //"ordering": false,
-                                
-                                "order": [
-                                    [1, "desc"]
-                                ] // set first column as a default sort by asc
-                            }
-                        });
-
-
-                         // handle group actionsubmit button click
-                        grid.getTableWrapper().on('click', '.table-group-action-submit', function (e) {
-                            e.preventDefault();
-                            
-                            var action = $(".table-group-action-input", grid.getTableWrapper());
-                            if (action.val() != "" && grid.getSelectedRowsCount() > 0) {
-                            
-                                var confirm_str = '';
-                                if(action.val() == 'group_make_active'){
-                                    confirm_str = "Biztosan végre akarja hajtani az aktiválását?";
-                                }
-                                else if(action.val() == 'group_make_inactive'){
-                                    confirm_str = "Biztosan végre akarja hajtani az inaktiválást?";
-                                }
-                                else if(action.val() == 'group_delete'){
-                                    confirm_str = "Biztosan törölni akarja a rekordot?";
-                                }
-                                
-                                bootbox.setDefaults({
-                                    locale: "hu", 
-                                });
-                                bootbox.confirm(confirm_str, function(result) {
-                                    if (result) {
-
-                                        grid.setAjaxParam("customActionType", "group_action");
-                                        grid.setAjaxParam("customActionName", action.val());
-                                        grid.setAjaxParam("id", grid.getSelectedRows());
-                                        grid.getDataTable().ajax.reload();
-                                        grid.clearAjaxParams();
-                                
-                                    }
-                                });             
-                            
-                            } else if (action.val() == "") {
-                                App.alert({
-                                    type: 'danger',
-                                    //icon: 'warning',
-                                    message: 'Válasszon csoportműveletet!',
-                                    container: grid.getTableWrapper(),
-                                    place: 'prepend'
-                                });
-                            } else if (grid.getSelectedRowsCount() === 0) {
-                                App.alert({
-                                    type: 'danger',
-                                    //icon: 'warning',
-                                    message: 'Nem jelölt ki semmit!',
-                                    container: grid.getTableWrapper(),
-                                    place: 'prepend'
-                                });
-                            }
-                        });
-
-
-/*
-                        table_teszt.find('.group-checkable').change(function () {
-                            var set = jQuery(this).attr("data-set");
-                            var checked = jQuery(this).is(":checked");
-                            jQuery(set).each(function () {
-                                if (checked) {
-                                    $(this).attr("checked", true);
-                                } else {
-                                    $(this).attr("checked", false);
-                                }
-                            });
-                            jQuery.uniform.update(set);
-                        });
-*/
-
-
-
-
-                    };
-
-// ------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    var propertyTable = function () {
-
-        var table = $('#property');
-
-        table.dataTable({
-            
-            "language": {
-                // metronic specific
-                    //"metronicGroupActions": "_TOTAL_ sor kiválasztva: ",
-                    //"metronicAjaxRequestGeneralError": "A kérés nem hajtható végre, ellenőrizze az internet kapcsolatot!",
-
-                // data tables specific                
-                "decimal":        "",
-                "emptyTable":     "Nincs megjeleníthető adat!",
-                "info":           "_START_ - _END_ elem &nbsp; _TOTAL_ elemből",
-                "infoEmpty":      "Nincs megjeleníthető adat!",
-                "infoFiltered":   "(Szűrve _MAX_ elemből)",
-                "infoPostFix":    "",
-                "thousands":      ",",
-                "lengthMenu":     " _MENU_ elem/oldal",
-                "loadingRecords": "Betöltés...",
-                "processing":     "Feldolgozás...",
-                "search":         "Keresés:",
-                "zeroRecords":    "Nincs egyező elem",
-                "paginate": {
-                    "previous":   "Előző",
-                    "next":       "Következő",
-                    "last":       "Utolsó",
-                    "first":      "Első",
-                    "pageOf":     "&nbsp;/&nbsp;"
-                },
-                "aria": {
-                    "sortAscending":  ": aktiválja a növekvő rendezéshez",
-                    "sortDescending": ": aktiválja a csökkenő rendezéshez"
-                }
-            },
-
-            // Uncomment below line("dom" parameter) to fix the dropdown overflow issue in the datatable cells. The default datatable layout
-            // setup uses scrollable div(table-scrollable) with overflow:auto to enable vertical scroll(see: assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js). 
-            // So when dropdowns used the scrollable div should be removed. 
-            // "dom": "<'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
-
-            //"bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
-
-            "columnDefs": [
-                {"orderable": true, "searchable": false, "targets": 0},
-                {"orderable": false, "searchable": false, "targets": 1},
-                {"orderable": false, "searchable": false, "targets": 2},
-                {"orderable": true, "searchable": true, "targets": 3},
-                {"orderable": true, "searchable": true, "targets": 4},
-                {"orderable": true, "searchable": true, "targets": 5},
-                {"orderable": true, "searchable": false, "targets": 6},
-                {"orderable": true, "searchable": false, "targets": 7},
-                {"orderable": true, "searchable": false, "targets": 8},
-                {"orderable": false, "searchable": false, "targets": 9},
-                {"orderable": false, "searchable": false, "targets": 10},
-            ],
-            "lengthMenu": [
-                [5, 15, 20, -1],
-                [5, 15, 20, "Összes"] // change per page values here
-            ],
-            // set the initial value
-            "pageLength": 15,
-            "pagingType": "bootstrap_full_number",
-            "order": [
-                [0, "desc"]
-            ] // set column as a default sort by asc
-
-        });
-
-/*
-        var tableWrapper = jQuery('#property_wrapper');
+    var propertyTable = function() {
         
-        table.find('.group-checkable').change(function () {
-            var set = jQuery(this).attr("data-set");
-            var checked = jQuery(this).is(":checked");
-            jQuery(set).each(function () {
-                if (checked) {
-                    $(this).attr("checked", true);
-                    $(this).parents('tr').addClass("active");
-                } else {
-                    $(this).attr("checked", false);
-                    $(this).parents('tr').removeClass("active");
+        var grid = new Datatable();
+
+        grid.init({
+            src: $("#property"),
+            onSuccess: function (grid) {
+                // execute some code after table records loaded
+                //console.log('onSuccess metodus');
+            },
+            onError: function (grid) {
+                // execute some code on network or other general error  
+            },
+            loadingMessage: 'Betöltés...',
+            dataTable: {
+                //"autoWidth": false,
+
+                "language": {
+                    //url: "public/admin_assets/plugins/datatables/plugins/i18n/Hungarian.json"
+
+                    // metronic specific
+                        "metronicGroupActions": "_TOTAL_ sor kiválasztva: ",
+                        "metronicAjaxRequestGeneralError": "A kérés nem hajtható végre, ellenőrizze az internet kapcsolatot!",
+
+                    // data tables specific                
+                    "decimal":        "",
+                    "emptyTable":     "Nincs megjeleníthető adat!",
+                    "info":           "_START_ - _END_ elem &nbsp; _TOTAL_ elemből",
+                    "infoEmpty":      "Nincs megjeleníthető adat!",
+                    "infoFiltered":   "(Szűrve _MAX_ elemből)",
+                    "infoPostFix":    "",
+                    "thousands":      ",",
+                    "lengthMenu":     " _MENU_ elem/oldal &nbsp;",
+                    "loadingRecords": "Betöltés...",
+                    "processing":     "Feldolgozás...",
+                    "search":         "Keresés:",
+                    "zeroRecords":    "Nincs egyező elem",
+                    "paginate": {
+                        "previous":   "Előző",
+                        "next":       "Következő",
+                        "last":       "Utolsó",
+                        "first":      "Első",
+                        "pageOf":     "&nbsp;/&nbsp;"
+                    },
+                    "aria": {
+                        "sortAscending":  ": aktiválja a növekvő rendezéshez",
+                        "sortDescending": ": aktiválja a csökkenő rendezéshez"
+                    }
+
+                },
+
+                // A php feldolgozónak küld a táblázatról információkat, azért hogy a szerver a megfelelő adatokat adhasson vissza pl. szűrésnél
+                "columnDefs": [
+                
+                    {"name": "chechbox", "searchable": false, "orderable": false, "targets": 0},
+                    {"name": "id", "searchable": true, "orderable": true, "targets": 1},
+                    {"name": "kepek", "searchable": false, "orderable": false, "targets": 2},
+                    {"name": "tipus", "searchable": true, "orderable": true, "targets": 3},
+                    {"name": "kategoria", "searchable": true, "orderable": true, "targets": 4},
+                    {"name": "varos", "searchable": true, "orderable": true, "targets": 5},
+                    {"name": "alapterulet", "searchable": true, "orderable": true, "targets": 6},
+                    {"name": "szobaszam", "searchable": true, "orderable": true, "targets": 7},
+                    {"name": "megtekintes", "searchable": false, "orderable": true, "targets": 8},
+                    {"name": "ar_elado", "searchable": true, "orderable": true, "targets": 9},
+                    {"name": "status", "searchable": true, "orderable": true, "targets": 10},
+                    {"name": "menu", "searchable": false, "orderable": false, "targets": 11}
+                
+                ],
+                
+                // ha a php feldolgozó asszociatív tömböt ad vissza adatként (pl.: 'name' => 'László', 'age' => '38', 'haircolor' => 'blonde' ...), akkor meg kell adni az egyes elem nevét!    
+                // (ha a php számmal indexelt tömböt ad vissza (pl.: 'László', '38', 'Blonde' ...), akkor nem kell ez a beállítás!) 
+          
+                "columns": [
+                    { "data": "checkbox" },
+                    { "data": "id" },
+                    { "data": "kepek" },
+                    { "data": "tipus" },
+                    { "data": "kategoria" },
+                    { "data": "varos" },
+                    { "data": "alapterulet" },
+                    { "data": "szobaszam" },
+                    { "data": "megtekintes" },
+                    { "data": "ar" },
+                    { "data": "status" },
+                    { "data": "menu" }
+                ],      
+
+                "lengthMenu": [
+                    [10, 20, 50, 100, 150],
+                    [10, 20, 50, 100, 150] // change per page values here 
+                ],
+
+                "pageLength": 10, // default record count per page
+
+                "ajax": {
+                    "url": "admin/property/ajax_get_property", // ajax source
+                },
+                
+                //kikapcsolja mindenhol a sorbarendezés ikont (class="sorting_disable")
+                //"ordering": false,
+                
+                "order": [
+                    [1, "desc"]
+                ] // set first column as a default sort by asc
+            }
+        });
+
+
+         // handle group actionsubmit button click
+        grid.getTableWrapper().on('click', '.table-group-action-submit', function (e) {
+            e.preventDefault();
+            
+            var action = $(".table-group-action-input", grid.getTableWrapper());
+            if (action.val() != "" && grid.getSelectedRowsCount() > 0) {
+            
+                var confirm_str = '';
+                if(action.val() == 'group_make_active'){
+                    confirm_str = "Biztosan végre akarja hajtani az aktiválását?";
                 }
-            });
-            jQuery.uniform.update(set);
+                else if(action.val() == 'group_make_inactive'){
+                    confirm_str = "Biztosan végre akarja hajtani az inaktiválást?";
+                }
+                else if(action.val() == 'group_delete'){
+                    confirm_str = "Biztosan törölni akarja a rekordot?";
+                }
+                
+                bootbox.setDefaults({
+                    locale: "hu", 
+                });
+                bootbox.confirm(confirm_str, function(result) {
+                    if (result) {
+
+                        grid.setAjaxParam("customActionType", "group_action");
+                        grid.setAjaxParam("customActionName", action.val());
+                        grid.setAjaxParam("id", grid.getSelectedRows());
+                        grid.getDataTable().ajax.reload();
+                        grid.clearAjaxParams();
+                
+                    }
+                });             
+            
+            } else if (action.val() == "") {
+                App.alert({
+                    type: 'danger',
+                    //icon: 'warning',
+                    message: 'Válasszon csoportműveletet!',
+                    container: grid.getTableWrapper(),
+                    place: 'prepend'
+                });
+            } else if (grid.getSelectedRowsCount() === 0) {
+                App.alert({
+                    type: 'danger',
+                    //icon: 'warning',
+                    message: 'Nem jelölt ki semmit!',
+                    container: grid.getTableWrapper(),
+                    place: 'prepend'
+                });
+            }
         });
 
-        table.on('change', 'tbody tr .checkboxes', function () {
-            $(this).parents('tr').toggleClass("active");
-        });
-
-        tableWrapper.find('.dataTables_length select').addClass("form-control input-sm input-inline"); // modify table per page dropdown
-*/
     };
-
-
-
-
-
-
-
-
 
 
 
 /*
-
-    var enableDisableButtons = function () {
-
-        var deletePropertySubmit = $('button[name="delete_property_submit"]');
-        var checkAll = $('input.group-checkable');
-        var checkboxes = $('input.checkboxes');
-        deletePropertySubmit.attr('disabled', true);
-        checkboxes.change(function () {
-            $(this).closest("tr").find('.btn-group a').attr('disabled', $(this).is(':checked'));
-            deletePropertySubmit.attr('disabled', !checkboxes.is(':checked'));
-        });
-        checkAll.change(function () {
-            checkboxes.closest("tr").find('.btn-group a').attr('disabled', $(this).is(':checked'));
-            deletePropertySubmit.attr('disabled', !checkboxes.is(':checked'));
-        });
-    };
-*/
-
-
     var resetSearchForm = function () {
         $('#reset_search_form').on('click', function () {
             $(':input', '#property_search_form')
@@ -312,6 +177,7 @@ var Property = function () {
                     .removeAttr('selected');
         });
     };
+*/
 
     var changeKiemelesConfirm = function () {
         $('[id*=delete_kiemeles], [id*=add_kiemeles]').on('click', function (e) {
@@ -495,6 +361,15 @@ var Property = function () {
 
     };
 
+    var show_filter_div = function() {
+
+        $("#show_filter_td").on('click', function() {
+            $('#filter_td').slideToggle();
+        })
+    };
+
+
+
     /**
      *	A részletek megjelenítéséhez használt modal
      *	AUTOMATIKUSAN ("HTML-elemmel" indul)
@@ -542,11 +417,11 @@ var Property = function () {
                 return;
             }
 
-            //propertyTable();
-            propertyTable_2();
+            propertyTable();
 
+            show_filter_div();
             //enableDisableButtons();
-            resetSearchForm();
+            // resetSearchForm();
             changeKiemelesConfirm();
             printTable();
             // handleModal();
