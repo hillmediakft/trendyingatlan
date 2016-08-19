@@ -353,7 +353,7 @@ class Property_model extends Admin_model {
 
         foreach ($id_data as $id) {
 
-            $value = (int) $value;
+            $id = (int) $id;
 
     //a lakáshoz tartozó fileok nevének lekérdezése	
             $this->query->set_table(array('ingatlanok'));
@@ -1114,11 +1114,7 @@ class Property_model extends Admin_model {
 
                 case 'group_delete':
                     // az id-ket tartalmazó tömböt kapja paraméterként
-                    //$result = $this->delete_property_AJAX($request_data['id']);
-
-                    $result['status'] = 'error';
-                    $result['message'] = 'lorem ipsum dolor sit amet';
-
+                    $result = $this->delete_property_AJAX($request_data['id']);
 
                     if ($result['status'] == 'success') {
                         $messages = $result['message'];
@@ -1316,7 +1312,14 @@ class Property_model extends Admin_model {
 
             $temp['checkbox'] = (1) ? '<input type="checkbox" class="checkboxes" name="ingatlan_id_' . $value['id'] . '" value="' . $value['id'] . '"/>' : '';
 
-            $temp['id'] = '#' . $value['id'];
+            $temp['id'] = '#' . $value['id'] . '<br>';
+            if ($value['kiemeles'] == 1) {
+                $temp['id'] .= '<span class="label label-sm label-success">Kiemelt</span>';
+            }
+            if ($value['kiemeles'] == 2) {
+                $temp['id'] .= '<span class="label label-sm label-warning">Kiemelt</span>';
+            }
+
 
             if (!empty($value['kepek'])) {
                 $photo_names = json_decode($value['kepek']);
@@ -1364,6 +1367,14 @@ class Property_model extends Admin_model {
                 $temp['menu'] .= '<li><a href="javascript:;" class="delete_item" data-id="' . $value['id'] . '"> <i class="fa fa-trash"></i> Töröl</a></li>';
             } else {
                 $temp['menu'] .= '<li class="disabled-link"><a href="javascript:;" title="Nincs jogosultsága törölni" class="disable-target"><i class="fa fa-trash"></i> Töröl</a></li>';
+            }
+
+            // kiemelés
+            if ($value['kiemeles'] == 0) {
+                $temp['menu'] .= '<li><a data-id="' . $value['id'] . '" href="javascript:;" class="change_kiemeles" data-action="add_kiemeles"><i class="fa fa-plus-circle"></i> Kiemelés</a></li>';
+            }
+            if ($value['kiemeles'] > 0) {
+                $temp['menu'] .= '<li><a data-id="' . $value['id'] . '" href="javascript:;" class="change_kiemeles" data-action="delete_kiemeles"><i class="fa fa-minus-circle"></i> Kiemelés törlése</a></li>';
             }
 
             // status
