@@ -107,7 +107,7 @@ class Property extends Admin_controller {
         $this->view->title = 'Új lakás oldal';
         $this->view->description = 'Új lakás description';
 
-        $this->view->add_links(array('jquery-ui', 'select2', 'validation', 'ckeditor', 'kartik-bootstrap-fileinput', 'property_insert'));
+        $this->view->add_links(array('jquery-ui', 'select2', 'validation', 'ckeditor', 'kartik-bootstrap-fileinput', 'google-maps', 'property_insert'));
 
         // Megyék adatainak lekérdezése az option listához
         $this->view->county_list = $this->property_model->county_list_query();

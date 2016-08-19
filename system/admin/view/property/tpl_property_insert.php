@@ -216,116 +216,151 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- CÍM ADATOK -->
+
+                                <!-- **************** CÍM ADATOK ************************ -->
                                 <div class="tab-pane" id="tab_1_2">
-                                    <!-- MEGYE MEGADÁSA -->	
-                                    <div class="form-group" id="megye_div">
-                                        <label for="megye" class="control-label">Megye<span class="required">*</span></label>
-                                        <select name="megye" id="megye_select" class="form-control input-xlarge">
-                                            <option value="">-- válasszon --</option>
-                                            <?php foreach ($this->county_list as $value) { ?>
-                                                <option value="<?php echo $value['county_id']; ?>"><?php echo $value['county_name']; ?></option>
-                                            <?php } ?>
-                                        </select>
-
-                                    </div>                                        
 
 
-                                    <!-- VÁROS MEGADÁSA -->	
-                                    <div class="form-group" id="varos_div">
-                                        <label for="varos" class="control-label">Város<span class="required">*</span></label>
-                                        <select name="varos" id="varos_select" class="form-control input-xlarge">
+                                    <div class="row">
 
 
-                                        </select>
+                                        <div class="col-md-6">            
+                                            <!-- MEGYE MEGADÁSA -->	
+                                            <div class="form-group" id="megye_div">
+                                                <label for="megye" class="control-label">Megye<span class="required">*</span></label>
+                                                <select name="megye" id="megye_select" class="form-control input-xlarge">
+                                                    <option value="">-- válasszon --</option>
+                                                    <?php foreach ($this->county_list as $value) { ?>
+                                                        <option value="<?php echo $value['county_id']; ?>"><?php echo $value['county_name']; ?></option>
+                                                    <?php } ?>
+                                                </select>
 
-                                    </div>	                                        
+                                            </div>                                        
+
+
+                                            <!-- VÁROS MEGADÁSA -->	
+                                            <div class="form-group" id="varos_div">
+                                                <label for="varos" class="control-label">Város<span class="required">*</span></label>
+                                                <select name="varos" id="varos_select" class="form-control input-xlarge">
+
+
+                                                </select>
+
+                                            </div>	                                        
 
 
 
-                                    <!-- KERÜLET MEGADÁSA -->	
-                                    <div class="form-group" id="district_div">
-                                        <label for="kerulet" class="control-label">Kerület <span></span></label>
-                                        <select name="kerulet" id="district_select" class="form-control input-xlarge" disabled>
-                                            <option value="">-- válasszon --</option>
-                                            <?php foreach ($this->district_list as $value) { ?>
-                                                <option value="<?php echo $value['district_id']; ?>"><?php echo $value['district_name']; ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>	
-                                    <!-- UTCA MEGADÁSA -->	
-                                    <div class="form-group">
-                                        <label for="utca" class="control-label">Utca<span class="required">*</span></label>
-                                        <input type="text" name="utca" id="utca" placeholder="" class="form-control input-xlarge" />
-                                    </div>
-                                    <!-- IRANYITOSZAM -->	
-                                    <div class="form-group">
-                                        <label for="iranyitoszam" class="control-label">Irányítószám</label>
-                                        <input type="text" name="iranyitoszam" id="iranyitoszam" placeholder="" class="form-control input-small" />
-                                    </div>	
+                                            <!-- KERÜLET MEGADÁSA -->	
+                                            <div class="form-group" id="district_div">
+                                                <label for="kerulet" class="control-label">Kerület <span></span></label>
+                                                <select name="kerulet" id="district_select" class="form-control input-xlarge" disabled>
+                                                    <option value="">-- válasszon --</option>
+                                                    <?php foreach ($this->district_list as $value) { ?>
+                                                        <option value="<?php echo $value['district_id']; ?>"><?php echo $value['district_name']; ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                            </div>	
+                                            <!-- UTCA MEGADÁSA -->	
+                                            <div class="form-group">
+                                                <label for="utca" class="control-label">Utca<span class="required">*</span></label>
+                                                <input type="text" name="utca" id="utca" placeholder="" class="form-control input-xlarge" />
+                                            </div>
+                                            <!-- IRANYITOSZAM -->	
+                                            <div class="form-group">
+                                                <label for="iranyitoszam" class="control-label">Irányítószám</label>
+                                                <input type="text" name="iranyitoszam" id="iranyitoszam" placeholder="" class="form-control input-small" />
+                                            </div>	
 
-                                    <!-- HAZSZAM -->	
-                                    <div class="form-group">
-                                        <label for="hazszam" class="control-label">Házszám</label>
-                                        <input type="text" name="hazszam" id="hazszam" placeholder="" class="form-control input-xlarge" />
-                                    </div>	
-                                    <!-- EMELET/AJTÓ -->	
-                                    <div class="form-group">
-                                        <label for="emelet" class="control-label">Emelet</label>
-                                        <select name="emelet" id="emelet" class="form-control input-xlarge">
-                                            <option value="">-- válasszon --</option>
+                                            <!-- HAZSZAM -->	
+                                            <div class="form-group">
+                                                <label for="hazszam" class="control-label">Házszám</label>
+                                                <input type="text" name="hazszam" id="hazszam" placeholder="" class="form-control input-xlarge" />
+                                            </div>	
+                                            <!-- EMELET/AJTÓ -->	
+                                            <div class="form-group">
+                                                <label for="emelet" class="control-label">Emelet</label>
+                                                <select name="emelet" id="emelet" class="form-control input-xlarge">
+                                                    <option value="">-- válasszon --</option>
 
-                                            <option value="1">1. emelet</option>
-                                            <option value="2">2. emelet</option>
-                                            <option value="3">3. emelet</option>
-                                            <option value="4">4. emelet</option>
-                                            <option value="5">5. emelet</option>
-                                            <option value="6">6. emelet</option>
-                                            <option value="7">7. emelet</option>
-                                            <option value="8">8. emelet</option>
-                                            <option value="9">9. emelet</option>
-                                            <option value="10">10. emelet</option>
-                                            <option value="11">10. emelet felett</option>
+                                                    <option value="1">1. emelet</option>
+                                                    <option value="2">2. emelet</option>
+                                                    <option value="3">3. emelet</option>
+                                                    <option value="4">4. emelet</option>
+                                                    <option value="5">5. emelet</option>
+                                                    <option value="6">6. emelet</option>
+                                                    <option value="7">7. emelet</option>
+                                                    <option value="8">8. emelet</option>
+                                                    <option value="9">9. emelet</option>
+                                                    <option value="10">10. emelet</option>
+                                                    <option value="11">10. emelet felett</option>
 
-                                        </select>
-                                    </div>
+                                                </select>
+                                            </div>
 
-                                    <!-- EMELET/AJTÓ -->	
-                                    <div class="form-group">
-                                        <label for="emelet_ajto" class="control-label">Ajtó</label>
-                                        <input type="text" name="emelet_ajto" id="emelet_ajto" placeholder="" class="form-control input-xlarge" />
-                                    </div>
-                                    <!-- ÉPÜLET SZINTJEINEK SZÁMA -->	
-                                    <div class="form-group">
-                                        <label for="epulet_szintjei" class="control-label">Épület szinjei</label>
-                                        <select name="epulet_szintjei" id="epulet_szintjei" class="form-control input-xlarge">
-                                            <option value="">-- válasszon --</option>
+                                            <!-- EMELET/AJTÓ -->	
+                                            <div class="form-group">
+                                                <label for="emelet_ajto" class="control-label">Ajtó</label>
+                                                <input type="text" name="emelet_ajto" id="emelet_ajto" placeholder="" class="form-control input-xlarge" />
+                                            </div>
+                                            <!-- ÉPÜLET SZINTJEINEK SZÁMA -->	
+                                            <div class="form-group">
+                                                <label for="epulet_szintjei" class="control-label">Épület szinjei</label>
+                                                <select name="epulet_szintjei" id="epulet_szintjei" class="form-control input-xlarge">
+                                                    <option value="">-- válasszon --</option>
 
-                                            <option value="1">1 emelet</option>
-                                            <option value="2">2 emelet</option>
-                                            <option value="3">3 emelet</option>
-                                            <option value="4">4 emelet</option>
+                                                    <option value="1">1 emelet</option>
+                                                    <option value="2">2 emelet</option>
+                                                    <option value="3">3 emelet</option>
+                                                    <option value="4">4 emelet</option>
 
-                                            <option value="5">5 emelet</option>
-                                            <option value="6">6 emelet</option>
-                                            <option value="7">7 emelet</option>
-                                            <option value="8">8 emelet</option>
+                                                    <option value="5">5 emelet</option>
+                                                    <option value="6">6 emelet</option>
+                                                    <option value="7">7 emelet</option>
+                                                    <option value="8">8 emelet</option>
 
-                                            <option value="9">9 emelet</option>
-                                            <option value="10">10 emelet</option>
-                                            <option value="11">10 emelet felett</option>
+                                                    <option value="9">9 emelet</option>
+                                                    <option value="10">10 emelet</option>
+                                                    <option value="11">10 emelet felett</option>
 
-                                        </select>
-                                    </div>                                        
-                                    <!-- CHECKBOX-OK -->
+                                                </select>
+                                            </div>                                        
+                                            <!-- CHECKBOX-OK -->
 
-                                    <div class="form-group">
-                                        <div class="checkbox-list">
-                                            <label><input type="checkbox" name="utca_megjelenites" checked=""> Utca megjelenítése az adatlapon</label>
-                                            <label><input type="checkbox" name="hazszam_megjelenites"> Házszám megjelenítése az adatlapon</label>
-                                            <label><input type="checkbox" name="terkep" checked=""> Térképes megjelenítés az adatlapon</label>
+                                            <div class="form-group">
+                                                <div class="checkbox-list">
+                                                    <label><input type="checkbox" name="utca_megjelenites" checked=""> Utca megjelenítése az adatlapon</label>
+                                                    <label><input type="checkbox" name="hazszam_megjelenites"> Házszám megjelenítése az adatlapon</label>
+                                                    <label><input type="checkbox" name="terkep" checked=""> Térképes megjelenítés az adatlapon</label>
+                                                </div>
+                                            </div>													
+
                                         </div>
-                                    </div>													
+
+
+                                        <div class="col-md-6">
+                                            <!-- BEGIN GEOCODING PORTLET-->
+                                            <div class="portlet light portlet-fit bordered">
+                                                <div class="portlet-title">
+                                                    <div class="caption">
+                                                        <i class=" icon-layers font-green"></i>
+                                                        <span class="caption-subject font-green bold uppercase">Megjelenítés térképen</span>
+                                                    </div>
+                                                    <div class="actions">
+                                                        <a class="btn btn-circle btn-icon-only btn-default" id="show_map" href="javascript:;">
+                                                            <i class="icon-pin"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="portlet-body">
+                                                    <div id="address_message"></div>
+                                                    <div id="gmap_geocoding" class="gmaps"> </div>
+                                                </div>
+                                            </div>
+                                            <!-- END GEOCODING PORTLET-->
+                                        </div>                                    
+
+                                    </div>      
+
 
                                 </div>
                                 <!-- LEÍRÁS -->

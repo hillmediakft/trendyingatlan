@@ -162,5 +162,13 @@ $link['kilatas'] = array('js' => ADMIN_JS . 'pages/kilatas.js');
 $link['parkolas'] = array('js' => ADMIN_JS . 'pages/parkolas.js');
 $link['szerkezet'] = array('js' => ADMIN_JS . 'pages/szerkezet.js');
 
+// Google Maps
+$link['google-maps'] = array(
+	'js' => array(
+		'https://maps.googleapis.com/maps/api/js?key=AIzaSyDsyHr_ERbn8TBSwHRB1mWk28VDByR-oL0',
+		ADMIN_ASSETS . 'plugins/gmaps/gmaps.min.js'
+	) 
+);
+
 return $link;
 ?>
