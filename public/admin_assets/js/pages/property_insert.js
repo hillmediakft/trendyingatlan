@@ -55,8 +55,7 @@ var InsertProperty = function () {
             // az érték üres lesz, ha a válassz elemet választjuk ki az option listából
             if (option_value == '5') {
                 $('#district_select').prop("disabled", false);
-            }
-            else {
+            } else {
                 $('#district_select').prop("disabled", true);
                 $('#district_select option:selected').prop('selected', false);
             }
@@ -70,8 +69,7 @@ var InsertProperty = function () {
             // ha Budapest (id=5), akkor a kerület lista engedélyezve lesz
             if (option_value != '') {
                 $('#epulet_szintjei').prop("disabled", false);
-            }
-            else {
+            } else {
                 $('#epulet_szintjei').prop("disabled", true);
             }
         })
@@ -83,8 +81,7 @@ var InsertProperty = function () {
         // ha Budapest (id=5), akkor a kerület lista engedélyezve lesz
         if (option_value != '') {
             $('#epulet_szintjei').prop("disabled", false);
-        }
-        else {
+        } else {
             $('#epulet_szintjei').prop("disabled", true);
         }
     };
@@ -440,7 +437,7 @@ var InsertProperty = function () {
                     reset: false, // close all previouse alerts first
                     //focus: true, // auto scroll to the alert after shown
                     closeInSeconds: 3 // auto close after defined seconds
-                });                
+                });
 
                 // képek lekérdezése a listás megjelenítéshez
                 $.ajax({
@@ -877,6 +874,56 @@ var InsertProperty = function () {
         });
     };
 
+    var mapGeocoding = function () {
+
+        var map = new GMaps({
+            div: '#gmap_geocoding',
+            lat: 47.50,
+            lng: 19.04
+        });
+        varos = $('#varos_select option:selected').text();
+        utca = $('#utca').val();
+        iranyitoszam = $('#iranyitoszam').val();
+        hazszam = $('#hazszam').val();
+
+        var text = iranyitoszam + ' ' + varos + ', ' + utca + ' ' + hazszam;
+        
+        
+        
+        GMaps.geocode({
+            address: text,
+            callback: function (results, status) {
+                if (status == 'OK' && results[0].formatted_address != '') {
+ 
+                    $('#address_message').html('<div class="note note-info note-bordered">' + results[0].formatted_address + '</div>');
+                    console.log(results[0].formatted_address);
+
+                    var latlng = results[0].geometry.location;
+                    map.setCenter(latlng.lat(), latlng.lng());
+                    map.addMarker({
+                        lat: latlng.lat(),
+                        lng: latlng.lng()
+                    });
+                    App.scrollTo($('#gmap_geocoding'));
+                    
+                } else {
+                    $('#address_message').html('<div class="note note-danger note-bordered">Nem állapítható meg cím! Ellenőrizza a cím adatokat!</div>');
+                }
+            }
+        });
+
+
+
+
+    }
+
+    var showMap = function () {
+        $('#show_map').click(function (e) {
+            e.preventDefault();
+            mapGeocoding();
+        });
+    }
+
     return {
         //main function to initiate the module
         init: function () {
@@ -894,6 +941,8 @@ var InsertProperty = function () {
             enableEpuletSzintjei();
             setEpuletSzintjei();
             ckeditorInit();
+            //     mapGeocoding();
+            showMap();
         }
     };
 
