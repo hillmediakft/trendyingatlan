@@ -190,7 +190,7 @@ var vframework = function () {
      * statusz megvaltoztatása
      */
     var _change_status = function (options) {
-		$('.change_status').on('click', function(e){
+		$('body').on('click','.change_status', function(e){
 			e.preventDefault();
 			
 			var action = $(this).attr('data-action');
