@@ -1,0 +1,140 @@
+<?php 
+class Kedvencek_model extends Site_model {
+
+	function __construct()
+	{
+		parent::__construct();
+	}
+   /**
+     * 	Lekérdezi az ingatlanok táblából a kiemelet ingatlanokat
+     * 	
+     * 	@param array 
+     */
+    public function get_favourite_properties_data($id_array) {
+        $this->query->reset();
+//        $this->query->debug(true);
+        $this->query->set_table(array('ingatlanok'));
+        $this->query->set_columns(array(
+          'ingatlanok.id',
+          'ingatlanok.ingatlan_nev',
+          'ingatlanok.status',
+          'ingatlanok.tipus',
+          'ingatlanok.kerulet',
+          'ingatlanok.ar_elado',
+          'ingatlanok.ar_kiado',
+          'ingatlanok.alapterulet',
+          'ingatlanok.szobaszam',
+          'ingatlanok.kepek',
+          'ingatlanok.varos',
+          'ingatlan_kategoria.kat_nev',
+          'district_list.district_name',
+          'city_list.city_name'
+        ));
+
+        $this->query->set_join('left', 'ingatlan_kategoria', 'ingatlanok.kategoria', '=', 'ingatlan_kategoria.kat_id');
+        $this->query->set_join('left', 'city_list', 'ingatlanok.varos', '=', 'city_list.city_id');
+        $this->query->set_join('left', 'district_list', 'ingatlanok.kerulet', '=', 'district_list.district_id');
+        if (is_array($id_array)) {
+            foreach ($id_array as $value) {
+                $this->query->set_where('id', '=', $value, 'or');
+            }
+        } else {
+            $this->query->set_where('id', '=', $id_array);
+        }
+        $this->query->set_where('status', '=', 1);
+        $this->query->set_orderby('ingatlanok.id', 'DESC');
+        $result = $this->query->select();
+
+        return $result;
+    }
+    
+   /**
+     * 	Frissíti a cookie-t a kedvencekhez
+     */
+    public function refresh_kedvencek_cookie($id) {
+        $kedvencek_array = json_decode(Cookie::get('kedvencek'));
+
+        if (is_array($kedvencek_array) && !in_array($id, $kedvencek_array)) {
+            $kedvencek_array[] = $id;
+            $kedvencek_json = json_encode($kedvencek_array);
+            Cookie::set('kedvencek', $kedvencek_json);
+
+            echo $this->favourite_property_html($id);
+        } elseif ($kedvencek_array == null) {
+            $kedvencek_array[] = $id;
+            $kedvencek_json = json_encode($kedvencek_array);
+            Cookie::set('kedvencek', $kedvencek_json);
+
+            echo $this->favourite_property_html($id);
+        } else {
+            return;
+        }
+    }
+
+    /**
+     * 	törli az id-t a kedvencek cookie-ból
+     */
+    public function delete_property_from_cookie($id) {
+        $kedvencek_array = json_decode(Cookie::get('kedvencek'));
+
+        foreach ($kedvencek_array as $key => $value) {
+            if ($value == $id) {
+                unset($kedvencek_array[$key]);
+            }
+        }
+
+        $kedvencek_array = array_values($kedvencek_array);
+
+        $kedvencek_json = json_encode($kedvencek_array);
+        Cookie::set('kedvencek', $kedvencek_json);
+    }
+
+    /**
+     * 	A kedvencekhez hozzáadott ingatlan html kódját generálja a kedvencek dobozba
+     */
+    public function favourite_property_html($id) {
+        $property_data = $this->get_favourite_properties_data($id);
+        $property_data = $property_data[0];
+
+
+        $photo_array = json_decode($property_data['kepek']);
+
+        $string = '';
+        $string .= '<article class="property-item" id="favourite_property_' . $property_data['id'] . '">';
+        $string .= '<div class="span5">';
+        $string .= '<div class="property-images">';
+        $string .= '<a href="property-single.html" title="Florida 5, Pinecrest, FL">';
+        $string .= '<img src="' . Util::small_path(Config::get('ingatlan_photo.upload_path') . $photo_array[0]) . '" class="wp-post-image" alt="' . $property_data['ingatlan_nev'] . '" title="' . $property_data['ingatlan_nev'] . '" />';
+        $string .= '</a>';
+        $string .= '<div id="delete_kedvenc_' . $property_data['id'] . '" data-id="' . $property_data['id'] . '" class="favourite-delete"><i class="fa fa-trash"></i></div>';
+        $string .= '</div>';
+        $string .= '</div>';
+        $string .= '<div class="span7">';
+        $string .= '<div class="property-attribute">';
+        $string .= '<span class="attribute-city">';
+        if (isset($property_data['kerulet'])) {
+            $string .= $property_data['city_name'] . ', ' . $property_data['district_name'];
+        } else {
+            $string .= $property_data['city_name'];
+        }
+        $string .= '</span>';
+        $string .= '<h3 class="attribute-title">';
+        $string .= '<a href="#" title="' . $property_data['ingatlan_nev'] . '" >' . $property_data['ingatlan_nev'];
+        $string .= '</a>';
+        $string .= '</h3>';
+
+        $string .= '<div class="price">';
+        if ($property_data['tipus'] == 1) {
+            $string .= '<span class="attr-pricing">' . number_format($property_data['ar_elado'], 0, ',', '.') . ' Ft</span>';
+        } elseif ($property_data['tipus'] == 2) {
+            $string .= '<span class="attr-pricing">' . number_format($property_data['ar_kiado'], 0, ',', '.') . ' Ft</span>';
+        }
+        $string .= '</div>';
+        $string .= '</div>';
+        $string .= '</div>';
+
+        $string .= '</article>';
+        return $string;
+    }   
+}
+?>

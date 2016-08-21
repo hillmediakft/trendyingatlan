@@ -4,8 +4,6 @@ class Home extends Site_controller {
 
     function __construct() {
         parent::__construct();
-        //Auth::handleExpire();
-        $this->loadModel('home_model');
     }
 
     public function index()
@@ -14,8 +12,9 @@ class Home extends Site_controller {
 // lorem ipsum dolor sit amet        
 
         $this->view = new View();
-        
-        $this->view->add_link('js', SITE_ASSETS . 'pages/home.js');
+        $this->view->settings = $this->settings;
+        $this->view->kedvencek_list = $this->kedvencek_list;
+    //    $this->view->add_link('js', SITE_ASSETS . 'pages/home.js');
         // lekérdezések
         // $this->view->settings = $this->home_model->get_settings();
 
@@ -24,7 +23,7 @@ class Home extends Site_controller {
         $this->view->keywords = 'page_metakeywords';
 
 //$this->view->debug(true); 
-
+$this->view->set_layout('tpl_layout');
         $this->view->render('home/tpl_home');
     }
 

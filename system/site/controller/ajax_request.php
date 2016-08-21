@@ -18,10 +18,10 @@ class Ajax_request extends Site_controller {
     public function ajax_send_email() {
         if (Util::is_ajax()) {
 
-            $from_email = ;
-            $from_name = ;
-            $message = ;
-            $to_email = ;
+            $from_email = '';
+            $from_name = '';
+            $message = '';
+            $to_email = '';
             $to_name = $to_email;
             $subject = '';
             
