@@ -28,6 +28,7 @@ class Property extends Admin_controller {
         // ingatlan kategóriák lekérdezése
         $this->view->ingatlan_kat_list = $this->property_model->list_query('ingatlan_kategoria');
 
+/*
         if ($this->request->has_query('action') && $this->request->get_query('action') == 'search') {
 
             $this->view->all_property = $this->property_model->properties_filter_query();
@@ -37,6 +38,7 @@ class Property extends Admin_controller {
         } else {
             $this->view->all_property = $this->property_model->all_property_query();
         }
+*/
 
 //$this->view->debug(true);
 
@@ -191,20 +193,17 @@ class Property extends Admin_controller {
                 // a POST-ban kapott item_id egy string ami egy szám vagy számok felsorolása pl.: "23" vagy "12,45,76" 
                 $id = $this->request->get_post('item_id');
                 $result = $this->property_model->delete_property_AJAX($id);
-                
-                $success_message = Message::show('Ingatlan törölve.');
-                $fail_message = Message::show('Ingatlan törlése nem sikerült!.');
 
-                if($result) {
+                if($result !== false) {
                     echo json_encode(array(
                         "status" => 'success',
-                        "message_success" => $success_message
+                        "message_success" => 'Ingatlan törölve.'
                     ));
 
                 } else {
                     echo json_encode(array(
-                        "status" => 'success',
-                        "message_error" => $fail_message
+                        "status" => 'error',
+                        "message" => 'Adatbázis lekérdezési hiba!'
                     ));
                 }
 
@@ -376,6 +375,7 @@ class Property extends Admin_controller {
 
     /**
      * (AJAX) Az ingatlanok táblában módosítja az status mező értékét
+     *  NEM CSOPORTOS MŰVELET ESETÉN!!
      *
      * @return void
      */
@@ -390,7 +390,7 @@ class Property extends Admin_controller {
 
                 if($action == 'make_active') {
                     $result = $this->property_model->change_status_query($id, 1);
-                    if($result){
+                    if($result !== false){
                         echo json_encode(array(
                             "status" => 'success',
                             "message" => 'Az elem aktiválása megtörtént!'
@@ -398,13 +398,13 @@ class Property extends Admin_controller {
                     } else {
                         echo json_encode(array(
                             "status" => 'error',
-                            "message" => 'Adatbázis hiba! A státusz nem változott meg!'
+                            "message" => 'Adatbázis lekérdezési hiba!'
                         ));
                     }
                 }
                 if($action == 'make_inactive') {
                     $result = $this->property_model->change_status_query($id, 0);
-                    if($result){
+                    if($result !== false){
                         echo json_encode(array(
                             "status" => 'success',
                             "message" => 'Az elem blokkolása megtörtént!'
@@ -412,7 +412,7 @@ class Property extends Admin_controller {
                     } else {
                         echo json_encode(array(
                             "status" => 'error',
-                            "message" => 'Adatbázis hiba! A státusz nem változott meg!'
+                            "message" => 'Adatbázis lekérdezési hiba!'
                         ));
                     }
                     
@@ -420,7 +420,7 @@ class Property extends Admin_controller {
             } else {
                 echo json_encode(array(
                     "status" => 'error',
-                    "message" => 'Adatbázis lekérdezési hiba!'
+                    "message" => 'Ismeretlen hiba!'
                 ));
             }
         } else {
@@ -441,10 +441,20 @@ class Property extends Admin_controller {
                 $id = $this->request->get_post('id', 'integer');
 
                 if ($this->request->get_post('action') == 'delete_kiemeles') {
-                    $this->property_model->change_kiemeles_query($id, 0);
+                    $result = $this->property_model->change_kiemeles_query($id, 0);
+                    if ($result !== false) {
+                        echo json_encode(array("status" => 'success'));
+                    } else {
+                        echo json_encode(array("status" => 'error'));
+                    }
                 }
                 if ($this->request->get_post('action') == 'add_kiemeles') {
-                    $this->property_model->change_kiemeles_query($id, 1);
+                    $result = $this->property_model->change_kiemeles_query($id, 1);
+                    if ($result !== false) {
+                        echo json_encode(array("status" => 'success'));
+                    } else {
+                        echo json_encode(array("status" => 'error'));
+                    }
                 }
             }
         } else {

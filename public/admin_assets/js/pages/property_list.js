@@ -128,6 +128,12 @@ var Property = function () {
                 else if(action.val() == 'group_delete'){
                     confirm_str = "Biztosan törölni akarja a rekordot?";
                 }
+                else if(action.val() == 'group_make_highlight'){
+                    confirm_str = "Biztosan végre akarja hajtani a kiemelést?";
+                }
+                else if(action.val() == 'group_delete_highlight'){
+                    confirm_str = "Biztosan törölni akarja a kiemelést?";
+                }
                 
                 bootbox.setDefaults({
                     locale: "hu", 

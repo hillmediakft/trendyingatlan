@@ -337,7 +337,7 @@ class Property_model extends Admin_model {
      * 	(AJAX) Lakás törlése
      *
      * 	@param	integer||array	$id 	a törlendő rekord id-je
-     * 	@return	bool	true || false
+     * 	@return	bool	false || integer
      */
     public function delete_property_AJAX($id_data)
     {
@@ -346,10 +346,8 @@ class Property_model extends Admin_model {
         // a sikertelen törlések számát tárolja
         $fail_counter = 0;
 
-        // ha nem tömb az $id_data
-        if(!is_array($id_data)){
-            $id_data = array($id_data);
-        }
+        // tömbösítjük, ha nem tömb az $id_data
+        $id_data = (!is_array($id_data)) ? (array)$id_data : $id_data;
 
         foreach ($id_data as $id) {
 
@@ -416,23 +414,16 @@ class Property_model extends Admin_model {
                 
                 } else {
                     //sikertelen törlés (0 sor lett törölve)
-                    $fail_counter += 1;
+                    $fail_counter++;
                 }
             } else {
                 // ha a törlési sql parancsban hiba van
-                return $respond = array(
-                    "status" => 'error',
-                    "message" => 'Adatbázis lekérdezési hiba!'
-                );
+                return false;
             }
 
         } // end foreach
 
-        return $respond = array(
-            'status' => 'success',
-            'message' => ($success_counter + $fail_counter) . ' ingatlan törölve.'
-        );
-
+        return $success_counter + $fail_counter;
     }
 
     /**
@@ -848,6 +839,7 @@ class Property_model extends Admin_model {
      * 	@param	integer	$data (0 vagy 1)	
      * 	@return boolean
      */
+/*
     public function change_status_query($id, $data)
     {
         $this->query->set_table(array('ingatlanok'));
@@ -855,26 +847,68 @@ class Property_model extends Admin_model {
         $result = $this->query->update(array('status' => $data));
         return ($result) ? true : false;
     }
+*/
+
+    /**
+     *  (AJAX) Az ingatlanok tábla status mezőjének ad értéket
+     *  siker vagy hiba esetén megy vissza az üzenet a javascriptnek    
+     *
+     *  @param  integer || array        $id_arr 
+     *  @param  integer                 $data (0 vagy 1)    
+     *  @return boolean || integer
+     */
+    public function change_status_query($id_arr, $data)
+    {
+        $success_counter = 0;
+
+        $id_arr = (!is_array($id_arr)) ? (array)$id_arr : $id_arr;
+
+        foreach ($id_arr as $id) {
+            $this->query->set_table(array('ingatlanok'));
+            $this->query->set_where('id', '=', $id);
+            $result = $this->query->update(array('status' => $data));
+
+            if ($result !== false) {
+                // ha az update sql parancsban nincs hiba
+                $success_counter += $result;
+            } else {
+                // visszatér ha az update sql parancsban hiba van
+                return false;
+            }
+        }
+        // visszatér az update-ek számával
+        return $success_counter;
+    }
 
     /**
      * 	(AJAX) Az ingatlanok tábla status mezőjének ad értéket
      * 	siker vagy hiba esetén megy vissza az üzenet a javascriptnek 	
      *
-     * 	@param	integer	$id	
+     * 	@param	integer || array	        $id_arr	
      * 	@param	integer	$data (0 vagy 1)	
      * 	@return void
      */
-    public function change_kiemeles_query($id, $data)
+    public function change_kiemeles_query($id_arr, $data)
     {
-        $this->query->set_table(array('ingatlanok'));
-        $this->query->set_where('id', '=', $id);
-        $result = $this->query->update(array('kiemeles' => $data));
+        $success_counter = 0;
 
-        if ($result === 1) {
-            echo json_encode(array("status" => 'success'));
-        } else {
-            echo json_encode(array("status" => 'error'));
+        $id_arr = (!is_array($id_arr)) ? (array)$id_arr : $id_arr;
+
+        foreach ($id_arr as $id) {
+            $this->query->set_table(array('ingatlanok'));
+            $this->query->set_where('id', '=', $id);
+            $result = $this->query->update(array('kiemeles' => $data));
+
+            if ($result !== false) {
+                // ha az update sql parancsban nincs hiba
+                $success_counter += $result;
+            } else {
+                // visszatér ha az update sql parancsban hiba van
+                return false;
+            }
         }
+        // visszatér az update-ek számával
+        return $success_counter;
     }
 
     /**
@@ -943,9 +977,12 @@ class Property_model extends Admin_model {
         return $this->query->select();
     }
 
+
+
     /**
      * 	Ingatlanok lekéderzése szűrési feltételekkel
      */
+/*    
     public function properties_filter_query()
     {
         $params = $this->request->get_query();
@@ -1009,7 +1046,7 @@ class Property_model extends Admin_model {
             $this->query->set_where('tulaj_nev', 'LIKE', '%' . $params['tulaj_nev'] . '%');
         }
 
-        /*         * ************************* ÁR ALAPJÁN KERESÉS **************************** */
+        //         * ************************* ÁR ALAPJÁN KERESÉS **************************** 
 
         // csak minimum ár van megadva
         if ((isset($params['min_ar']) && !empty($params['min_ar'])) AND ( $params['min_ar'] > 0) AND ( isset($params['max_ar']) AND $params['max_ar'] == '')) {
@@ -1040,7 +1077,7 @@ class Property_model extends Admin_model {
         }
 
 
-        /*         * ************************* TERÜLET ALAPJÁN KERESÉS **************************** */
+        //         * ************************* TERÜLET ALAPJÁN KERESÉS **************************** 
 
         // csak minimum terület van megadva
         if ((isset($params['min_alapterulet']) && !empty($params['min_alapterulet'])) AND ( $params['min_alapterulet'] > 0) AND ( isset($params['max_alapterulet']) AND $params['max_alapterulet'] == '')) {
@@ -1057,7 +1094,7 @@ class Property_model extends Admin_model {
             $this->query->set_where('alapterulet', '<=', $params['max_alapterulet']);
         }
 
-        /*         * ********************* MINIMUM SZOBASZÁM ********************** */
+        //         * ********************* MINIMUM SZOBASZÁM ********************** 
         // minimum szobaszám
         if (isset($params['szobaszam']) && !empty($params['szobaszam']) AND $params['szobaszam'] > 0) {
             $this->query->set_where('szobaszam', '>=', $params['szobaszam']);
@@ -1068,6 +1105,9 @@ class Property_model extends Admin_model {
 
         return $this->query->select();
     }
+*/
+
+
 
     /**
      * 	Lekérdezi a paraméterben megadott tábla rekordjainak számát
@@ -1086,25 +1126,12 @@ class Property_model extends Admin_model {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     /**
      * Ingatlanok lisistájának megjelenítése ajax-al
      */
     public function ajax_get_propertys($request_data) {
-        // ebbe a tömbbe kerülnek a csoportos műveletek üzenetei
-        //$messages = array();
+        // csoportos műveletek üzenetei
+        $custom_action_message = '';
 
         //$user_role = Session::get('user_role_id');
 
@@ -1116,38 +1143,61 @@ class Property_model extends Admin_model {
                     // az id-ket tartalmazó tömböt kapja paraméterként
                     $result = $this->delete_property_AJAX($request_data['id']);
 
-                    if ($result['status'] == 'success') {
-                        $messages = $result['message'];
-                        //$messages['success'] = $result['message'];
+                    if ($result >= 0) {
+                        $custom_action_message = $result . ' ingatlan törölve.';
                     }
-                    if ($result['status'] == 'error') {
-                        $messages = $result['message'];
-                        //$messages['error'] = $result['message'];
+                    else if ($result === false) {
+                        $custom_action_message = Message::show('Adatbázis lekérdezési hiba!');
                     }
-                    
                     break;
 
                 case 'group_make_active':
+
                     $result = $this->change_status_query($request_data['id'], 1);
 
-                    if ($result['success'] > 0) {
-                        $messages['success'] = $result['success'] . Message::show(' munka státusza aktívra változott.');
+                    if ($result >= 0) {
+                        $custom_action_message = $result . ' rekord státusza aktívra változott.';
                     }
-                    if ($result['error'] > 0) {
-                        $messages['error'] = $result['error'] . Message::show(' munka státusza nem változott meg!');
+                    else if ($result === false) {
+                        $custom_action_message = Message::show('Adatbázis lekérdezési hiba!');
                     }
                     break;
 
                 case 'group_make_inactive':
+
                     $result = $this->change_status_query($request_data['id'], 0);
 
-                    if ($result['success'] > 0) {
-                        $messages['success'] = $result['success'] . Message::show(' munka státusza inaktívra változott.');
+                    if ($result >= 0) {
+                        $custom_action_message = $result . ' rekord státusza inaktívra változott.';
                     }
-                    if ($result['error'] > 0) {
-                        $messages['error'] = $result['error'] . Message::show(' munka státusza nem változott meg!');
+                    else if ($result === false) {
+                        $custom_action_message = Message::show('Adatbázis lekérdezési hiba!');
                     }
                     break;
+
+                case 'group_make_highlight':
+                    
+                    $result = $this->change_kiemeles_query($request_data['id'], 1);
+                    
+                    if ($result >= 0) {
+                        $custom_action_message = $result . ' elem kiemelve.';
+                    }
+                    else if ($result === false) {
+                        $custom_action_message = Message::show('Adatbázis lekérdezési hiba!');
+                    }
+                    break;
+
+                case 'group_delete_highlight':
+                    
+                    $result = $this->change_kiemeles_query($request_data['id'], 0);
+                    
+                    if ($result >= 0) {
+                        $custom_action_message = $result . ' elem kiemelés törölve.';
+                    }
+                    else if ($result === false) {
+                        $custom_action_message = Message::show('Adatbázis lekérdezési hiba!');
+                    }
+                    break;                    
             }
         }
 
@@ -1398,15 +1448,13 @@ class Property_model extends Admin_model {
           "recordsFiltered" => $filtered_records,
           "data" => $data
           //"customActionStatus" => 'OK',
-          //"customActionMessage" => $messages
+          //"customActionMessage" => $custom_action_message
         );
 
         if (isset($request_data['customActionType']) && isset($request_data['customActionName'])) {
             $json_data["customActionStatus"] = 'OK';
-            $json_data["customActionMessage"] = $messages;
+            $json_data["customActionMessage"] = $custom_action_message;
         }
-
-
 
         return $json_data;
     }

@@ -56,6 +56,8 @@
                                     <option value="">Válasszon</option>
                                     <option value="group_make_active">Aktív</option>
                                     <option value="group_make_inactive">Inaktív</option>
+                                    <option value="group_make_highlight">Kiemelés</option>
+                                    <option value="group_delete_highlight">Kiemelés törlése</option>
                                     <option value="group_delete">Töröl</option>
                                 </select>
                                 <button class="btn btn-sm grey-cascade table-group-action-submit" title="Csoportos művelet végrehajtása"><i class="fa fa-check"></i> Csoportművelet</button>
