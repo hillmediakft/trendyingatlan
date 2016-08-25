@@ -109,7 +109,7 @@ class Property extends Admin_controller {
         $this->view->title = 'Új lakás oldal';
         $this->view->description = 'Új lakás description';
 
-        $this->view->add_links(array('jquery-ui', 'select2', 'validation', 'ckeditor', 'kartik-bootstrap-fileinput', 'google-maps', 'property_insert'));
+        $this->view->add_links(array('jquery-ui', 'select2', 'validation', 'ckeditor', 'kartik-bootstrap-fileinput', 'google-maps', 'property_insert', 'autocomplete'));
 
         // Megyék adatainak lekérdezése az option listához
         $this->view->county_list = $this->property_model->county_list_query();
@@ -510,6 +510,22 @@ class Property extends Admin_controller {
             Util::redirect('error');
         }
     }
+    
+   /**
+     * 	utca keresés autocomplete 
+     */
+    public function street_list()
+    {
+        if ($this->request->is_ajax()) {
+            $text = $this->request->get_query('query');
+            if($text) {
+                $result = $this->property_model->get_street_suggestions($text);
+                echo json_encode(array('suggestions' => $result));
+                
+            }
+        }    
+
+    }    
 
 }
 ?>

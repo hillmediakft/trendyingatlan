@@ -887,14 +887,14 @@ var InsertProperty = function () {
         hazszam = $('#hazszam').val();
 
         var text = iranyitoszam + ' ' + varos + ', ' + utca + ' ' + hazszam;
-        
-        
-        
+
+
+
         GMaps.geocode({
             address: text,
             callback: function (results, status) {
                 if (status == 'OK' && results[0].formatted_address != '') {
- 
+
                     $('#address_message').html('<div class="note note-info note-bordered">' + results[0].formatted_address + '</div>');
                     console.log(results[0].formatted_address);
 
@@ -905,7 +905,7 @@ var InsertProperty = function () {
                         lng: latlng.lng()
                     });
                     App.scrollTo($('#gmap_geocoding'));
-                    
+
                 } else {
                     $('#address_message').html('<div class="note note-danger note-bordered">Nem állapítható meg cím! Ellenőrizza a cím adatokat!</div>');
                 }
@@ -923,6 +923,16 @@ var InsertProperty = function () {
             mapGeocoding();
         });
     }
+
+    var streetAutocomplete = function () {
+        $('#utca_autocomplete').autocomplete({
+            serviceUrl: 'admin/property/street_list',
+            onSelect: function (suggestion) {
+                alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+
+            }
+        });
+    };
 
     return {
         //main function to initiate the module
@@ -943,6 +953,7 @@ var InsertProperty = function () {
             ckeditorInit();
             //     mapGeocoding();
             showMap();
+            streetAutocomplete();
         }
     };
 

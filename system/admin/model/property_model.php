@@ -9,27 +9,26 @@ class Property_model extends Admin_model {
     /**
      * 	A lakások listájához kérdezi le az adatokat
      */
-    public function all_property_query()
-    {
+    public function all_property_query() {
 // $this->query->debug(true);
         $this->query->set_table(array('ingatlanok'));
         $this->query->set_columns(array(
-          'ingatlanok.id',
-          'ingatlanok.kepek',
-          'ingatlanok.kategoria',
-          'ingatlanok.status',
-          'ingatlanok.kiemeles',
-          'ingatlanok.tipus',
-          'ingatlanok.ar_elado',
-          'ingatlanok.ar_kiado',
-          'ingatlanok.alapterulet',
-          'ingatlanok.szobaszam',
-          'ingatlan_kategoria.kat_nev',
-          'ingatlanok.megtekintes',
-          'users.user_first_name',
-          'users.user_last_name',
-          'district_list.district_name',
-          'city_list.city_name'
+            'ingatlanok.id',
+            'ingatlanok.kepek',
+            'ingatlanok.kategoria',
+            'ingatlanok.status',
+            'ingatlanok.kiemeles',
+            'ingatlanok.tipus',
+            'ingatlanok.ar_elado',
+            'ingatlanok.ar_kiado',
+            'ingatlanok.alapterulet',
+            'ingatlanok.szobaszam',
+            'ingatlan_kategoria.kat_nev',
+            'ingatlanok.megtekintes',
+            'users.user_first_name',
+            'users.user_last_name',
+            'district_list.district_name',
+            'city_list.city_name'
         ));
 
         $this->query->set_join('left', 'ingatlan_kategoria', 'ingatlanok.kategoria', '=', 'ingatlan_kategoria.kat_id');
@@ -46,79 +45,78 @@ class Property_model extends Admin_model {
      * 	
      * 	@param array 
      */
-    public function get_property_query($id)
-    {
+    public function get_property_query($id) {
 // $this->query->debug(true);
         $this->query->set_table(array('ingatlanok'));
         $this->query->set_columns(array(
-          'ingatlanok.id',
-          'ingatlanok.ref_id',
-          'ingatlanok.ingatlan_nev',
-          'ingatlanok.leiras',
-          'ingatlanok.status',
-          'ingatlanok.kiemeles',
-          'ingatlanok.tipus',
-          'ingatlanok.kategoria',
-          'ingatlanok.kerulet',
-          'ingatlanok.ar_elado',
-          'ingatlanok.ar_kiado',
-          'ingatlanok.alapterulet',
-          'ingatlanok.szobaszam',
-          'ingatlanok.allapot',
-          'ingatlanok.kepek',
-          'ingatlanok.docs',
-          'ingatlanok.varos',
-          'ingatlanok.megye',
-          'ingatlanok.utca',
-          'ingatlanok.iranyitoszam',
-          'ingatlanok.utca_megjelenites',
-          'ingatlanok.hazszam_megjelenites',
-          'ingatlanok.terkep',
-          'ingatlanok.hazszam',
-          'ingatlanok.emelet',
-          'ingatlanok.epulet_szintjei',
-          'ingatlanok.kozos_koltseg',
-          'ingatlanok.rezsi',
-          'ingatlanok.futes',
-          'ingatlanok.parkolas',
-          'ingatlanok.kilatas',
-          'ingatlanok.lift',
-          'ingatlanok.butor',
-          'ingatlanok.energetika',
-          'ingatlanok.kert',
-          'ingatlanok.erkely',
-          'ingatlanok.terasz',
-          'ingatlanok.medence',
-          'ingatlanok.szauna',
-          'ingatlanok.jacuzzi',
-          'ingatlanok.kandallo',
-          'ingatlanok.riaszto',
-          'ingatlanok.klima',
-          'ingatlanok.ontozorendszer',
-          'ingatlanok.automata_kapu',
-          'ingatlanok.elektromos_redony',
-          'ingatlanok.konditerem',
-          'ingatlanok.latitude',
-          'ingatlanok.longitude',
-          'ingatlanok.hozzaadas_datum',
-          'ingatlanok.modositas_datum',
-          'ingatlanok.tulaj_nev',
-          'ingatlanok.tulaj_cim',
-          'ingatlanok.tulaj_tel',
-          'ingatlanok.tulaj_email',
-          'ingatlanok.tulaj_notes',
-          'ingatlan_kategoria.kat_nev',
-          'district_list.district_name',
-          'city_list.city_name',
-          'county_list.county_name',
-          'ingatlan_allapot.all_leiras',
-          'ingatlan_futes.futes_leiras',
-          'ingatlan_parkolas.parkolas_leiras',
-          'ingatlan_kilatas.kilatas_leiras',
-          'ingatlan_energetika.energetika_leiras',
-          'ingatlan_kert.kert_leiras',
-          'users.user_first_name',
-          'users.user_last_name'
+            'ingatlanok.id',
+            'ingatlanok.ref_id',
+            'ingatlanok.ingatlan_nev',
+            'ingatlanok.leiras',
+            'ingatlanok.status',
+            'ingatlanok.kiemeles',
+            'ingatlanok.tipus',
+            'ingatlanok.kategoria',
+            'ingatlanok.kerulet',
+            'ingatlanok.ar_elado',
+            'ingatlanok.ar_kiado',
+            'ingatlanok.alapterulet',
+            'ingatlanok.szobaszam',
+            'ingatlanok.allapot',
+            'ingatlanok.kepek',
+            'ingatlanok.docs',
+            'ingatlanok.varos',
+            'ingatlanok.megye',
+            'ingatlanok.utca',
+            'ingatlanok.iranyitoszam',
+            'ingatlanok.utca_megjelenites',
+            'ingatlanok.hazszam_megjelenites',
+            'ingatlanok.terkep',
+            'ingatlanok.hazszam',
+            'ingatlanok.emelet',
+            'ingatlanok.epulet_szintjei',
+            'ingatlanok.kozos_koltseg',
+            'ingatlanok.rezsi',
+            'ingatlanok.futes',
+            'ingatlanok.parkolas',
+            'ingatlanok.kilatas',
+            'ingatlanok.lift',
+            'ingatlanok.butor',
+            'ingatlanok.energetika',
+            'ingatlanok.kert',
+            'ingatlanok.erkely',
+            'ingatlanok.terasz',
+            'ingatlanok.medence',
+            'ingatlanok.szauna',
+            'ingatlanok.jacuzzi',
+            'ingatlanok.kandallo',
+            'ingatlanok.riaszto',
+            'ingatlanok.klima',
+            'ingatlanok.ontozorendszer',
+            'ingatlanok.automata_kapu',
+            'ingatlanok.elektromos_redony',
+            'ingatlanok.konditerem',
+            'ingatlanok.latitude',
+            'ingatlanok.longitude',
+            'ingatlanok.hozzaadas_datum',
+            'ingatlanok.modositas_datum',
+            'ingatlanok.tulaj_nev',
+            'ingatlanok.tulaj_cim',
+            'ingatlanok.tulaj_tel',
+            'ingatlanok.tulaj_email',
+            'ingatlanok.tulaj_notes',
+            'ingatlan_kategoria.kat_nev',
+            'district_list.district_name',
+            'city_list.city_name',
+            'county_list.county_name',
+            'ingatlan_allapot.all_leiras',
+            'ingatlan_futes.futes_leiras',
+            'ingatlan_parkolas.parkolas_leiras',
+            'ingatlan_kilatas.kilatas_leiras',
+            'ingatlan_energetika.energetika_leiras',
+            'ingatlan_kert.kert_leiras',
+            'users.user_first_name',
+            'users.user_last_name'
         ));
 
         $this->query->set_join('left', 'ingatlan_kategoria', 'ingatlanok.kategoria', '=', 'ingatlan_kategoria.kat_id');
@@ -143,8 +141,7 @@ class Property_model extends Admin_model {
     /**
      * 	Lakás adatainak módosításához kérdezi le az összes adatot a táblából
      */
-    public function one_property_alldata_query($id)
-    {
+    public function one_property_alldata_query($id) {
         $this->query->set_table(array('ingatlanok'));
         $this->query->set_columns('*');
         $this->query->set_where('id', '=', $id);
@@ -157,8 +154,7 @@ class Property_model extends Admin_model {
      * 	
      * 	@return	array   üzenetek a javascriptnek
      */
-    public function insert_update_property_data()
-    {
+    public function insert_update_property_data() {
         //megadja, hogy update, vagy insert lesz
         $update_marker = false;
         //megadja, hogy insert utáni update, normál update lesz (modositas_datum megadása miatt)
@@ -166,7 +162,6 @@ class Property_model extends Admin_model {
 
         $data = $this->request->get_post();
 //echo json_encode($data);
-
         // megvizsgáljuk, hogy a post adatok között van-e update_id
         // update-nél a javasriptel hozzáadunk a post adatokhoz egy update_id elemet
         if (isset($data['update_id'])) {
@@ -216,7 +211,7 @@ class Property_model extends Admin_model {
             $error_messages[] = Message::show('Nem adta meg a cím adatoknál a várost.');
             $error_counter += 1;
         }
-        
+
         if (empty($data['utca'])) {
             $error_messages[] = Message::show('Nem adta meg a cím adatoknál az utcát.');
             $error_counter += 1;
@@ -284,20 +279,19 @@ class Property_model extends Admin_model {
                 $this->query->set_table(array('ingatlanok'));
                 $this->query->set_where('id', '=', $id);
                 $result = $this->query->update($data);
-                
+
                 if ($result === 0 || $result === 1) {
-                    
+
                     if ($update_real) {
                         Message::set('success', 'A módosítások sikeresen elmentve!');
                     } else {
                         Message::set('success', 'Ingatlan adatai elmentve.');
                     }
-                
+
                     return array(
                         "status" => 'success',
                         "message" => ''
                     );
-
                 } else {
                     Message::set('error', 'A módosítások mentése nem sikerült, próbálja újra!');
 
@@ -321,7 +315,6 @@ class Property_model extends Admin_model {
                     "last_insert_id" => $last_id,
                     "message" => 'Az adatok bekerültek az adatbázisba.'
                 );
-
             }
         } else {
             // visszaadja a hibaüzeneteket tartalmazó tömböt
@@ -329,7 +322,6 @@ class Property_model extends Admin_model {
                 "status" => 'error',
                 "error_messages" => $error_messages
             );
-
         }
     }
 
@@ -339,21 +331,20 @@ class Property_model extends Admin_model {
      * 	@param	integer||array	$id 	a törlendő rekord id-je
      * 	@return	bool	false || integer
      */
-    public function delete_property_AJAX($id_data)
-    {
+    public function delete_property_AJAX($id_data) {
         // a sikeres törlések számát tárolja
         $success_counter = 0;
         // a sikertelen törlések számát tárolja
         $fail_counter = 0;
 
         // tömbösítjük, ha nem tömb az $id_data
-        $id_data = (!is_array($id_data)) ? (array)$id_data : $id_data;
+        $id_data = (!is_array($id_data)) ? (array) $id_data : $id_data;
 
         foreach ($id_data as $id) {
 
             $id = (int) $id;
 
-    //a lakáshoz tartozó fileok nevének lekérdezése	
+            //a lakáshoz tartozó fileok nevének lekérdezése	
             $this->query->set_table(array('ingatlanok'));
             $this->query->set_columns(array('kepek', 'docs'));
             $this->query->set_where('id', '=', $id);
@@ -367,20 +358,20 @@ class Property_model extends Admin_model {
                 $docs_arr = json_decode($files_arr[0]['docs']);
             }
 
-    //lakás törlése	
+            //lakás törlése	
             $this->query->reset();
             $this->query->set_table(array('ingatlanok'));
             //a delete() metódus integert (lehet 0 is) vagy false-ot ad vissza
             $result = $this->query->delete('id', '=', $id);
 
-    // ha a törlési sql parancsban nincs hiba
+            // ha a törlési sql parancsban nincs hiba
             if ($result !== false) {
                 if ($result > 0) {
-    //sikeres törlés
-    //ha az adatbázisban léteznek képek
+                    //sikeres törlés
+                    //ha az adatbázisban léteznek képek
                     if (isset($photos_arr)) {
                         $photo_path = Config::get('ingatlan_photo.upload_path');
-    //képek törlése
+                        //képek törlése
                         foreach ($photos_arr as $filename) {
                             $thumb_path = Util::thumb_path($photo_path . $filename);
                             $small_path = Util::small_path($photo_path . $filename);
@@ -408,10 +399,9 @@ class Property_model extends Admin_model {
                             };
                         }
                     }
-                    
+
                     // sikeres törlés
                     $success_counter += $result;
-                
                 } else {
                     //sikertelen törlés (0 sor lett törölve)
                     $fail_counter++;
@@ -420,7 +410,6 @@ class Property_model extends Admin_model {
                 // ha a törlési sql parancsban hiba van
                 return false;
             }
-
         } // end foreach
 
         return $success_counter + $fail_counter;
@@ -432,8 +421,7 @@ class Property_model extends Admin_model {
      * 	@param	string	$table 		(tábla neve)
      * 	@return	array
      */
-    public function list_query($table)
-    {
+    public function list_query($table) {
         $this->query->set_table(array($table));
         $this->query->set_columns('*');
         return $this->query->select();
@@ -445,8 +433,7 @@ class Property_model extends Admin_model {
      * 	@param integer	$id 	egy megye id-je (county_id)
      * 	@return array
      */
-    public function utca_list_query($id = null)
-    {
+    public function utca_list_query($id = null) {
         $this->query->set_table(array('street_list'));
         $this->query->set_columns(array('street_id', 'street_name', 'zip_code'));
         if (!is_null($id)) {
@@ -461,8 +448,7 @@ class Property_model extends Admin_model {
      * 	@param	$files_array	Array ($_FILES['valami'])
      * 	@return	Array (képek nevét tartalmazó tömb) or echo errors (json)
      */
-    public function upload_property_photo($files_array)
-    {
+    public function upload_property_photo($files_array) {
         include(LIBS . "/upload_class.php");
 // feltöltés helye
         $imagePath = Config::get('ingatlan_photo.upload_path');
@@ -486,7 +472,7 @@ class Property_model extends Admin_model {
             // fájlneve utáni random karakterlánc
             $suffix = md5(uniqid());
 
-    //file átméretezése, vágása, végleges helyre mozgatása
+            //file átméretezése, vágása, végleges helyre mozgatása
             if ($handle->uploaded) {
                 // kép paramétereinek módosítása
                 $handle->file_auto_rename = true;
@@ -504,7 +490,7 @@ class Property_model extends Admin_model {
                     $ratio = ($handle->image_x / $handle->image_y);
                 }
 
-    // kép készítése
+                // kép készítése
                 $handle->Process($imagePath);
                 if ($handle->processed) {
                     // kép elérési útja és új neve (ezzel tér vissza a metódus, ha nincs hiba!)
@@ -518,7 +504,7 @@ class Property_model extends Admin_model {
 
                 $original_name = $handle->file_dst_name_body;
 
-    // Small kép készítése            
+                // Small kép készítése            
                 $handle->file_new_name_body = $original_name;
                 $handle->file_name_body_add = '_small';
 
@@ -533,7 +519,7 @@ class Property_model extends Admin_model {
 
                 $handle->Process($imagePath);
 
-    // Nézőkép készítése
+                // Nézőkép készítése
                 //nézőkép nevének megadása (kép új neve utána _thumb)	
                 $handle->file_new_name_body = $original_name;
                 $handle->file_name_body_add = '_thumb';
@@ -580,8 +566,7 @@ class Property_model extends Admin_model {
      * 	@param	$files_array	Array ($_FILES['valami'])
      * 	@return	String (kép elérési útja) or echo errors (json)
      */
-    public function upload_property_doc($files_array, $id)
-    {
+    public function upload_property_doc($files_array, $id) {
 //hibaüzenetek tömbje
         $errors = array();
 
@@ -677,8 +662,7 @@ class Property_model extends Admin_model {
      * 	@param	string  $column  	oszlop neve (kepek, docs)
      * 	@return	string				json string (kép vagy dokumentum fájlok neveit tartalmazó json)
      */
-    public function file_data_query($id, $column)
-    {
+    public function file_data_query($id, $column) {
         $this->query->set_table(array('ingatlanok'));
         $this->query->set_columns(array($column));
         $this->query->set_where('id', '=', $id);
@@ -694,8 +678,7 @@ class Property_model extends Admin_model {
      * 	@param	integer	$id					rekord id-je
      * 	@return	bool	true || false	
      */
-    public function property_file_query($new_file_names, $column, $id)
-    {
+    public function property_file_query($new_file_names, $column, $id) {
 // lekérdezzük a képek vagy docs mező értékét
         $result = $this->file_data_query($id, $column);
 
@@ -732,8 +715,7 @@ class Property_model extends Admin_model {
      * 	@param	string	$sort_json 	json string: elem_1[]=3,elem_2[]=1,elem_3[]=2
      * 	@return	bool	true || false	 
      */
-    public function photo_sort($id, $sort_json)
-    {
+    public function photo_sort($id, $sort_json) {
         // képek adatainak lekérdezése
         $string_json = $this->file_data_query($id, 'kepek');
         // képek nevei tömbbe
@@ -769,8 +751,7 @@ class Property_model extends Admin_model {
      * 	@param	string		adatbázis oszlop neve (kepek vagy docs) megadja, hogy képet, vagy dokumentumot kell lekérdezni, törölni
      * 	@return	bool		true || false
      */
-    public function file_delete($id, $sort_id, $type)
-    {
+    public function file_delete($id, $sort_id, $type) {
 // képek vagy dokumentumok lekérdezése (json)
         $string_json = $this->file_data_query($id, $type);
 // fájlok nevét tartalmazó tömb
@@ -815,7 +796,7 @@ class Property_model extends Admin_model {
 // small kép törlése
                 if (!Util::del_file($small_path)) {
                     Message::log($filename . ' - nevü file törlése nem sikerült!');
-                };                
+                };
             }
 // dokumentum file törlése
             if ($type == 'docs') {
@@ -839,15 +820,15 @@ class Property_model extends Admin_model {
      * 	@param	integer	$data (0 vagy 1)	
      * 	@return boolean
      */
-/*
-    public function change_status_query($id, $data)
-    {
-        $this->query->set_table(array('ingatlanok'));
-        $this->query->set_where('id', '=', $id);
-        $result = $this->query->update(array('status' => $data));
-        return ($result) ? true : false;
-    }
-*/
+    /*
+      public function change_status_query($id, $data)
+      {
+      $this->query->set_table(array('ingatlanok'));
+      $this->query->set_where('id', '=', $id);
+      $result = $this->query->update(array('status' => $data));
+      return ($result) ? true : false;
+      }
+     */
 
     /**
      *  (AJAX) Az ingatlanok tábla status mezőjének ad értéket
@@ -857,11 +838,10 @@ class Property_model extends Admin_model {
      *  @param  integer                 $data (0 vagy 1)    
      *  @return boolean || integer
      */
-    public function change_status_query($id_arr, $data)
-    {
+    public function change_status_query($id_arr, $data) {
         $success_counter = 0;
 
-        $id_arr = (!is_array($id_arr)) ? (array)$id_arr : $id_arr;
+        $id_arr = (!is_array($id_arr)) ? (array) $id_arr : $id_arr;
 
         foreach ($id_arr as $id) {
             $this->query->set_table(array('ingatlanok'));
@@ -888,11 +868,10 @@ class Property_model extends Admin_model {
      * 	@param	integer	$data (0 vagy 1)	
      * 	@return void
      */
-    public function change_kiemeles_query($id_arr, $data)
-    {
+    public function change_kiemeles_query($id_arr, $data) {
         $success_counter = 0;
 
-        $id_arr = (!is_array($id_arr)) ? (array)$id_arr : $id_arr;
+        $id_arr = (!is_array($id_arr)) ? (array) $id_arr : $id_arr;
 
         foreach ($id_arr as $id) {
             $this->query->set_table(array('ingatlanok'));
@@ -916,8 +895,7 @@ class Property_model extends Admin_model {
      * 	A paraméter megadja, hogy melyik megyében lévő városokat adja vissza 		
      * 	@param integer	$id 	egy megye id-je (county_id)
      */
-    public function city_list_query($id = null)
-    {
+    public function city_list_query($id = null) {
         $this->query->set_table(array('city_list'));
         $this->query->set_columns(array('city_id', 'city_name'));
         if (!is_null($id)) {
@@ -930,8 +908,7 @@ class Property_model extends Admin_model {
     /**
      * 	Lekérdezi a megyék nevét és id-jét a county_list táblából (az option listához)
      */
-    public function county_list_query()
-    {
+    public function county_list_query() {
         $this->query->set_table(array('county_list'));
         $this->query->set_columns(array('county_id', 'county_name'));
         return $this->query->select();
@@ -940,8 +917,7 @@ class Property_model extends Admin_model {
     /**
      * 	Lekérdez miden elemet az ingatlana_allapot táblából (az option listához)
      */
-    public function allapot_list_query()
-    {
+    public function allapot_list_query() {
         $this->query->set_table(array('ingatlan_allapot'));
         $this->query->set_columns(array('all_id', 'all_leiras'));
         return $this->query->select();
@@ -950,8 +926,7 @@ class Property_model extends Admin_model {
     /**
      * 	Lekérdez miden elemet az ingatlan_futés táblából (az option listához)
      */
-    public function futes_list_query()
-    {
+    public function futes_list_query() {
         $this->query->set_table(array('ingatlan_futes'));
         $this->query->set_columns(array('futes_id', 'futes_leiras'));
         return $this->query->select();
@@ -960,8 +935,7 @@ class Property_model extends Admin_model {
     /**
      * 	Lekérdez miden elemet az ingatlan ingatlan_energetika táblából (az option listához)
      */
-    public function energetika_list_query()
-    {
+    public function energetika_list_query() {
         $this->query->set_table(array('ingatlan_energetika'));
         $this->query->set_columns(array('energetika_id', 'energetika_leiras'));
         return $this->query->select();
@@ -970,144 +944,139 @@ class Property_model extends Admin_model {
     /**
      * 	Lekérdez miden felhasználót a users táblából (az option listához)
      */
-    public function users_list_query()
-    {
+    public function users_list_query() {
         $this->query->set_table(array('users'));
         $this->query->set_columns(array('user_id', 'user_first_name', 'user_last_name'));
         return $this->query->select();
     }
 
-
-
     /**
      * 	Ingatlanok lekéderzése szűrési feltételekkel
      */
-/*    
-    public function properties_filter_query()
-    {
-        $params = $this->request->get_query();
+    /*
+      public function properties_filter_query()
+      {
+      $params = $this->request->get_query();
 
-        $this->query->reset();
-// $this->query->debug(true);
-        $this->query->set_table(array('ingatlanok'));
-        $this->query->set_columns(array(
-          'ingatlanok.id',
-          'ingatlanok.kepek',
-          'ingatlanok.kategoria',
-          'ingatlanok.status',
-          'ingatlanok.kiemeles',
-          'ingatlanok.tipus',
-          'ingatlanok.ar_elado',
-          'ingatlanok.ar_kiado',
-          'ingatlanok.alapterulet',
-          'ingatlanok.szobaszam',
-          'ingatlanok.megtekintes',
-          'ingatlan_kategoria.kat_nev',
-          'users.user_first_name',
-          'users.user_last_name',
-          'district_list.district_name',
-          'city_list.city_name'
-        ));
-        $this->query->set_join('left', 'ingatlan_kategoria', 'ingatlanok.kategoria', '=', 'ingatlan_kategoria.kat_id');
-        $this->query->set_join('left', 'users', 'ingatlanok.ref_id', '=', 'users.user_id');
-        $this->query->set_join('left', 'district_list', 'ingatlanok.kerulet', '=', 'district_list.district_id');
-        $this->query->set_join('left', 'city_list', 'ingatlanok.varos', '=', 'city_list.city_id');
-//csökkenő sorrendben adja vissza
-
-
-        if (isset($params['id']) && !empty($params['id'])) {
-            $this->query->set_where('id', '=', $params['id']);
-        }
-        if (isset($params['status']) && ($params['status'] != '')) {
-            $this->query->set_where('status', '=', $params['status']);
-        }
-        if (isset($params['kiemeles']) && ($params['kiemeles'] != '')) {
-            $this->query->set_where('kiemeles', '=', $params['kiemeles']);
-        }
-        if (isset($params['ref_id']) && !empty($params['ref_id'])) {
-            $this->query->set_where('ref_id', '=', $params['ref_id']);
-        }
-        if (isset($params['tipus']) && !empty($params['tipus'])) {
-            $this->query->set_where('tipus', '=', $params['tipus']);
-        }
-        if (isset($params['kategoria']) && !empty($params['kategoria'])) {
-            $this->query->set_where('kategoria', '=', $params['kategoria']);
-        }
-        if (isset($params['megye']) && !empty($params['megye'])) {
-            $this->query->set_where('megye', '=', $params['megye']);
-        }
-        if (isset($params['varos']) && !empty($params['varos'])) {
-            $this->query->set_where('varos', '=', $params['varos']);
-        }
-        if (isset($params['kerulet']) && !empty($params['kerulet'])) {
-            $this->query->set_where('kerulet', '=', $params['kerulet']);
-        }
-        if (isset($params['tulaj_nev']) && !empty($params['tulaj_nev'])) {
-            $this->query->set_where('tulaj_nev', 'LIKE', '%' . $params['tulaj_nev'] . '%');
-        }
-
-        //         * ************************* ÁR ALAPJÁN KERESÉS **************************** 
-
-        // csak minimum ár van megadva
-        if ((isset($params['min_ar']) && !empty($params['min_ar'])) AND ( $params['min_ar'] > 0) AND ( isset($params['max_ar']) AND $params['max_ar'] == '')) {
-            if (isset($params['tipus']) && $params['tipus'] == 1) {
-                $this->query->set_where('ar_elado', '>=', $params['min_ar']);
-            } elseif (isset($params['tipus']) && $params['tipus'] == 2) {
-                $this->query->set_where('ar_kiado', '>=', $params['min_ar']);
-            }
-        }
-
-        // csak maximum ár van megadva
-        if ((isset($params['max_ar']) && !empty($params['max_ar'])) AND ( $params['max_ar'] > 0) AND ( isset($params['min_ar']) AND $params['min_ar'] == '')) {
-            if (isset($params['tipus']) && $params['tipus'] == 1) {
-                $this->query->set_where('ar_elado', '<=', $params['max_ar']);
-            } elseif (isset($params['tipus']) && $params['tipus'] == 2) {
-                $this->query->set_where('ar_kiado', '<=', $params['max_ar']);
-            }
-        }
-        // minimum és maximum ár is meg van adva
-        if ((isset($params['min_ar']) && !empty($params['min_ar'])) AND ( $params['min_ar'] > 0) AND ( isset($params['max_ar']) && !empty($params['max_ar'])) AND ( $params['max_ar'] > 0)) {
-            if (isset($params['tipus']) && $params['tipus'] == 1) {
-                $this->query->set_where('ar_elado', '>=', $params['min_ar']);
-                $this->query->set_where('ar_elado', '<=', $params['max_ar']);
-            } elseif (isset($params['tipus']) && $params['tipus'] == 2) {
-                $this->query->set_where('ar_kiado', '>=', $params['min_ar']);
-                $this->query->set_where('ar_kiado', '<=', $params['max_ar']);
-            }
-        }
+      $this->query->reset();
+      // $this->query->debug(true);
+      $this->query->set_table(array('ingatlanok'));
+      $this->query->set_columns(array(
+      'ingatlanok.id',
+      'ingatlanok.kepek',
+      'ingatlanok.kategoria',
+      'ingatlanok.status',
+      'ingatlanok.kiemeles',
+      'ingatlanok.tipus',
+      'ingatlanok.ar_elado',
+      'ingatlanok.ar_kiado',
+      'ingatlanok.alapterulet',
+      'ingatlanok.szobaszam',
+      'ingatlanok.megtekintes',
+      'ingatlan_kategoria.kat_nev',
+      'users.user_first_name',
+      'users.user_last_name',
+      'district_list.district_name',
+      'city_list.city_name'
+      ));
+      $this->query->set_join('left', 'ingatlan_kategoria', 'ingatlanok.kategoria', '=', 'ingatlan_kategoria.kat_id');
+      $this->query->set_join('left', 'users', 'ingatlanok.ref_id', '=', 'users.user_id');
+      $this->query->set_join('left', 'district_list', 'ingatlanok.kerulet', '=', 'district_list.district_id');
+      $this->query->set_join('left', 'city_list', 'ingatlanok.varos', '=', 'city_list.city_id');
+      //csökkenő sorrendben adja vissza
 
 
-        //         * ************************* TERÜLET ALAPJÁN KERESÉS **************************** 
+      if (isset($params['id']) && !empty($params['id'])) {
+      $this->query->set_where('id', '=', $params['id']);
+      }
+      if (isset($params['status']) && ($params['status'] != '')) {
+      $this->query->set_where('status', '=', $params['status']);
+      }
+      if (isset($params['kiemeles']) && ($params['kiemeles'] != '')) {
+      $this->query->set_where('kiemeles', '=', $params['kiemeles']);
+      }
+      if (isset($params['ref_id']) && !empty($params['ref_id'])) {
+      $this->query->set_where('ref_id', '=', $params['ref_id']);
+      }
+      if (isset($params['tipus']) && !empty($params['tipus'])) {
+      $this->query->set_where('tipus', '=', $params['tipus']);
+      }
+      if (isset($params['kategoria']) && !empty($params['kategoria'])) {
+      $this->query->set_where('kategoria', '=', $params['kategoria']);
+      }
+      if (isset($params['megye']) && !empty($params['megye'])) {
+      $this->query->set_where('megye', '=', $params['megye']);
+      }
+      if (isset($params['varos']) && !empty($params['varos'])) {
+      $this->query->set_where('varos', '=', $params['varos']);
+      }
+      if (isset($params['kerulet']) && !empty($params['kerulet'])) {
+      $this->query->set_where('kerulet', '=', $params['kerulet']);
+      }
+      if (isset($params['tulaj_nev']) && !empty($params['tulaj_nev'])) {
+      $this->query->set_where('tulaj_nev', 'LIKE', '%' . $params['tulaj_nev'] . '%');
+      }
 
-        // csak minimum terület van megadva
-        if ((isset($params['min_alapterulet']) && !empty($params['min_alapterulet'])) AND ( $params['min_alapterulet'] > 0) AND ( isset($params['max_alapterulet']) AND $params['max_alapterulet'] == '')) {
-            $this->query->set_where('alapterulet', '>=', $params['min_alapterulet']);
-        }
+      //         * ************************* ÁR ALAPJÁN KERESÉS ****************************
 
-        // csak maximum terulet van megadva
-        if ((isset($params['max_alapterulet']) && !empty($params['max_alapterulet'])) AND ( $params['max_alapterulet'] > 0) AND ( isset($params['min_alapterulet']) AND $params['min_alapterulet'] == '')) {
-            $this->query->set_where('alapterulet', '<=', $params['max_alapterulet']);
-        }
-        // minimum és maximum ár is meg van adva
-        if ((isset($params['min_alapterulet']) && !empty($params['min_alapterulet'])) AND ( $params['min_alapterulet'] > 0) AND ( isset($params['max_alapterulet']) && !empty($params['max_alapterulet'])) AND ( $params['max_alapterulet'] > 0)) {
-            $this->query->set_where('alapterulet', '>=', $params['min_alapterulet']);
-            $this->query->set_where('alapterulet', '<=', $params['max_alapterulet']);
-        }
+      // csak minimum ár van megadva
+      if ((isset($params['min_ar']) && !empty($params['min_ar'])) AND ( $params['min_ar'] > 0) AND ( isset($params['max_ar']) AND $params['max_ar'] == '')) {
+      if (isset($params['tipus']) && $params['tipus'] == 1) {
+      $this->query->set_where('ar_elado', '>=', $params['min_ar']);
+      } elseif (isset($params['tipus']) && $params['tipus'] == 2) {
+      $this->query->set_where('ar_kiado', '>=', $params['min_ar']);
+      }
+      }
 
-        //         * ********************* MINIMUM SZOBASZÁM ********************** 
-        // minimum szobaszám
-        if (isset($params['szobaszam']) && !empty($params['szobaszam']) AND $params['szobaszam'] > 0) {
-            $this->query->set_where('szobaszam', '>=', $params['szobaszam']);
-        }
+      // csak maximum ár van megadva
+      if ((isset($params['max_ar']) && !empty($params['max_ar'])) AND ( $params['max_ar'] > 0) AND ( isset($params['min_ar']) AND $params['min_ar'] == '')) {
+      if (isset($params['tipus']) && $params['tipus'] == 1) {
+      $this->query->set_where('ar_elado', '<=', $params['max_ar']);
+      } elseif (isset($params['tipus']) && $params['tipus'] == 2) {
+      $this->query->set_where('ar_kiado', '<=', $params['max_ar']);
+      }
+      }
+      // minimum és maximum ár is meg van adva
+      if ((isset($params['min_ar']) && !empty($params['min_ar'])) AND ( $params['min_ar'] > 0) AND ( isset($params['max_ar']) && !empty($params['max_ar'])) AND ( $params['max_ar'] > 0)) {
+      if (isset($params['tipus']) && $params['tipus'] == 1) {
+      $this->query->set_where('ar_elado', '>=', $params['min_ar']);
+      $this->query->set_where('ar_elado', '<=', $params['max_ar']);
+      } elseif (isset($params['tipus']) && $params['tipus'] == 2) {
+      $this->query->set_where('ar_kiado', '>=', $params['min_ar']);
+      $this->query->set_where('ar_kiado', '<=', $params['max_ar']);
+      }
+      }
 
 
-        $this->query->set_orderby(array('id'), 'DESC');
+      //         * ************************* TERÜLET ALAPJÁN KERESÉS ****************************
 
-        return $this->query->select();
-    }
-*/
+      // csak minimum terület van megadva
+      if ((isset($params['min_alapterulet']) && !empty($params['min_alapterulet'])) AND ( $params['min_alapterulet'] > 0) AND ( isset($params['max_alapterulet']) AND $params['max_alapterulet'] == '')) {
+      $this->query->set_where('alapterulet', '>=', $params['min_alapterulet']);
+      }
+
+      // csak maximum terulet van megadva
+      if ((isset($params['max_alapterulet']) && !empty($params['max_alapterulet'])) AND ( $params['max_alapterulet'] > 0) AND ( isset($params['min_alapterulet']) AND $params['min_alapterulet'] == '')) {
+      $this->query->set_where('alapterulet', '<=', $params['max_alapterulet']);
+      }
+      // minimum és maximum ár is meg van adva
+      if ((isset($params['min_alapterulet']) && !empty($params['min_alapterulet'])) AND ( $params['min_alapterulet'] > 0) AND ( isset($params['max_alapterulet']) && !empty($params['max_alapterulet'])) AND ( $params['max_alapterulet'] > 0)) {
+      $this->query->set_where('alapterulet', '>=', $params['min_alapterulet']);
+      $this->query->set_where('alapterulet', '<=', $params['max_alapterulet']);
+      }
+
+      //         * ********************* MINIMUM SZOBASZÁM **********************
+      // minimum szobaszám
+      if (isset($params['szobaszam']) && !empty($params['szobaszam']) AND $params['szobaszam'] > 0) {
+      $this->query->set_where('szobaszam', '>=', $params['szobaszam']);
+      }
 
 
+      $this->query->set_orderby(array('id'), 'DESC');
+
+      return $this->query->select();
+      }
+     */
 
     /**
      * 	Lekérdezi a paraméterben megadott tábla rekordjainak számát
@@ -1115,16 +1084,11 @@ class Property_model extends Admin_model {
      * 	@param	string	$table
      * 	@return	integer
      */
-    public function count($table)
-    {
+    public function count($table) {
         $sth = $this->connect->query("SELECT COUNT(*) FROM `" . $table . "`");
         $result = $sth->fetch(PDO::FETCH_NUM);
         return (int) $result[0];
     }
-
-
-
-
 
     /**
      * Ingatlanok lisistájának megjelenítése ajax-al
@@ -1145,8 +1109,7 @@ class Property_model extends Admin_model {
 
                     if ($result >= 0) {
                         $custom_action_message = $result . ' ingatlan törölve.';
-                    }
-                    else if ($result === false) {
+                    } else if ($result === false) {
                         $custom_action_message = Message::show('Adatbázis lekérdezési hiba!');
                     }
                     break;
@@ -1157,8 +1120,7 @@ class Property_model extends Admin_model {
 
                     if ($result >= 0) {
                         $custom_action_message = $result . ' rekord státusza aktívra változott.';
-                    }
-                    else if ($result === false) {
+                    } else if ($result === false) {
                         $custom_action_message = Message::show('Adatbázis lekérdezési hiba!');
                     }
                     break;
@@ -1169,35 +1131,32 @@ class Property_model extends Admin_model {
 
                     if ($result >= 0) {
                         $custom_action_message = $result . ' rekord státusza inaktívra változott.';
-                    }
-                    else if ($result === false) {
+                    } else if ($result === false) {
                         $custom_action_message = Message::show('Adatbázis lekérdezési hiba!');
                     }
                     break;
 
                 case 'group_make_highlight':
-                    
+
                     $result = $this->change_kiemeles_query($request_data['id'], 1);
-                    
+
                     if ($result >= 0) {
                         $custom_action_message = $result . ' elem kiemelve.';
-                    }
-                    else if ($result === false) {
+                    } else if ($result === false) {
                         $custom_action_message = Message::show('Adatbázis lekérdezési hiba!');
                     }
                     break;
 
                 case 'group_delete_highlight':
-                    
+
                     $result = $this->change_kiemeles_query($request_data['id'], 0);
-                    
+
                     if ($result >= 0) {
                         $custom_action_message = $result . ' elem kiemelés törölve.';
-                    }
-                    else if ($result === false) {
+                    } else if ($result === false) {
                         $custom_action_message = Message::show('Adatbázis lekérdezési hiba!');
                     }
-                    break;                    
+                    break;
             }
         }
 
@@ -1274,7 +1233,7 @@ class Property_model extends Admin_model {
                 $this->query->set_where('tulaj_nev', 'LIKE', '%' . $request_data['tulaj_nev'] . '%');
             }
 
-            /*         * ************************* ÁR ALAPJÁN KERESÉS **************************** */
+            /*             * ************************* ÁR ALAPJÁN KERESÉS **************************** */
 
             // csak minimum ár van megadva
             if ((isset($request_data['min_ar']) && !empty($request_data['min_ar'])) AND ( $request_data['min_ar'] > 0) AND ( isset($request_data['max_ar']) AND $request_data['max_ar'] == '')) {
@@ -1305,7 +1264,7 @@ class Property_model extends Admin_model {
             }
 
 
-            /*         * ************************* TERÜLET ALAPJÁN KERESÉS **************************** */
+            /*             * ************************* TERÜLET ALAPJÁN KERESÉS **************************** */
 
             // csak minimum terület van megadva
             if ((isset($request_data['min_alapterulet']) && !empty($request_data['min_alapterulet'])) AND ( $request_data['min_alapterulet'] > 0) AND ( isset($request_data['max_alapterulet']) AND $request_data['max_alapterulet'] == '')) {
@@ -1322,15 +1281,11 @@ class Property_model extends Admin_model {
                 $this->query->set_where('alapterulet', '<=', $request_data['max_alapterulet']);
             }
 
-            /*         * ********************* MINIMUM SZOBASZÁM ********************** */
+            /*             * ********************* MINIMUM SZOBASZÁM ********************** */
             // minimum szobaszám
             if (isset($request_data['szobaszam']) && !empty($request_data['szobaszam']) AND $request_data['szobaszam'] > 0) {
                 $this->query->set_where('szobaszam', '>=', $request_data['szobaszam']);
             }
-
-
-
-
         }
 
         //rendezés
@@ -1383,21 +1338,21 @@ class Property_model extends Admin_model {
             $temp['tipus'] = ($value['tipus'] == 1) ? 'eladó' : 'kiadó';
 
             $temp['kategoria'] = $value['kat_nev'];
-            
+
             $temp['varos'] = $value['city_name'];
-            
+
             $temp['alapterulet'] = $value['alapterulet'];
-            
+
             $temp['szobaszam'] = $value['szobaszam'];
-            
+
             $temp['megtekintes'] = $value['megtekintes'];
-            
+
             $temp['ar'] = (!empty($value['ar_elado'])) ? $value['ar_elado'] : $value['ar_kiado'];
 
             $temp['status'] = ($value['status'] == 1) ? '<span class="label label-sm label-success">Aktív</span>' : '<span class="label label-sm label-danger">Inaktív</span>';
 
 
-        //----- MENU HTML -----------------
+            //----- MENU HTML -----------------
 
             $temp['menu'] = '           
               <div class="actions">
@@ -1437,18 +1392,18 @@ class Property_model extends Admin_model {
             $temp['menu'] .= '</ul></div></div>';
 
 
-        // adatok berakása a data tömbbe
+            // adatok berakása a data tömbbe
             $data[] = $temp;
         }
 
         // adatok a javascriptnek        
         $json_data = array(
-          "draw" => $display_draw,
-          "recordsTotal" => $total_records,
-          "recordsFiltered" => $filtered_records,
-          "data" => $data
-          //"customActionStatus" => 'OK',
-          //"customActionMessage" => $custom_action_message
+            "draw" => $display_draw,
+            "recordsTotal" => $total_records,
+            "recordsFiltered" => $filtered_records,
+            "data" => $data
+                //"customActionStatus" => 'OK',
+                //"customActionMessage" => $custom_action_message
         );
 
         if (isset($request_data['customActionType']) && isset($request_data['customActionName'])) {
@@ -1459,7 +1414,30 @@ class Property_model extends Admin_model {
         return $json_data;
     }
 
+    /**
+     * 	Lekérdezi a városok nevét és id-jét a city_list táblából (az option listához)
+     * 	A paraméter megadja, hogy melyik megyében lévő városokat adja vissza 		
+     * 	@param integer	$id 	egy megye id-je (county_id)
+     */
+    public function get_street_suggestions($text) {
+        $this->query->set_table(array('street_list'));
+        $this->query->set_columns('*');
+        $this->query->set_where('street_name', 'LIKE', urldecode($text) . '%');
 
+        $this->query->set_orderby(array('street_name'), 'ASC');
+        $result = $this->query->select();
+
+        $suggestions = array();
+        foreach ($result as $value) {
+            $suggestions[] = array(
+                "value" => $value['street_name'],
+                "data" => $value['street_name'] . ' (' . $value['zip_code'] . ')'
+            );
+        }
+
+        return $suggestions;
+    }
 
 }
+
 ?>

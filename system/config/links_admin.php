@@ -99,6 +99,10 @@ $link['kartik-bootstrap-fileinput'] = array(
 	) 
 );
 
+$link['autocomplete'] = array(
+	'js' => ADMIN_ASSETS . 'plugins/autocomplete/src/jquery.autocomplete.js'
+);
+
 /*----------------- OLDALSPECIFIKUS LINKEK --------------------*/
 
 // blog

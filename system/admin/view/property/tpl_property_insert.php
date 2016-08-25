@@ -263,7 +263,7 @@
                                             <!-- UTCA MEGADÁSA -->	
                                             <div class="form-group">
                                                 <label for="utca" class="control-label">Utca<span class="required">*</span></label>
-                                                <input type="text" name="utca" id="utca" placeholder="" class="form-control input-xlarge" />
+                                                <input type="text" name="utca" id="utca_autocomplete" placeholder="" class="form-control input-xlarge" />
                                             </div>
                                             <!-- IRANYITOSZAM -->	
                                             <div class="form-group">
