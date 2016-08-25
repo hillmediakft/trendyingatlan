@@ -45,7 +45,7 @@ $config['cookie'] = array(
 
 $config['slider'] = array(
     'width' => 1920,
-    'height' => 450,
+    'height' => 800,
     'thumb_width' => 200,
     'upload_path' => UPLOADS . 'slider_photo/'
 );

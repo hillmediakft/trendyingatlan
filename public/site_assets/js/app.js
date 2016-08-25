@@ -778,6 +778,7 @@ webpackJsonpapp([0],[
 	  var $searchTitleBtn = $('.js-search-title-btn'),
 	    $searchFormBlock = $('.js-search-form'),
 	    $searchMap = $searchFormBlock.closest('.map');
+            var $searchSlider = $searchFormBlock.closest('.slider--wide');
 
 	  $searchTitleBtn.on('click', function () {
 	    if ($(this).hasClass('closed')) {
@@ -790,6 +791,7 @@ webpackJsonpapp([0],[
 	      $searchTitleBtn.addClass('closed');
 	      $searchFormBlock.addClass('search--hide');
 	      $searchMap.addClass('map--hide');
+              $searchSlider.addClass('map--hide');
 	    }
 	  });
 

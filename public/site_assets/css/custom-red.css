@@ -1,66 +1,5 @@
 @charset "UTF-8";
 
-/*------------------------------------------------------------------
- * Brand color ($brandColor): #01a1bb
- * Highlight color ($highlightColor): #be272e
- * Highlight Color Dark ($highlightColorDark): #953b00
- * Default Color ($defaultColor): #2c3e50
- * ============================================================== */
-
-/*------------------------------------------------------------------
- * [Master Stylesheet]
- *
- * Project:	RealtySpace
- * Version:	1.1
- * Documantation online http://realtyspace.readthedocs.org/en/latest/index.html
- * Table of contens:
- *   + Header / .header
- *   + Site / .site
- *   + Center / .center
- *   + Main / .main
- *   + Authorization / .auth
- *   + Banner / .banner
- *   + Breadcrumbs / .breadcrumbs
- *   + Contacts / .contacts
- *   + Comment / .comment
- *   + Dropdown / .dropdown
- *   + Scroll Up Button / .scrollup
- *   + Social / .social
- *   + Region Select / .region-select
- *   + FAQ / .faq
- *   + Footer / .footer
- *   + Listing / .listing
- *   + Navbar / .navabar
- *   + Error-status / .error-status
- *   + Form property / .form-property
- *   + Property Details / .property
- *   + Address / .address
- *   + Article / .article
- *   + Feature / .feature
- *   + Form / .form
- *   + Map / .map
- *   + Nav / .nav
- *   + Partners / .partners
- *   + Pricing / .pricing
- *   + Properites / .properties
- *   + Review / .review
- *   + Search / .search
- *   + Slider / .slider
- *   + Subscribe / .subscribe
- *   + Worker / .worker
- *   + Article categories / .article-categories
- *   + Gosubmit / .gosubmit
- * Vendor styles:
- *   + Colorbox Core / #colorbox
- *   + Bonsai / .bonsai
- *   + Leaflet / .leaflet
- *   + PhotoSwipe / .pswp
- *   + RangeSlider / .irs
- *   + Slick-slider / .slick-slider
- *   + Pnotify / .ui-pnotify
- *
- * ============================================================== */
-
 /*!
 Animate.css - http://daneden.me/animate
 Licensed under the MIT license - http://opensource.org/licenses/MIT
@@ -8330,8 +8269,8 @@ mark {
 .worker--index .worker__list {
   margin-left: -15px;
   margin-right: -15px;
-  padding-top: 0;
-  margin-top: 0;
+  padding-top: 30px;
+  margin-top: 30px;
 }
 
 .worker--index .worker__list:before,
@@ -8448,7 +8387,7 @@ mark {
 }
 
 .worker--index .worker__name {
-  margin-bottom: 0;
+  margin-bottom: 10px;
   margin-top: 29px;
   color: #2c3e50;
   text-transform: none;
@@ -8486,6 +8425,7 @@ mark {
 
 .worker--index .worker__info {
   background: #fff;
+  padding: 0px 10px 10px 10px;
 }
 
 .worker--index .worker__info:before,
@@ -10074,9 +10014,9 @@ mark {
 }
 
 .article__title {
-  font-size: 46px;
+  font-size: 36px;
   color: #2c3e50;
-  font-weight: 600;
+  font-weight: 400;
   text-transform: uppercase;
   margin-top: 0;
   margin-bottom: 0;
@@ -10147,6 +10087,8 @@ mark {
 .article__photo img {
   max-width: 100%;
   width: 100%;
+  border: 1px solid #e4e4e4;
+  padding: 5px;
 }
 
 .article__item-title {
@@ -12155,7 +12097,7 @@ fieldset[disabled] .form__in {
 }
 
 .slider__control--prev:before {
-  font-size: 5em;
+  font-size: 3em;
   display: inline-block;
   font-family: FontAwesome;
   content: "";
@@ -12169,7 +12111,7 @@ fieldset[disabled] .form__in {
 }
 
 .slider__control--next:before {
-  font-size: 5em;
+  font-size: 3em;
   display: inline-block;
   font-family: FontAwesome;
   content: "";
@@ -12235,13 +12177,13 @@ fieldset[disabled] .form__in {
 }
 
 .slider--wide .slider__caption {
-  background: rgba(1, 161, 187, 0.8);
+  background: rgba(0, 0, 0, 0.5);
   z-index: 20;
   padding: 40px;
-  width: 700px;
+  width: 500px;
   margin: -30px 0 0 -600px;
   position: absolute;
-  top: 50%;
+  top: 20%;
   left: 50%;
 }
 
@@ -12282,7 +12224,7 @@ fieldset[disabled] .form__in {
     padding: 30px 15px;
     position: relative;
     width: 100%;
-    background: #01a1bb;
+    background: rgba(0, 0, 0, 0.5);
     left: 0;
     margin: 0;
   }
@@ -12309,11 +12251,16 @@ fieldset[disabled] .form__in {
 
 .slider--wide .slider__address {
   color: #fff;
-  font-size: 46px;
-  font-weight: 600;
+  font-size: 36px;
+  font-weight: 400;
   display: block;
   font-family: "Montserrat", sans-serif;
   line-height: 1.1;
+}
+
+.slider--wide .slider__address p {
+  color: #fff;
+  font-size: 28px;
 }
 
 .slider--wide .slider__address:hover {
@@ -12619,9 +12566,9 @@ fieldset[disabled] .form__in {
 
 .slider--wide .slider__control {
   border: none;
-  background: rgba(0, 0, 0, 0.8);
-  width: 70px;
-  height: 70px;
+  background: rgba(0, 0, 0, 0.5);
+  width: 40px;
+  height: 40px;
   position: absolute;
   top: 50%;
   margin-top: -30px;
@@ -14060,7 +14007,7 @@ fieldset[disabled] .form__in {
 
 .review {
   padding-bottom: 20px;
-  background: none !important;
+  background: rgba(0,0,0,0.1) !important;
 }
 
 @media (max-width: 767px) {
@@ -14094,9 +14041,9 @@ fieldset[disabled] .form__in {
 }
 
 .review__title {
-  font-size: 46px;
+  font-size: 36px;
   color: #2c3e50;
-  font-weight: 600;
+  font-weight: 400;
   text-transform: uppercase;
   margin-top: 0;
   margin-bottom: 0;
@@ -14231,7 +14178,6 @@ fieldset[disabled] .form__in {
 }
 
 .review__details {
-  float: left;
   padding-left: 10px;
 }
 
@@ -14250,6 +14196,7 @@ fieldset[disabled] .form__in {
   padding: 0;
   text-transform: uppercase;
   display: block;
+  text-align: center;
 }
 
 @media (max-width: 767px) {
@@ -14262,6 +14209,7 @@ fieldset[disabled] .form__in {
 .review__post {
   color: #2c3e50;
   display: block;
+  text-align: center;
 }
 
 @media (max-width: 767px) {
@@ -14316,7 +14264,7 @@ fieldset[disabled] .form__in {
   display: inline-block;
   font-family: FontAwesome;
   content: "";
-  color: #01a1bb;
+  color: #be272e;
 }
 
 .review--wide {
@@ -14391,8 +14339,9 @@ fieldset[disabled] .form__in {
 
 .review--wide .review__info p {
   font-style: italic;
-  color: #01a1bb;
+  color: #be272e;
   text-align: center;
+  font-size: 16px;
 }
 
 .review--wide .review__info-quote {
@@ -14938,7 +14887,7 @@ fieldset[disabled] .dropdown--select .dropdown-toggle {
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  height: 50px;
+  height: 40px;
 }
 
 .header__settings {
@@ -14946,12 +14895,12 @@ fieldset[disabled] .dropdown--select .dropdown-toggle {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  margin-top: 15px;
+  margin-top: 7px;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  width: 350px;
+  width: auto;
 }
 
 @media (max-width: 767px) {
@@ -14994,7 +14943,7 @@ fieldset[disabled] .dropdown--select .dropdown-toggle {
   display: block;
   font-weight: 400;
   line-height: 1;
-  padding: 13px 40px 0;
+  padding: 7px 20px 0;
 }
 
 .header__phone:hover {
@@ -15044,7 +14993,7 @@ fieldset[disabled] .dropdown--select .dropdown-toggle {
 
 .header__logo {
   text-align: center;
-  margin-top: 8px;
+  margin-top: 0px;
 }
 
 @media (min-width: 768px) {
@@ -15059,18 +15008,18 @@ fieldset[disabled] .dropdown--select .dropdown-toggle {
 }
 
 .header__navbar-toggle {
-  background: none;
+  background: #000;
   border: none;
-  margin-top: 5px;
+  margin-top: 0px;
   height: 40px;
   width: 40px;
   padding: 0 !important;
-  border-radius: 20px;
+  border-radius: 0px;
   outline: none;
 }
 
 .header__navbar-toggle.collapsed {
-  background: #fff;
+  background: #000;
 }
 
 .header__navbar-toggle.collapsed .header__navbar-show {
@@ -15157,7 +15106,7 @@ fieldset[disabled] .dropdown--select .dropdown-toggle {
 }
 
 .header--dark {
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.9);
   color: #fff;
 }
 
@@ -15657,7 +15606,7 @@ fieldset[disabled] .dropdown--select .dropdown-toggle {
   padding: 0;
   border: none;
   min-width: 200px;
-  background: #01a1bb;
+  background: #999;
   margin: 0;
   z-index: 15;
 }
@@ -16126,6 +16075,11 @@ fieldset[disabled] .dropdown--select .dropdown-toggle {
   text-transform: uppercase;
   font-weight: 600;
   display: block;
+  text-decoration: none;
+  color: #fff;
+}
+
+a.navbar__link:hover {
   text-decoration: none;
   color: #fff;
 }
@@ -16651,10 +16605,26 @@ fieldset[disabled] .dropdown--select .dropdown-toggle {
 
 .footer span,
 .footer p,
-.footer a {
+.footer a,
+.footer li{
   color: #bebebe;
   font-weight: normal;
   margin-bottom: 15px;
+}
+
+.footer ul{
+  padding-left: 0px;
+
+}
+
+.footer li{
+  color: #bebebe;
+  margin-bottom: 5px;
+  list-style-type: none;
+}
+
+.footer li i{
+  padding-right: 8px;
 }
 
 .footer__copyright {
@@ -18376,9 +18346,9 @@ fieldset[disabled] .search__form-control {
 }
 
 .properties__title {
-  font-size: 46px;
+  font-size: 36px;
   color: #2c3e50;
-  font-weight: 600;
+  font-weight: 400;
   text-transform: uppercase;
   margin-top: 0;
   margin-bottom: 0;
@@ -18548,6 +18518,9 @@ fieldset[disabled] .search__form-control {
     float: left;
     width: 25%;
   }
+  .owl-item  .properties__item {
+    width: 100%;
+  }
 }
 
 @media (min-width: 1200px) {
@@ -18566,8 +18539,9 @@ fieldset[disabled] .search__form-control {
   }
 
   .properties__item:hover .properties__info {
-    background: #2c3e50;
-    border-color: #2c3e50;
+    background: #999;
+    border-color: #999;
+    
   }
 
   .properties__item:hover .properties__address {
@@ -18587,12 +18561,12 @@ fieldset[disabled] .search__form-control {
   }
 
   .properties__item:hover .item-photo__hover {
-    opacity: 1;
+    opacity: 0.8;
   }
 
   .properties__item:hover .item-photo img {
-    width: 110%;
-    max-width: 110%;
+    width: 100%;
+    max-width: 100%;
   }
 
   .properties__item:hover .item-photo--static img {
@@ -18906,7 +18880,7 @@ fieldset[disabled] .search__form-control {
 .properties__info {
   background: #fff;
   border-top: none;
-  padding: 15px 30px;
+  padding: 15px 15px;
   -webkit-transition: 0.5s;
   transition: 0.5s;
 }
@@ -19370,7 +19344,10 @@ fieldset[disabled] .search__form-control {
 @media (min-width: 1200px) {
   .properties--index .properties__item {
     float: left;
-    width: 33.33333%;
+    width: 25%;
+  }
+   .properties--index .owl-item .properties__item {
+    width: 100%;
   }
 }
 
@@ -22958,9 +22935,9 @@ fieldset[disabled] .subscribe__field {
 }
 
 .listing__title {
-  font-size: 46px;
+  font-size: 36px;
   color: #2c3e50;
-  font-weight: 600;
+  font-weight: 400;
   text-transform: uppercase;
   margin-top: 0;
   margin-bottom: 0;
@@ -23022,7 +22999,7 @@ fieldset[disabled] .subscribe__field {
 }
 
 .listing__panel {
-  background: #01a1bb;
+  background: #999;
   color: #2c3e50;
   margin-top: 0;
   margin-bottom: 0;
@@ -26326,7 +26303,7 @@ fieldset[disabled] .auth__in {
 .auth--header {
   border: none;
   outline: none;
-  margin-top: 15px;
+  margin-top: 10px;
 }
 
 .auth--header .dropdown__menu {
@@ -27220,7 +27197,7 @@ fieldset[disabled] .auth__in {
 
 .achievement {
   background: url("../img/bg-achievement.jpg") 0 0 no-repeat;
-  padding-bottom: 50px;
+  padding-bottom: 20px;
 }
 
 @media (max-width: 1199px) {

@@ -507,11 +507,11 @@
       $rangeArea.ionRangeSlider({
         type: "double",
         min: 0,
-        max: 2000,
+        max: 200,
         hide_min_max: true,
         hide_from_to: false,
         grid: false,
-        postfix: ' sq ft',
+        postfix: ' m2',
         force_edges: true,
         step: 10,
         max_postfix: '+'
@@ -522,11 +522,11 @@
       $rangePrice.ionRangeSlider({
         type: "double",
         min: 0,
-        max: 5000000,
+        max: 50000000,
         hide_min_max: true,
         hide_from_to: false,
         grid: false,
-        prefix: '$',
+        postfix: ' Ft',
         force_edges: true,
         max_postfix: '+',
         step: 1000,

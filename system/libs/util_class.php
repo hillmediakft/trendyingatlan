@@ -248,6 +248,34 @@ class Util {
         $ftime = filemtime($fname);
         return $uri . '?v=' . $ftime;
     }
+    
+    /**
+     * Megállapítja, hogy a filter paraméter létezik-e a filter session tömbben
+     * Ha megyegyezik a paraméterként átadott értékkel, akkor true-t ad vissza 
+     * 
+     * @param	string	$filter_name a filter neve (pl: megye
+     * @param	string	$value a filter elem értéke
+     * @return	boolean	true, false
+     */
+    public static function in_filter($filter_name, $value) {
+
+        $filter = Session::get('filter');
+
+        if (isset($filter)) {
+            if (isset($filter[$filter_name])) {
+
+                if ($filter[$filter_name] == $value) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }    
 
 }
 ?>

@@ -116,7 +116,7 @@ class Users_model extends Admin_model {
             $data['user_email'] = $this->request->get_post('email');
             $data['user_phone'] = $this->request->get_post('phone');
 
-            if (empty($this->request->get_post('img_url'))) {
+            if ($this->request->get_post('img_url') == '') {
                 $data['user_photo'] = Config::get('user.default_photo');
             } else {
                 $path_parts = pathinfo($this->request->get_post('img_url'));
@@ -307,7 +307,7 @@ class Users_model extends Admin_model {
         ));
         
         // Jelszó ellenőrzés ha üres a password és az ellenőrző password mezö
-        if (empty($this->request->get_post('password')) && empty($this->request->get_post('password_again'))) {
+        if ($this->request->get_post('password') == '' && $this->request->get_post('password_again') == '') {
             $password_empty = true;
         } else {
             $validate->add_rule('password', 'password', array(
@@ -370,7 +370,7 @@ class Users_model extends Admin_model {
             }
 
             //ha van feltöltve user kép
-            if (!empty($this->request->get_post('img_url'))) {
+            if ($this->request->get_post('img_url') != '') {
                 $path_parts = pathinfo($this->request->get_post('img_url'));
                 $data['user_photo'] = $path_parts['filename'] . '.' . $path_parts['extension'];
             }
