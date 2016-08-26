@@ -29,7 +29,7 @@ class Ingatlanok extends Site_controller {
         $this->view->kedvencek_list = $this->kedvencek_list;
 
        // paginator
-        include(LIBS . '/pagine_class.php');
+        // include(LIBS . '/pagine_class.php');
         // paginátor objektum létrehozása (paraméter neve, limit)
         $pagine = new Paginator('oldal', $this->settings['pagination']);
         // adatok lekérdezése limittel
@@ -77,7 +77,7 @@ class Ingatlanok extends Site_controller {
      * 	(AJAX) - törli a filter session változót  
      */
     public function reset_filter() {
-        if (Util::is_ajax() && isset($_POST["reset-filter"])) {
+        if ($this->request->is_ajax() && $this->request->has_post('reset-filter')) {
             Session::set('filter', array());
         } else {
             exit();
@@ -88,8 +88,8 @@ class Ingatlanok extends Site_controller {
      * 	hozzáadja az ingatlan id-t a kedvencek cookie-hoz  
      */
     public function add_property_to_cookie() {
-        if (Util::is_ajax() && isset($_POST["ingatlan_id"])) {
-            $id = (int) $_POST["ingatlan_id"];
+        if ($this->request->is_ajax() && $this->request->has_post('ingatlan_id')) {
+            $id = $this->get_post('ingatlan_id', 'integer');
             $this->ingatlanok_model->refresh_kedvencek_cookie($id);
         } else {
             exit();
@@ -99,11 +99,10 @@ class Ingatlanok extends Site_controller {
     /**
      * 	törli az ingatlan id-t a kedvencek cookie-ból  
      */
-    public function delete_property_from_cookie() {
-        if (Util::is_ajax() && isset($_POST["ingatlan_id"])) {
-            $id = (int) $_POST["ingatlan_id"];
-
-
+    public function delete_property_from_cookie()
+    {
+        if ($this->request->is_ajax() && $this->request->has_post('ingatlan_id')) {
+            $id = $this->get_post('ingatlan_id', 'integer');
             $this->ingatlanok_model->delete_property_from_cookie($id);
         } else {
             exit();
@@ -114,20 +113,21 @@ class Ingatlanok extends Site_controller {
      * Adatlap nyomtatáshoz meghívja a generate_pdf model metódust
      *   
      */
-    public function adatlap_nyomtatas() {
-
-        $id = (int) $this->registry->params['id'];
+    public function adatlap_nyomtatas()
+    {
+        $id = (int) $this->request->get_params('id');
         $this->ingatlanok_model->generate_pdf($id, $this->view->settings);
     }
 
     /**
      * 	Email küldés Ajax-szal  
      */
-    public function adatlap_ajax_email() {
+    public function adatlap_ajax_email()
+    {
 
-        if (Util::is_ajax() && isset($_POST["name"])) {
+        if ($this->request->is_ajax() && $this->request->has_post('name')) {
         
-            Util::send_mail($_POST["ref_email"], "Érdeklődés ingatlan iránt");
+            Util::send_mail($this->request->get_post('ref_email'), "Érdeklődés ingatlan iránt");
             exit();
         } else {
             exit();
@@ -135,5 +135,4 @@ class Ingatlanok extends Site_controller {
     }    
 
 }
-
 ?>
