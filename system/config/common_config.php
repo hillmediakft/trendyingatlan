@@ -22,6 +22,18 @@ $config['email'] = array(
         'site_url' => BASE_URL . 'felhasznalok/ellenorzes_hirlevel',
         'subject' => 'Hírlevélre feliratkozás hitelesítése.',
         'link' => 'Kattints erre a linkre a feliratkozás aktiválásához.'
+    ),
+    'from_email' => 'info@trendyingatlan.hu',
+    'from_name' => 'Trendy ingatlan',
+    'server' => array(
+        'phpmailer_debug_mode' => 1,
+        'use_smtp' => true,
+        'smtp_host' => 'mail.dr-losonczy.hu',
+        'smtp_auth' => true,
+        'smtp_username' => 'noreply@dr-losonczy.hu',
+        'smtp_password' => 'S8xOSfnsi',
+        'smtp_port' => 587,
+        'smtp_encryption' => 'tls'
     )
 );
 
