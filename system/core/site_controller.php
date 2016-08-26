@@ -5,9 +5,6 @@ class Site_controller extends Controller {
     public function __construct() {
         parent::__construct();
 
-        // model betöltése
-        $this->loadModel($this->request->get_controller() . '_model');
-
         self::get_settings();
 
         // kedvencek lekérdezése
@@ -15,7 +12,7 @@ class Site_controller extends Controller {
     }
 
     /**
-     * 	(AJAX) - törli a filter session változót  
+     * 	 
      */
     public function get_settings() {
         if (!$this->request->is_ajax()) {
@@ -25,7 +22,7 @@ class Site_controller extends Controller {
     }
 
     /**
-     * 	(AJAX) - törli a filter session változót  
+     * 	
      */
     public function get_kedvencek() {
         
