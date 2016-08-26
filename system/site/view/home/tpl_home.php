@@ -51,7 +51,7 @@
                                     <img src="<?php echo Util::small_path(Config::get('ingatlan_photo.upload_path') . $photo_array[0]); ?>" alt="<?php echo $value['ingatlan_nev']; ?>">
                                 <?php } ?>
                                 <?php if ($value['kepek'] == null) { ?>
-                                    <img src="<?php echo Util::small_path(Config::get('ingatlan_photo.upload_path') . $photo_array[0]); ?>" alt="<?php echo $value['ingatlan_nev']; ?>">
+                                    <img src="<?php echo Config::get('ingatlan_photo.upload_path') . 'placeholder.jpg'; ?>" alt="<?php echo $value['ingatlan_nev']; ?>">
                                 <?php } ?>
                             </a>
                             <span class="properties__ribon"><?php echo($value['tipus'] == 1) ? 'Eladó' : 'Kiadó'; ?></span>
