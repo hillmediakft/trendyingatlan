@@ -249,7 +249,7 @@ HTML;
 	 *
 	 * @param string $controller 			- vizsgálandó controller neve illetve nevek 
 	 * @param string $action 				- action neve illetve nevek
-	 * @param string $attribute_name 		- html elem atribútum neve
+	 * @param string $attribute_name 		- html elem class neve
 	 */		
 	public function menu_active($controller, $action = null, $attribute_name = 'active')
 	{
