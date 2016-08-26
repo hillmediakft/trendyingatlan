@@ -2,7 +2,6 @@
 <html lang="hu">
     <head>
         <meta charset="UTF-8">
-        <base href="<?php echo $this->registry->site_url; ?>">
         <title><?php echo $this->title; ?></title>
         <base href="<?php echo BASE_URL; ?>">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
