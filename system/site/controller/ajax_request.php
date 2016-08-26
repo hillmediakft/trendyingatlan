@@ -4,7 +4,6 @@ class Ajax_request extends Site_controller {
     function __construct() {
         parent::__construct();
         // Auth::handleExpire();
-        $this->loadModel('ajax_request_model');
     }
 
     public function index() {
@@ -16,7 +15,7 @@ class Ajax_request extends Site_controller {
      *  AJAX Email küldés
      */
     public function ajax_send_email() {
-        if (Util::is_ajax()) {
+        if ($this->request->is_ajax()) {
 
             $from_email = '';
             $from_name = '';
