@@ -2,6 +2,8 @@
 
 class Ingatlanok_model extends Site_model {
 
+    protected $table = 'ingatlanok';
+
     function __construct() {
         parent::__construct();
     }
@@ -45,10 +47,9 @@ class Ingatlanok_model extends Site_model {
      * 	
      * 	@param array 
      */
-    public function get_favourite_properties_data($id_array) {
-        $this->query->reset();
+    public function get_favourite_properties_data($id_array)
+    {
 //        $this->query->debug(true);
-        $this->query->set_table(array('ingatlanok'));
         $this->query->set_columns(array(
           'ingatlanok.id',
           'ingatlanok.ingatlan_nev',
@@ -78,9 +79,8 @@ class Ingatlanok_model extends Site_model {
         }
         $this->query->set_where('status', '=', 1);
         $this->query->set_orderby('ingatlanok.id', 'DESC');
-        $result = $this->query->select();
 
-        return $result;
+        return $this->query->select();
     }
 
     /**
@@ -88,10 +88,9 @@ class Ingatlanok_model extends Site_model {
      * 	
      * 	@param array 
      */
-    public function get_property_query($id) {
-        $this->query->reset();
+    public function get_property_query($id)
+    {
 //        $this->query->debug(true);
-        $this->query->set_table(array('ingatlanok'));
         $this->query->set_columns(array(
           'ingatlanok.id',
           'ingatlanok.ref_id',
@@ -163,21 +162,19 @@ class Ingatlanok_model extends Site_model {
         $this->query->set_where('id', '=', $id);
 
         $this->query->set_where('status', '=', 1);
-        $result = $this->query->select();
 
-        return $result;
+        return $this->query->select();
     }
 
     /**
      * 	Munkák lekéderzése szűrési feltételekkel
      *
      */
-    public function properties_filter_query($limit = null, $offset = null) {
-        $params = $_GET;
+    public function properties_filter_query($limit = null, $offset = null)
+    {
+        $params = $this->request->get_query();
 
-        $this->query->reset();
 //        $this->query->debug(true);
-        $this->query->set_table(array('ingatlanok'));
         $this->query->set_columns('SQL_CALC_FOUND_ROWS 
           `ingatlanok`.`id`,
           `ingatlanok`.`ingatlan_nev`,
@@ -300,8 +297,6 @@ class Ingatlanok_model extends Site_model {
             $this->query->set_orderby(array('id'), 'DESC');
         }
 
-
-
         return $this->query->select();
     }
 
@@ -309,7 +304,8 @@ class Ingatlanok_model extends Site_model {
      * 	A jobs_filter_query() metódus után kell meghívni,
      *  és visszaadja a limittel lekérdezett de a szűrésnek megfelelő összes sor számát
      */
-    public function properties_filter_count_query() {
+    public function properties_filter_count_query()
+    {
         return $this->query->found_rows();
     }
 
@@ -317,10 +313,9 @@ class Ingatlanok_model extends Site_model {
      * 	Az ingatlanok táblában szereplő aktív ingatlanok számát adja vissza
      *  @return integer
      */
-    public function get_count() {
-        $this->query->reset();
-        //       $this->query->debug(true);
-        $this->query->set_table(array('ingatlanok'));
+    public function get_count()
+    {
+        // $this->query->debug(true);
         $this->query->set_columns('id');
         $this->query->set_where('status', '=', '1');
         $result = $this->query->select();
@@ -333,7 +328,8 @@ class Ingatlanok_model extends Site_model {
      * 	@param	string	$table 		(tábla neve)
      * 	@return	array
      */
-    public function list_query($table) {
+    public function list_query($table)
+    {
         $this->query->reset();
         $this->query->set_table(array($table));
         $this->query->set_columns('*');
@@ -345,26 +341,28 @@ class Ingatlanok_model extends Site_model {
      * 	A paraméter megadja, hogy melyik megyében lévő városokat adja vissza 		
      * 	@param integer	$id 	egy megye id-je (county_id)
      */
-    public function city_list_query($id = null) {
+    public function city_list_query($id = null)
+    {
         $this->query->reset();
         $this->query->set_table(array('city_list'));
         $this->query->set_columns(array('city_id', 'city_name'));
         if (!is_null($id)) {
             $this->query->set_where('county_id', '=', $id);
         }
-        $result = $this->query->select();
-        return $result;
+
+        return $this->query->select();
     }
 
     /**
      * 	Lekérdezi a megyék nevét és id-jét a county_list táblából (az option listához)
      */
-    public function county_list_query() {
+    public function county_list_query()
+    {
         $this->query->reset();
         $this->query->set_table(array('county_list'));
         $this->query->set_columns(array('county_id', 'county_name'));
-        $result = $this->query->select();
-        return $result;
+
+        return $this->query->select();
     }
 
     /**
@@ -373,8 +371,8 @@ class Ingatlanok_model extends Site_model {
      *
      * @return string 	 a városok listája html-ben, option listaként
      */
-    public function county_list_query_with_prop_no() {
-
+    public function county_list_query_with_prop_no()
+    {
         $megye_lista = '';
         $filter = Session::get('filter');
 
@@ -454,9 +452,8 @@ class Ingatlanok_model extends Site_model {
      *
      * @return string 	 a városok listája html-ben, option listaként
      */
-    public function district_list_query_with_prop_no() {
-
-
+    public function district_list_query_with_prop_no()
+    {
         $kerulet_lista = '<option value="">-- mindegy --</option>';
 
         $result = $this->list_query('district_list');
@@ -486,40 +483,44 @@ class Ingatlanok_model extends Site_model {
     /**
      * 	Lekérdez miden elemet az ingatlan állapot táblából (az option listához)
      */
-    public function allapot_list_query() {
+    public function allapot_list_query()
+    {
         $this->query->reset();
         $this->query->set_table(array('ingatlan_allapot'));
         $this->query->set_columns(array('all_id', 'all_leiras'));
-        $result = $this->query->select();
-        return $result;
+
+        return $this->query->select();
     }
 
     /**
      * 	Lekérdez miden elemet az ingatlan fűtés táblából (az option listához)
      */
-    public function futes_list_query() {
+    public function futes_list_query()
+    {
         $this->query->reset();
         $this->query->set_table(array('ingatlan_futes'));
         $this->query->set_columns(array('futes_id', 'futes_leiras'));
-        $result = $this->query->select();
-        return $result;
+
+        return $this->query->select();
     }
 
     /**
      * 	Lekérdez miden elemet az ingatlan ingatlan_energetika táblából (az option listához)
      */
-    public function energetika_list_query() {
+    public function energetika_list_query()
+    {
         $this->query->reset();
         $this->query->set_table(array('ingatlan_energetika'));
         $this->query->set_columns(array('energetika_id', 'energetika_leiras'));
-        $result = $this->query->select();
-        return $result;
+
+        return $this->query->select();
     }
 
     /**
      * 	Frissíti a cookie-t a kedvencekhez
      */
-    public function refresh_kedvencek_cookie($id) {
+    public function refresh_kedvencek_cookie($id)
+    {
         $kedvencek_array = json_decode(Cookie::get('kedvencek'));
 
         if (is_array($kedvencek_array) && !in_array($id, $kedvencek_array)) {
@@ -542,7 +543,8 @@ class Ingatlanok_model extends Site_model {
     /**
      * 	törli az id-t a kedvencek cookie-ból
      */
-    public function delete_property_from_cookie($id) {
+    public function delete_property_from_cookie($id)
+    {
         $kedvencek_array = json_decode(Cookie::get('kedvencek'));
 
         foreach ($kedvencek_array as $key => $value) {
@@ -560,7 +562,8 @@ class Ingatlanok_model extends Site_model {
     /**
      * 	A kedvencekhez hozzáadott ingatlan html kódját generálja a kedvencek dobozba
      */
-    public function favourite_property_html($id) {
+    public function favourite_property_html($id)
+    {
         $property_data = $this->get_favourite_properties_data($id);
         $property_data = $property_data[0];
 
@@ -610,7 +613,8 @@ class Ingatlanok_model extends Site_model {
      * 	
      * 	@param array 
      */
-    public function get_agent($id) {
+    public function get_agent($id)
+    {
         $this->query->reset();
 //        $this->query->debug(true);
         $this->query->set_table(array('users'));
@@ -639,15 +643,47 @@ class Ingatlanok_model extends Site_model {
      * @param string 	$var2	leírás
      * @return array, boolean 
      */
-    public function hasonlo_ingatlanok($ingatlan_id, $ingatlan_tipus, $kategoria, $varos, $ar) {
+    public function hasonlo_ingatlanok($ingatlan_id, $ingatlan_tipus, $kategoria, $varos, $ar)
+    {
         $min_ar = $ar - ($ar * 0.1);
         $max_ar = $ar + ($ar * 0.1);
         $price_string = ($ingatlan_tipus == 1) ? 'ar_elado' : 'ar_kiado';
 
+// ------------NEW
+
+        $data = array(
+                ':ingatlan_tipus' => $ingatlan_tipus,
+                ':kategoria' => $kategoria,
+                ':varos' => $varos,
+                ':price_string' => $price_string,
+                ':min_ar' => $min_ar,
+                ':max_ar' => $max_ar,
+                ':ingatlan_id' => $ingatlan_id
+            );
+
+        $sql = "SELECT id, ingatlan_nev, tipus, ar_elado, ar_kiado, varos, kategoria, szobaszam, alapterulet, kepek, ingatlan_kategoria.kat_nev, city_list.city_name FROM ingatlanok "
+                . "LEFT JOIN ingatlan_kategoria ON ingatlanok.kategoria=ingatlan_kategoria.kat_id "
+                . "LEFT JOIN city_list ON ingatlanok.varos=city_list.city_id "
+                . "WHERE status = 1 AND tipus = :ingatlan_tipus AND kategoria = :kategoria AND varos = :varos AND (:price_string BETWEEN :min_ar AND :max_ar) AND id != :ingatlan_id ORDER BY id DESC LIMIT 4";
+
+        $sth = $this->connect->prepare($sql); 
+        $result = $sth->execute($data);               
+
+        if (!$result) {
+            return false;
+        } else {
+            return $sth->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+//---------END NEW
+
+//--------OLD
+/*        
         $sql = "SELECT id, ingatlan_nev, tipus, ar_elado, ar_kiado, varos, kategoria, szobaszam, alapterulet, kepek, ingatlan_kategoria.kat_nev, city_list.city_name FROM ingatlanok "
                 . "LEFT JOIN ingatlan_kategoria ON ingatlanok.kategoria=ingatlan_kategoria.kat_id "
                 . "LEFT JOIN city_list ON ingatlanok.varos=city_list.city_id "
                 . "WHERE status = 1 AND tipus = '$ingatlan_tipus' AND kategoria = '$kategoria' AND varos = '$varos' AND ($price_string BETWEEN '$min_ar' AND '$max_ar') AND id != '$ingatlan_id' ORDER BY id DESC LIMIT 4";
+
 
         $this->query->reset();
 //        $this->query->debug(true);
@@ -658,6 +694,11 @@ class Ingatlanok_model extends Site_model {
         } else {
             return $result;
         }
+*/        
+//-------END OLD
+
+
+
     }
 
     /**
@@ -666,8 +707,8 @@ class Ingatlanok_model extends Site_model {
      * @param $id array    ingatlan id
      * @return void 
      */
-    public function increase_no_of_clicks($id) {
-
+    public function increase_no_of_clicks($id)
+    {
         $increase = array('megtekintes' => 'megtekintes+1');
 
         $this->query->reset();
@@ -684,8 +725,8 @@ class Ingatlanok_model extends Site_model {
      * @param $id integer   ingatlan id
      * @return void 
      */
-    public function generate_pdf($id, $settings) {
-
+    public function generate_pdf($id, $settings)
+    {
         $row = $this->get_property_query($id);
         $row = $row[0];
 
@@ -973,7 +1014,8 @@ class Ingatlanok_model extends Site_model {
         $pdf->Output('adatlap_' . $id . '.pdf', 'D');
     }
 
-    public function utf8_to_latin2_hun($str) {
+    public function utf8_to_latin2_hun($str)
+    {
         return str_replace(
                 array("\xc3\xb6", "\xc3\xbc", "\xc3\xb3", "\xc5\x91", "\xc3\xba", "\xc3\xa9", "\xc3\xa1", "\xc5\xb1", "\xc3\xad", "\xc3\x96", "\xc3\x9c", "\xc3\x93", "\xc5\x90", "\xc3\x9a", "\xc3\x89", "\xc3\x81", "\xc5\xb0", "\xc3\x8d"), array("\xf6", "\xfc", "\xf3", "\xf5", "\xfa", "\xe9", "\xe1", "\xfb", "\xed", "\xd6", "\xdc", "\xd3", "\xd5", "\xda", "\xc9", "\xc1", "\xdb", "\xcd"), $str);
     }
