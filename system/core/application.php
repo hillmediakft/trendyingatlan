@@ -22,8 +22,15 @@ class Application {
 				// hook objektum létrehozása, a rendszer elindítása előtti hook-ok futtatása
 				//$this->hooks = new Hooks();
 				//$this->hooks->_call_hook($this->request->get_uri('area') . '_pre_system');
+        
+   
+        Event_manager::on('insert.property', [new Log_into_db(), 'index']);
+        
+        Event_manager::on('update.user', [new Log_into_db(), 'index']);
 
 
+
+        
 		// controller file betöltése és a megfelelő action behívása
 		$this->load_controller();
 	}

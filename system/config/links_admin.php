@@ -174,5 +174,8 @@ $link['google-maps'] = array(
 	) 
 );
 
+// logs
+$link['logs'] = array('js' => ADMIN_JS . 'pages/logs.js');
+
 return $link;
 ?>

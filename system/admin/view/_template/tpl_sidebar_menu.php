@@ -17,8 +17,8 @@
             <!-- END SIDEBAR TOGGLER BUTTON -->
         </li>
 
-    <!-- BEGIN MENU ITEMS -->
-        
+        <!-- BEGIN MENU ITEMS -->
+
         <!-- KEZDŐOLDAL -->
         <li class="nav-item start <?php $this->menu_active('home'); ?> ">
             <a href="admin/home" class="nav-link">
@@ -46,7 +46,7 @@
                     </a>
                 </li>
                 <!--
-                    <li class="nav-item <?php //$this->menu_active('property', 'search'); ?> ">
+                    <li class="nav-item <?php //$this->menu_active('property', 'search');  ?> ">
                     <a href="admin/property/search" class="nav-link">
                         <span class="title">Ingatlan keresése</span>
                     </a>
@@ -82,7 +82,7 @@
                         <span class="title">Energetika</span>
                     </a>
                 </li>
-                <li class="nav-item <?php $this->menu_active('datatables','ingatlan_kert'); ?>">
+                <li class="nav-item <?php $this->menu_active('datatables', 'ingatlan_kert'); ?>">
                     <a href="admin/datatables/ingatlan_kert" class="nav-link">
                         <span class="title">Kert</span>
                     </a>
@@ -92,12 +92,12 @@
                         <span class="title">Kilátás</span>
                     </a>
                 </li>
-                <li class="<?php $this->menu_active('datatables','ingatlan_parkolas'); ?>">
+                <li class="<?php $this->menu_active('datatables', 'ingatlan_parkolas'); ?>">
                     <a href="admin/datatables/ingatlan_parkolas" class="nav-link">
                         <span class="title">Parkolás</span>
                     </a>
                 </li> 
-                <li class="<?php $this->menu_active('datatables','ingatlan_szerkezet'); ?>">
+                <li class="<?php $this->menu_active('datatables', 'ingatlan_szerkezet'); ?>">
                     <a href="admin/datatables/ingatlan_szerkezet" class="nav-link">
                         <span class="title">Szerkezet</span>
                     </a>
@@ -135,11 +135,11 @@
                     </a>
                 </li>
                 <?php if (1) { ?>
-                <li class="nav-item <?php $this->menu_active('users', 'insert'); ?> ">
-                    <a href="admin/users/insert" class="nav-link">
-                        <span class="title">Új felhasználó</span>
-                    </a>
-                </li>
+                    <li class="nav-item <?php $this->menu_active('users', 'insert'); ?> ">
+                        <a href="admin/users/insert" class="nav-link">
+                            <span class="title">Új felhasználó</span>
+                        </a>
+                    </li>
                 <?php } ?>
                 <li class="nav-item <?php $this->menu_active('users', 'profile'); ?> ">
                     <a href="admin/users/profile/<?php echo Session::get('user_id'); ?>" class="nav-link">
@@ -227,6 +227,14 @@
             </ul>
         </li>
 
+        <!-- FILE-KEZELŐ -->
+        <li class="nav-item <?php $this->menu_active('logs'); ?> ">
+            <a href="admin/logs" class="nav-link ">
+                <i class="fa fa-folder"></i>
+                <span class="title">Naplózás</span>
+            </a>
+        </li>        
+
         <!-- DOKUMENTÁCIÓ -->
         <li class="nav-item <?php $this->menu_active('user_manual'); ?> ">
             <a href="admin/user-manual" class="nav-link">
@@ -234,7 +242,7 @@
                 <span class="title">Dokumentáció</span>
             </a>
         </li>
-    <!-- END MENU ITEMS -->
+        <!-- END MENU ITEMS -->
 
     </ul> <!-- END SIDEBAR MENU -->
 </div> <!-- END SIDEBAR -->

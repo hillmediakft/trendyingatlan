@@ -430,6 +430,8 @@ class Users_model extends Admin_model {
                     }
                 }
                 Message::set('success', 'user_data_update_success');
+                // eseménykezelés: 
+                Event_manager::trigger('update.user', ['<span class="badge badge-sm">módosítás</span> ' . $data['user_name'] . ' felhasználó adatai módosítva']);
                 return true;
             } else {
                 Message::set('error', 'unknown_error');

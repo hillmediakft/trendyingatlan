@@ -310,6 +310,9 @@ class Property_model extends Admin_model {
                 // a last insert id-t adja vissza
                 $last_id = $this->query->insert($data);
 
+                Event_manager::trigger('insert.property', ['Sanyi', 'error']);
+
+
                 return array(
                     "status" => 'success',
                     "last_insert_id" => $last_id,

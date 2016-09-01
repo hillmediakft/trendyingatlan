@@ -256,6 +256,14 @@
                         </ul>
                     </li>
 
+                    <!-- FILE-KEZELŐ -->
+                    <li class="nav-item <?php $this->menu_active('logs'); ?> ">
+                        <a href="admin/logs" class="nav-link ">
+                            <i class="fa fa-folder-open-o"></i>
+                            <span class="title">Napló</span>
+                        </a>
+                    </li>                    
+                    
                     <!-- DOKUMENTÁCIÓ -->
                     <li class="nav-item <?php $this->menu_active('user_manual'); ?> ">
                         <a href="admin/user-manual" class="nav-link ">
