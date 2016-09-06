@@ -23,12 +23,8 @@ class Application {
 				//$this->hooks = new Hooks();
 				//$this->hooks->_call_hook($this->request->get_uri('area') . '_pre_system');
         
-   
-        Event_manager::on('insert.property', array(new Log_into(), 'index'));
-        Event_manager::on('update.user', array(new Log_into(), 'index'));
-        //var_dump(Event_manager::getEvents());
-		//die();
-
+		// események inicializálása
+		EventManager::init('events');
         
 		// controller file betöltése és a megfelelő action behívása
 		$this->load_controller();
