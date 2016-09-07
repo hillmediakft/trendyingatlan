@@ -20,13 +20,15 @@
                 <div id="ajax_message"></div> 						
                 <?php $this->renderFeedbackMessages(); ?>				
 
-                <!-- <form class="horizontal-form" id="del_property_form" method="POST" action="admin/property/delete_property"></form>-->	
-
                 <div class="portlet">
                     <div class="portlet-title">
                         <div class="caption"><i class="fa fa-list"></i>Ingatlanok listája</div>
                         <div class="actions">
+
                             <a href="admin/property/insert" class="btn blue btn-sm"><i class="fa fa-plus"></i> Új ingatlan</a>
+
+                            <button id="show_filter_td" class="btn btn-sm grey-cascade" title="Szűrési feltételek megjelenítése"><i class="fa fa-search"></i> Szűrési feltételek</button>
+
                             <!-- <a href="admin/property" class="btn blue-madison btn-sm"><i class="fa fa-repeat"></i> Szűrés törlése</a> -->
                             <!-- <button class="btn red btn-sm" name="delete_property_submit" value="submit" type="submit"><i class="fa fa-trash"></i> Csoportos törlés</button> -->
                             <div class="btn-group">
@@ -61,7 +63,6 @@
                                     <option value="group_delete">Töröl</option>
                                 </select>
                                 <button class="btn btn-sm grey-cascade table-group-action-submit" title="Csoportos művelet végrehajtása"><i class="fa fa-check"></i> Csoportművelet</button>
-                                <button id="show_filter_td" class="btn btn-sm grey-cascade" title="Szűrési feltételek megjelenítése"><i class="fa fa-search"></i></button>
                             </div>
 
 
