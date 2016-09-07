@@ -432,7 +432,7 @@ class Users_model extends Admin_model {
                 Message::set('success', 'user_data_update_success');
                 
 
-                EventManager::trigger('update_user', array('módosítás', $data['user_name'] . ' felhasználó adatai módosítva'));
+                EventManager::trigger('update_user', array('update', $data['user_name'] . ' felhasználó adatai módosítva'));
 
                 return true;
             } else {

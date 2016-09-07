@@ -60,6 +60,7 @@
                                 <tr class="heading">
                                     <th>Dátum</th>
                                     <th>Felhasználó</th>
+                                    <th>Művelet</th>
                                     <th>Bejegyzés</th>
                                 </tr>
                             </thead>
@@ -68,6 +69,15 @@
                                     <tr class="odd gradeX">
                                         <td><?php echo $value['date']; ?></td>
                                         <td><?php echo $value['user_first_name'] . ' ' . $value['user_last_name']; ?></td>
+                                        <td><?php
+                                            if ($value['action'] == 'update') {
+                                                echo '<span class="badge badge-info badge-sm">' . $value['action'] . '</span>';
+                                            } elseif ($value['action'] == 'insert') {
+                                                echo '<span class="badge badge-warning badge-sm">' . $value['action'] . '</span>';
+                                            } elseif ($value['action'] == 'delete') {
+                                                echo '<span class="badge badge-danger badge-sm">' . $value['action'] . '</span>';
+                                            }
+                                            ?></td>
                                         <td><?php echo $value['message']; ?></td>
                                     </tr>
                                 <?php } ?>	

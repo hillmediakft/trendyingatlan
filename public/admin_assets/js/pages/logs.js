@@ -55,7 +55,8 @@ var Logs = function () {
             "columnDefs": [
                 {'orderable': true, 'searchable': true, 'targets': 0}, //dátum
                 {'orderable': true, 'searchable': true, 'targets': 1}, //név
-                {'orderable': true, 'searchable': true, 'targets': 2} //bejegyzés
+                {'orderable': true, 'searchable': true, 'targets': 2}, //művelet
+                {'orderable': true, 'searchable': true, 'targets': 3} //bejegyzés
             ],
             "order": [
                 [0, "desc"]
