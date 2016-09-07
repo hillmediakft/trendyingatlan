@@ -40,7 +40,7 @@
                                         <a href="#" id="print_property"><i class="fa fa-print"></i> Nyomtat </a>
                                     </li>
                                     <li>
-                                        <a href="#" id="export_property"><i class="fa fa-file-excel-o"></i> Export CSV </a>
+                                        <a href="admin/report/property" id="export_property"><i class="fa fa-file-excel-o"></i> Export XLS </a>
                                     </li>
                                 </ul>
                             </div>

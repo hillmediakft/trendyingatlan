@@ -1,0 +1,13 @@
+{
+    "name": "vendor/trendyingatlan",
+    "description": "Description of project trendyingatlan.",
+    "authors": [
+        {
+            "name": "vucu",
+            "email": "vucu@gmail.com"
+        }
+    ],
+    "require": {
+        "phpoffice/phpexcel": "^1.8"
+    }
+}

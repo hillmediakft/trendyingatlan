@@ -5,6 +5,7 @@ include_once('system/core/base_config.php');
 // autolader osztály betöltése
 include_once(CORE . '/autoloader.php');
 $autoloader = new Autoloader();
+require __DIR__ . '/vendor/autoload.php';
 // spl_autoload_register(array($autoloader, 'autoload'));
 
 
