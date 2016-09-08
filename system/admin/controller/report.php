@@ -1,12 +1,20 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Ingatlan tábla adatainak exportálása
+ * PHPreport osztály és PHPexcel package használatával 
+ * PHPreport: https://github.com/vernes/PHPReport
+ * PHPExcel: https://github.com/PHPOffice/PHPExcel
  */
 
 class Report extends Admin_controller {
+    /**
+     * Az ingatlan tábla importálásához szükséges konfiguráció
+     * Id: minden táblázatnak rendelkezni kell id-vel
+     * header: a fejléc oszlopok elnevezési
+     * config-data: oszlopok igazítása (0-val kezdődően)
+     * format: oszlopok formázása
+     */
 
     public $property_config = array(
         'id' => 'ingatlanok',
@@ -25,7 +33,14 @@ class Report extends Admin_controller {
             9 => array('number' => array('sufix' => ' Ft', 'decimals' => 1))
         )
     );
+    // bejelentkezett felhasználó adatait tároló változók
+    private $user_name;
+    private $user_id;
+    private $user_role_id;
 
+    /**
+     * A bejelentkezett felhasználó adatainak változókba írása 
+     */
     function __construct() {
         parent::__construct();
 
@@ -34,13 +49,20 @@ class Report extends Admin_controller {
         $this->user_role_id = Session::get('user_role_id');
     }
 
+    /**
+     * Az export gombra kattintással meghívott action
+     * Beolvassa az ingatlanokat a bejelentkezett felhasználó (user_id) 
+     * és az utolsó szűrési feltételek szerint
+     * 
+     * Az eredményül kapott tömböt a header elemeknek megfelelóen konvertálja,
+     * és az így kapott tömböt összeolvasztja a config tömbbel. Az így kapott
+     * tömböt és az export módját (excel) átadja a meghívott generate_report metódusnak
+     *   
+     */
+
     public function property() {
 
-        if ($this->user_role_id == 1) {
-            $properties = $this->report_model->get_properties();
-        } else {
-            $properties = $this->report_model->get_properties($this->user_id);
-        }
+        $properties = $this->report_model->get_properties();
 
         $properties = $this->convert_properties_array($properties);
 
@@ -53,6 +75,13 @@ class Report extends Admin_controller {
         $this->generate_report($data, 'excel');
     }
 
+    /**
+     * A PHPReport objektum a paraméterként átadott adatokkal és a 
+     * riport típusával generálja az xls fájlt, majd elküldi a böngészőnek.
+     * @param array $data az adatok tömbje.
+     * @param string $type a jelentés típusa (excel, pdf, html).
+     */
+
     public function generate_report($data, $type) {
 
         $R = new PHPReport();
@@ -61,7 +90,12 @@ class Report extends Admin_controller {
         echo $R->render($type);
         exit();
     }
-
+    
+    /**
+     * Az adatbázis lekérdezésből kapott tömb átalakítása a kívánt formára. 
+     * @param array $original az ingatlanok tömbje.
+     * @return array $array az átalakított tömb.
+     */
     public function convert_properties_array($original) {
 
         foreach ($original as $key => $value) {
