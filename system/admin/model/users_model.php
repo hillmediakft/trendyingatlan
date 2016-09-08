@@ -195,6 +195,7 @@ class Users_model extends Admin_model {
 
             // ha nincs email ellenőrzés, és minden ellenőrzés sikeres, akkor visszatér true-val
             Message::set('success', 'user_successfully_created');
+            EventManager::trigger('insert_user', array('insert', $data['user_name'] . ' felhasználó létrehozása'));
             return true;
         }
     }
@@ -270,6 +271,7 @@ class Users_model extends Admin_model {
         
         if ($success_counter > 0) {
             $respond['message_success'] = $success_counter . ' felhasználó törölve.';
+            EventManager::trigger('delete_user', array('delete', $success_counter . ' felhasználó törlése'));
         }
         if ($fail_counter > 0) {
             $respond['message_error'] = $fail_counter . ' felhasználót már töröltek!';

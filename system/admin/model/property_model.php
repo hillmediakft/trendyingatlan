@@ -284,6 +284,7 @@ class Property_model extends Admin_model {
 
                     if ($update_real) {
                         Message::set('success', 'A módosítások sikeresen elmentve!');
+                         EventManager::trigger('update_property', array('update', '#' . $id . ' azonosítójú ingatlan módosítása'));
                     } else {
                         Message::set('success', 'Ingatlan adatai elmentve.');
                     }
@@ -310,9 +311,8 @@ class Property_model extends Admin_model {
                 // a last insert id-t adja vissza
                 $last_id = $this->query->insert($data);
 
-                Event_manager::trigger('insert.property', ['Sanyi', 'error']);
-
-
+                 EventManager::trigger('insert_property', array('insert', '#' . $last_id . ' azonosítójú ingatlan létrehozása'));
+                
                 return array(
                     "status" => 'success',
                     "last_insert_id" => $last_id,
@@ -405,6 +405,7 @@ class Property_model extends Admin_model {
 
                     // sikeres törlés
                     $success_counter += $result;
+                    EventManager::trigger('delete_property', array('delete', $success_counter . ' ingatlan törlése'));
                 } else {
                     //sikertelen törlés (0 sor lett törölve)
                     $fail_counter++;
@@ -1099,8 +1100,7 @@ class Property_model extends Admin_model {
     public function ajax_get_propertys($request_data) {
         // csoportos műveletek üzenetei
         $custom_action_message = '';
-
-        //$user_role = Session::get('user_role_id');
+        Session::set('property_filter', $request_data);
 
         if (isset($request_data['customActionType']) && isset($request_data['customActionName'])) {
 
@@ -1201,6 +1201,10 @@ class Property_model extends Admin_model {
 
         $this->query->set_offset($display_start);
         $this->query->set_limit($display_length);
+
+        if (Session::get('user_role_id') != 1) {
+            $this->query->set_where('ref_id', '=', Session::get('user_id'));
+        }
 
         //szűrés beállítások
         if (isset($request_data['action']) && $request_data['action'] == 'filter') {
