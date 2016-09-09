@@ -24,21 +24,13 @@ class Blog extends Admin_controller {
      * Blog bejegyzés hozzáadása
      */
     public function insert() {
-        if (isset($_SERVER['CONTENT_LENGTH']) && $_SERVER['CONTENT_LENGTH'] > ini_get('post_max_size')) {
-            $postMax = ini_get('post_max_size');
-            Message::set('error', 'A feltöltés nem sikerült!<br />Az egyszerre feltölhető fájlok összmérete nem lehet nagyobb mint ' . $postMax . ', ami a tárhelyszolgáltató által beállított korlát.');
-            Util::redirect('blog/insert');
-        }
+
         if ($this->request->has_post()) {
-            echo 'Hello1';
-            die;
             $result = $this->blog_model->insert();
 
             if ($result) {
                 Util::redirect('blog');
             } else {
-                echo 'Hello';
-                die;
                 Util::redirect('blog/insert');
             }
         }

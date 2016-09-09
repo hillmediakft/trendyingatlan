@@ -90,6 +90,7 @@ class blog_model extends Admin_model {
 		$data['blog_picture'] = $dest_image;
 		$data['blog_category'] = $this->request->get_post('blog_category');
 		$data['blog_add_date'] = date('Y-m-d-G:i');
+                $data['blog_slug'] = Util::string_to_slug($this->request->get_post('blog_title'));
 
 	// adatbázis lekérdezés	
 		$result = $this->query->insert($data);
