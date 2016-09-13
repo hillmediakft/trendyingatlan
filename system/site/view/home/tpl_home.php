@@ -146,33 +146,23 @@
         </div>
         <!-- end of block .article__header-->
         <div class="article__list">
-            <div data-sr="enter left over 1s and scale up 20%" data-animate-end="" class="article__item"><a href="#" class="article__photo"><img src="<?php echo SITE_ASSETS; ?>media-demo/news/news-1.jpg" alt="News title" class="article__photo-img">
+            
+            <?php foreach ($this->blogs as $value) { ?> 
+            
+            
+            <div data-sr="enter left over 1s and scale up 20%" data-animate-end="" class="article__item"><a href="<?php echo $this->registry->site_url . 'blog/' . $value['blog_slug'] . '/' . $value['blog_id']; ?>" class="article__photo"><img src="<?php echo Config::get('blogphoto.upload_path') . $value['blog_picture']; ?>" alt="News title" class="article__photo-img">
                     </a>
-                <div class="article__details"><a href="#" class="article__item-title">Lorem ipaum dolem</a>
+                <div class="article__details"><a href="<?php echo $this->registry->site_url . 'blog/' . $value['blog_slug'] . '/' . $value['blog_id']; ?>" class="article__item-title"><?php echo $value['blog_title']; ?></a>
                     <div class="article__intro">
-                        <p>Curabitur rhoncus turpis nunc, vel hendrerit nibh sodales at. ...</p>
-                    </div><a href="#" class="article__more">Tovább</a>
+                        <p><?php echo Util::sentence_trim($value['blog_body'], 1); ?></p>
+                    </div><a href="<?php echo $this->registry->site_url . 'blog/' . $value['blog_slug'] . '/' . $value['blog_id']; ?>" class="article__more">Tovább</a>
                 </div>
             </div>
+            
+            <?php } ?>
             <!-- end of block .article__item-->
-            <div data-sr="enter bottom over 1s and scale up 20%" data-animate-end="" class="article__item"><a href="#" class="article__photo"><img src="<?php echo SITE_ASSETS; ?>media-demo/news/news-2.jpg" alt="News title" class="article__photo-img">
-                   </a>
-                <div class="article__details"><a href="#" class="article__item-title">Nam et orci id nulla ornare</a>
-                    <div class="article__intro">
-                        <p>Curabitur rhoncus turpis nunc, vel hendrerit nibh sodales at. ...</p>
-                    </div><a href="#" class="article__more">Tovább</a>
-                </div>
-            </div>
-            <!-- end of block .article__item-->
-            <div data-sr="enter right over 1s and scale up 20%" data-animate-end="" class="article__item"><a href="#" class="article__photo"><img src="<?php echo SITE_ASSETS; ?>media-demo/news/news-3.jpg" alt="News title" class="article__photo-img">
-                  </a>
-                <div class="article__details"><a href="#" class="article__item-title">Fusce quis enim a turpis</a>
-                    <div class="article__intro">
-                        <p>Curabitur rhoncus turpis nunc, vel hendrerit nibh sodales at. ...</p>
-                    </div><a href="#" class="article__more">Tovább</a>
-                </div>
-            </div>
-            <!-- end of block .article__item-->
+            
+            
         </div>
         <!-- end of block .article__list--><a href="#" class="article__btn-more"> További cikkek...</a>
     </div>

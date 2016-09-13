@@ -5,13 +5,13 @@
             <h3 class="search__title"><span class="search__title-btn js-search-title-btn">Keresés</span></h3>
         </div>
         <!-- end of block .search__header-->
-        <form id="search-form" action="" class="search__form">
+        <form id="search-form" action="ingatlanok" class="search__form">
             <div class="search__row">
                 <div class="search__form-group form-group">
                     <label for="in-contract-type" class="search__form-label control-label">Eladó / kiadó</label>
                     <select id="in-contract-type" name="tipus" data-placeholder="-- mindegy --" class="search__form-control search__form-control--select form-control js-in-select">
-                        <option value="elado">Eladó</option>
-                        <option value="kiado">Kiadó</option>
+                        <option value="1">Eladó</option>
+                        <option value="2">Kiadó</option>
                     </select>
                 </div>
                 <div class="search__form-group form-group"><span class="search__form-label control-label">Település</span>
@@ -20,6 +20,8 @@
                         <div class="dropdown-menu js-dropdown-menu js-select-checkboxes">
                             <div class="region-select">
                                 <ul id="region" class="bonsai region-select__list">
+                                  
+                                     
                                     <li>
                                         <input id="scom-property-map-1_treeterm_37" type="checkbox" name="varos[]" value="budapest" class="in-checkbox">
                                         <label for="scom-property-map-1_treeterm_37" data-toggle="tooltip" data-placement="top" title="Budapest" class="in-label">Budapest</label>
@@ -45,7 +47,7 @@
                                                 <?php foreach ($value as $city) { ?>
                                                     <?php $treeterm++; ?>
                                                     <li>
-                                                        <input id="scom-property-map-<?php echo $map; ?>_treeterm_<?php echo $treeterm; ?>" type="checkbox" name="varos[]" value="<?php echo $city['city_name']; ?>" class="in-checkbox">
+                                                        <input id="scom-property-map-<?php echo $map; ?>_treeterm_<?php echo $treeterm; ?>" type="checkbox" name="varos[]" value="<?php echo $city['city_id']; ?>" class="in-checkbox">
                                                         <label for="scom-property-map-<?php echo $map; ?>_treeterm_<?php echo $treeterm; ?>" data-toggle="tooltip" data-placement="top" title="Glendale" class="in-label"><?php echo $city['city_name']; ?></label>
                                                     </li>
                                                 <?php } ?>
@@ -72,7 +74,7 @@
                                 <?php $i = 1; ?>
                                 <?php foreach ($this->ingatlan_kat_list as $value) : ?>
                                     <li>
-                                        <input id="kategoria_<?php echo $i; ?>" type="checkbox" name="kategoria[]" class="in-checkbox" value="<?php echo $value['kat_nev']; ?>">
+                                        <input id="kategoria_<?php echo $i; ?>" type="checkbox" name="kategoria[]" class="in-checkbox" value="<?php echo $value['kat_id']; ?>">
                                         <label for="kategoria_<?php echo $i; ?>" data-toggle="tooltip" data-placement="left" title="<?php echo $value['kat_nev']; ?>" class="in-label"><?php echo $value['kat_nev']; ?></label>
                                     </li>
                                     <?php $i++; ?>
@@ -104,6 +106,7 @@
                     </div>
                 </div>
             </div>
+            <input id="action" type="hidden" name="action" value="search">
             <div class="search__row search__row--buttons">
                 <div class="search__buttons">
                     <button type="button" class="search__btn search__btn--reset js-form-reset">Töröl</button>

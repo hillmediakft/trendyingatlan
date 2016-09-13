@@ -24,7 +24,7 @@
                     </a>
                 </div>
                 <div class="header__contacts">
-                    <a href="tel:+12025550135" class="header__phone">
+                    <a href="javascript:void()" class="header__phone">
                         <i class="fa fa-envelope"></i>
                         <span class="header__span"><?php echo $this->settings['email']; ?></span>
                     </a>
@@ -134,8 +134,9 @@
                             </button>
                             <div class="navbar__submenu">
                                 <ul class="navbar__subnav">
-                                    <li class="navbar__subitem"><a href="#" class="navbar__sublink js-navbar-sublink">Eladó ingatlanok</a></li>
-                                    <li class="navbar__subitem"><a href="#" class="navbar__sublink js-navbar-sublink">Kiadó ingatlanok</a></li>
+                                    <li class="navbar__subitem"><a href="ingatlanok" class="navbar__sublink js-navbar-sublink">Összes ingatlan</a></li>
+                                    <li class="navbar__subitem"><a href="ingatlanok?tipus=1" class="navbar__sublink js-navbar-sublink">Eladó ingatlanok</a></li>
+                                    <li class="navbar__subitem"><a href="ingatlanok?tipus=2" class="navbar__sublink js-navbar-sublink">Kiadó ingatlanok</a></li>
                                 </ul>
                             </div>
                         </div>

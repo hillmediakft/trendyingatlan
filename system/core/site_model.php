@@ -71,7 +71,21 @@ class Site_model extends Model {
         } else {
             return false;
         }
-    }    
+    } 
+    
+/**
+     * 	Beolvassa a blog bejegyzéseket a blog táblából
+     *
+     *  @return array  ahárom legfrissebb blog bejegyzés   
+     */
+    public function get_blogs($limit = 3) {
+        $this->query->reset();
+        $this->query->set_table(array('blog'));
+        $this->query->set_columns('*');
+        $this->query->set_limit($limit);
+        $this->query->set_orderby(array('blog_add_date'), 'DESC');
+        return $this->query->select();
+    }     
     
 }
 ?>

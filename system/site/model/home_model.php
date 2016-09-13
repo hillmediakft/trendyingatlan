@@ -63,7 +63,7 @@ class Home_model extends Site_model {
      * 	
      * 	@param array 
      */
-    public function kiemelt_properties_query() {
+    public function kiemelt_properties_query($limit = null) {
         $this->query->reset();
 //        $this->query->debug(true);
         $this->query->set_table(array('ingatlanok'));
@@ -87,6 +87,9 @@ class Home_model extends Site_model {
         $this->query->set_join('left', 'city_list', 'ingatlanok.varos', '=', 'city_list.city_id');
         $this->query->set_where('ingatlanok.kiemeles', '=', '1');
         $this->query->set_where('status', '=', 1);
+        if (!is_null($limit)) {
+            $this->query->set_limit($limit);
+        }
         $this->query->set_orderby('ingatlanok.id', 'DESC');
 
         return $this->query->select();

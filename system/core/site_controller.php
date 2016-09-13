@@ -4,11 +4,13 @@ class Site_controller extends Controller {
 
     public function __construct() {
         parent::__construct();
-
+        // beállítások
         self::get_settings();
-
         // kedvencek lekérdezése
         self::get_kedvencek();
+        // blog bejegyzések
+        $this->site_model = new Site_model();
+        $this->blogs = $this->site_model->get_blogs(3);
     }
 
     /**

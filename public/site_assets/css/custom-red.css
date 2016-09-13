@@ -23596,7 +23596,7 @@ fieldset[disabled] .subscribe__field {
   padding: 25px 29px;
   background: #fff;
   border: 1px solid #dedede;
-  min-height: 480px;
+  min-height: 280px;
 }
 
 .listing__empty:before,
@@ -23643,7 +23643,7 @@ fieldset[disabled] .subscribe__field {
   font-size: 20px;
   color: #222;
   border-bottom: 1px solid #dedede;
-  width: 469px;
+  width: 540px;
   margin: 33px auto 0;
   padding: 0 10px 15px 10px;
   text-align: center;
