@@ -101,7 +101,9 @@ class Acl {
             exit;
         }
         //$target_url = str_replace(BASE_URL . "admin/", "", $target_url);
-        Util::redirect($target_url);
+        // Util::redirect($target_url);
+        header('location: ' . $target_url);
+        exit;
     }
 
 }
