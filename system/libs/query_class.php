@@ -902,7 +902,7 @@ class Query {
 			return '';
 		}
 		
-		return ' ORDER BY ' . $this->orderby . ';';
+		return ' ORDER BY ' . $this->orderby;
 	}
 
 	/**
