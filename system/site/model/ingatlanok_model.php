@@ -239,16 +239,20 @@ class Ingatlanok_model extends Site_model {
           } */
         if (isset($params['varos']) && !empty($params['varos'])) {
             if (is_array($params['varos'])) {
+                $this->query->set_where('AND (');
                 $this->query->set_where('varos', 'in', $params['varos']);
             } else {
                 $this->query->set_where('varos', '=', $params['varos']);
+                $this->query->set_where('AND (');
             }
         }
         if (isset($params['kerulet']) && !empty($params['kerulet'])) {
             if (is_array($params['kerulet'])) {
-                $this->query->set_where('kerulet', 'in', $params['kerulet']);
+                $this->query->set_where('kerulet', 'in', $params['kerulet'], 'or');
+                $this->query->set_where(')');
             } else {
-                $this->query->set_where('kerulet', '=', $params['kerulet']);
+                $this->query->set_where('kerulet', '=', $params['kerulet'], 'or');
+                $this->query->set_where(')');
             }
         }
 
