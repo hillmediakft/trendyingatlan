@@ -8,7 +8,7 @@ class Ingatlanok extends Site_controller {
 
     public function index() {
 
-        if (empty($this->request->has_query())) {
+        if ($this->request->has_query()) {
             Session::delete('ingatlan_filter');
         }
 
