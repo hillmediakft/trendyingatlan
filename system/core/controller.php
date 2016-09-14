@@ -26,26 +26,29 @@ class Controller {
      * 	@param	string	(a model file neve kiterjesztés nélkül)
      */
     public function loadModel($model) {
-        // model file elérési útja
-        $file = 'system/' . $this->request->get_uri('area') . '/model/' . $model . '.php';
+        if(!isset($this->$model)) {
+            // model file elérési útja
+            $file = 'system/' . $this->request->get_uri('area') . '/model/' . $model . '.php';
 
-        // megnézzük, hogy megnyitható-e a file, ha nem kivételt dobunk.
-        try {
-            if (!file_exists($file)) {
-                throw new Exception('A ' . $file . ' file nem nyithato meg!');
+            // megnézzük, hogy megnyitható-e a file, ha nem kivételt dobunk.
+            try {
+                if (!file_exists($file)) {
+                    throw new Exception('A ' . $file . ' file nem nyithato meg!');
+                }
+            } catch (Exception $e) {
+                die('<br /><strong>Hiba:</strong> ' . $e->getMessage() . '<br />');
             }
-        } catch (Exception $e) {
-            die('<br /><strong>Hiba:</strong> ' . $e->getMessage() . '<br />');
+
+            // model file behívása
+            require_once($file);
+
+            // a file betöltődése után létrejöhet az objektum, mert a $model nevű file tartalamazza a $model nevű osztályt
+            // létrejön egy új tulajdonság a controller objektumban, a neve pedig a $model változóban tárolt string lesz
+            // ehhez a tulajdonsághoz rendelődik az új model objektum, aminek a neve szintén a $model változóban tárolt string
+            // pl.: $this->users_model = new users_model();
+            
+            $this->$model = new $model();
         }
-
-        // model file behívása
-        require_once($file);
-
-        // a file betöltődése után létrejöhet az objektum, mert a $model nevű file tartalamazza a $model nevű osztályt
-        // létrejön egy új tulajdonság a controller objektumban, a neve pedig a $model változóban tárolt string lesz
-        // ehhez a tulajdonsághoz rendelődik az új model objektum, aminek a neve szintén a $model változóban tárolt string
-        // pl.: $this->model_users = new model_users();
-        $this->$model = new $model();
     }
 
 
