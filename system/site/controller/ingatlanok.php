@@ -17,12 +17,33 @@ class Ingatlanok extends Site_controller {
         $this->view->settings = $this->settings;
         $this->view->kedvencek_list = $this->kedvencek_list;
 
+
+// paginátor objektum létrehozása
+$pagine = new Paginator('oldal', $this->settings['pagination']);
+// limit-el lekérdezett adatok
+$this->view->all_property = $this->ingatlanok_model->properties_filter_query($pagine->get_limit(), $pagine->get_offset());
+// összes elem, ami a szűrési feltételnek megfelel (vagy a tábla összes rekordja, ha nincs szűrés)
+$this->view->filtered_count = $this->ingatlanok_model->properties_filter_count_query();
+// összes elem megadása a paginátor objektumnak
+$pagine->set_total($this->view->filtered_count);
+// lapozó linkek visszadása (paraméter az uri path)
+$this->view->pagine_links = $pagine->page_links($this->request->get_uri('path'));
+
+// ez nem tudom hogy kapcsolódik a lapozáshoz (?)
+$this->view->no_of_properties = $this->ingatlanok_model->get_count();   
+
+
+/*
+// megoldás a pagine objektummal
         $paginator = new Paginate('oldal', $this->settings['pagination'], $this->ingatlanok_model);
 
         $this->view->all_property = $paginator->get_elements();
         $this->view->pagine_links = $paginator->pagine_links();
         $this->view->filtered_count = $paginator->filtered_count();
         $this->view->no_of_properties = $paginator->no_of_elements();
+*/
+
+
 // var_dump($this->view->all_property);
 // die;
 //        $this->view->county_list = $this->ingatlanok_model->county_list_query();
