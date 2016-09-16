@@ -16,6 +16,11 @@ class Ingatlanok extends Site_controller {
         
         $this->view->settings = $this->settings;
         $this->view->kedvencek_list = $this->kedvencek_list;
+        
+        $this->view->blogs = $this->blogs;
+
+                // kiemelt ingatlanok
+        $this->view->kiemelt_ingatlanok = $this->ingatlanok_model->kiemelt_properties_query(4);
 
         $paginator = new Paginate('oldal', $this->settings['pagination'], $this->ingatlanok_model);
 
@@ -49,7 +54,7 @@ class Ingatlanok extends Site_controller {
 
 
 
-        $this->view->add_link('js', SITE_JS . 'ingatlanok.js');
+     //   $this->view->add_link('js', SITE_JS . 'ingatlanok.js');
         // lekérdezések
         // $this->view->settings = $this->ingatlanok_model->get_settings();
 
@@ -61,6 +66,56 @@ class Ingatlanok extends Site_controller {
         $this->view->set_layout('tpl_layout');
         $this->view->render('ingatlanok/tpl_ingatlanok');
     }
+    
+    /**
+     * 	Ingatlan adatlap  
+     */
+    public function adatlap() {
+
+        $id = (int) $this->request->get_params('id');
+
+        $this->view = new View();
+
+        $this->view->title = 'Ingatlanok oldal';
+        $this->view->description = 'Ingatlanok description';
+        $this->view->keywords = '';
+
+        
+        $this->ingatlanok_model->increase_no_of_clicks($id);
+
+//        $this->view->kiemelt_properties = $this->ingatlanok_model->hasonló_properties_query();
+        $property_data = $this->ingatlanok_model->get_property_query($id);
+
+       $this->view->settings = $this->settings;
+        $this->view->kedvencek_list = $this->kedvencek_list;
+
+        $this->view->property_data = $property_data[0];
+
+        // koordináták a Google maps megjelenítéshez   
+        $this->view->javascript = '<script type="text/javascript">var property_location = {"lat":"' . substr($this->view->property_data["latitude"], 0, 6) . '","lng":"' . substr($this->view->property_data["longitude"], 0, 6) . '"};</script>';
+
+        $this->view->photos = json_decode($this->view->property_data['kepek']);
+        // kedvencek lekérdezése
+
+
+        // hasonló ingatlanok lekérdezése
+
+        $ingatlan_id = $this->view->property_data['id'];
+        $ingatlan_tipus = $this->view->property_data['tipus'];
+        $kategoria = $this->view->property_data['kategoria'];
+        $varos = $this->view->property_data['varos'];
+        $ar = ($property_data[0]['tipus'] = 1) ? $property_data[0]['ar_elado'] : $property_data[0]['ar_kiado'];
+
+        $this->view->hasonlo_ingatlanok = $this->ingatlanok_model->hasonlo_ingatlanok($ingatlan_id, $ingatlan_tipus, $kategoria, $varos, $ar);
+
+
+        // referens lekérdezése
+        $this->view->referens = $this->ingatlanok_model->get_agent($this->view->property_data['ref_id']);
+        
+        $this->view->set_layout('tpl_layout');
+        $this->view->render('ingatlanok/tpl_ingatlan_adatlap');
+    }
+    
 
     /**
      * 	(AJAX) - törli a filter session változót  
@@ -78,7 +133,7 @@ class Ingatlanok extends Site_controller {
      */
     public function add_property_to_cookie() {
         if ($this->request->is_ajax() && $this->request->has_post('ingatlan_id')) {
-            $id = $this->get_post('ingatlan_id', 'integer');
+            $id = $this->request->get_post('ingatlan_id', 'integer');
             $this->ingatlanok_model->refresh_kedvencek_cookie($id);
         } else {
             exit();
@@ -90,7 +145,7 @@ class Ingatlanok extends Site_controller {
      */
     public function delete_property_from_cookie() {
         if ($this->request->is_ajax() && $this->request->has_post('ingatlan_id')) {
-            $id = $this->get_post('ingatlan_id', 'integer');
+            $id = $this->request->get_post('ingatlan_id', 'integer');
             $this->ingatlanok_model->delete_property_from_cookie($id);
         } else {
             exit();

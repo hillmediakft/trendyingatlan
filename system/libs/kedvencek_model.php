@@ -99,31 +99,23 @@ class Kedvencek_model extends Site_model {
 
         $photo_array = json_decode($property_data['kepek']);
 
-        $string = '';
+         $string = '';
         $string .= '<article class="property-item" id="favourite_property_' . $property_data['id'] . '">';
-        $string .= '<div class="span5">';
-        $string .= '<div class="property-images">';
-        $string .= '<a href="property-single.html" title="Florida 5, Pinecrest, FL">';
-        $string .= '<img src="' . Util::small_path(Config::get('ingatlan_photo.upload_path') . $photo_array[0]) . '" class="wp-post-image" alt="' . $property_data['ingatlan_nev'] . '" title="' . $property_data['ingatlan_nev'] . '" />';
-        $string .= '</a>';
+        $string .= '<div class="row">';
+        $string .= '<div class="col-md-5 col-sm-5">';
+        $string .= '<div class="properties__thumb">';
+        $string .= '<img src="' . Util::thumb_path(Config::get('ingatlan_photo.upload_path') . $photo_array[0]) . '" alt="' . $property_data['ingatlan_nev'] . '" title="' . $property_data['ingatlan_nev'] . '" />';
         $string .= '<div id="delete_kedvenc_' . $property_data['id'] . '" data-id="' . $property_data['id'] . '" class="favourite-delete"><i class="fa fa-trash"></i></div>';
         $string .= '</div>';
-        $string .= '</div>';
-        $string .= '<div class="span7">';
+        $string .= '</div>'; // col-md-5
+        $string .= '<div class="col-md-7 col-sm-7">';
         $string .= '<div class="property-attribute">';
-        $string .= '<span class="attribute-city">';
         if (isset($property_data['kerulet'])) {
             $string .= $property_data['city_name'] . ', ' . $property_data['district_name'];
         } else {
             $string .= $property_data['city_name'];
         }
-        $string .= '</span>';
-        $string .= '<h3 class="attribute-title">';
-        $string .= '<a href="#" title="' . $property_data['ingatlan_nev'] . '" >' . $property_data['ingatlan_nev'];
-        $string .= '</a>';
-        $string .= '</h3>';
-
-        $string .= '<div class="price">';
+                $string .= '<div class="price">';
         if ($property_data['tipus'] == 1) {
             $string .= '<span class="attr-pricing">' . number_format($property_data['ar_elado'], 0, ',', '.') . ' Ft</span>';
         } elseif ($property_data['tipus'] == 2) {
@@ -132,7 +124,13 @@ class Kedvencek_model extends Site_model {
         $string .= '</div>';
         $string .= '</div>';
         $string .= '</div>';
+        $string .= '<div class="col-md-12">';
+        $string .= '<a href="ingatlanok/adatlap/' . $property_data['id'] . '/' . Replacer::filterName($property_data['ingatlan_nev']) . '" title="' . $property_data['ingatlan_nev'] . '" ><h5>' . $property_data['ingatlan_nev'];
+        $string .= '</h5></a>';
+        $string .= '</div>';
 
+
+        $string .= '</div>'; //row
         $string .= '</article>';
         return $string;
     }   

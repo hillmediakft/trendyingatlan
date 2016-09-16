@@ -23,6 +23,9 @@ $routes = array(
     //'(felhasznalok)/(kijelentkezes)/?' => array('users/logout'),
     //'(felhasznalok)/(regisztracio)/?' => array('users/register'),
     //'(felhasznalok)/(feliratkozas)/?' => array('users/subscribe_newsletter'),
+    // ingatlan adatlap
+    '(ingatlanok)/(adatlap)/:id/:title/?' => array('ingatlanok/adatlap', 'id', 'ingatlan_nev'),
+    '(ingatlanok)/(adatlap_nyomtatas)/:id/?' => array('ingatlanok/adatlap_nyomtatas', 'id'),
     '(blog)/(kategoria)/:id/?' => array('blog/kategoria', 'id'),
     '(blog)/:title/:id/?' => array('blog/reszletek', 'id'),
     '(blog)/?' => array('$1'),

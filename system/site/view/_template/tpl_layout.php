@@ -50,6 +50,7 @@
         <script src="<?php echo Util::auto_version(SITE_JS . 'app.js'); ?>"></script>
         <script src="<?php echo Util::auto_version(SITE_JS . 'demo.js'); ?>"></script>
         <script src="<?php echo SITE_JS; ?>owl.carousel.min.js"></script>
+        <script src="<?php echo Util::auto_version(SITE_JS . 'trendy.js');?>"></script>
 
         <!-- BEGIN PAGE LEVEL SCRIPTS -->
         <?php $this->get_js_link(); ?>

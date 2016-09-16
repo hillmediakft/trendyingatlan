@@ -164,7 +164,7 @@ class Paginator {
             if ($this->page_id > 1) {
                 $paginate.= '<li><a href="' . $path . $this->pagename . '=' . $prev . '">vissza</a></li>';
             } else {
-                $paginate.= '<li class="inactive"><span>vissza</span></li>';
+                $paginate.= '<li class="disabled"><span>vissza</span></li>';
             }
             // Oldalak	
             if ($lastpage < 7 + ($this->stages * 2)) { // Not enough pages to breaking it up
@@ -224,7 +224,7 @@ class Paginator {
             if ($this->page_id < $counter - 1) {
                 $paginate.= '<li><a href="' . $path . $this->pagename . '=' . $next . '">következő</a></li>';
             } else {
-                $paginate.= '<li class="inactive"><span>következő</span></li>';
+                $paginate.= '<li class="disabled"><span>következő</span></li>';
             }
 
             $paginate.= '</ul>' . "\n";

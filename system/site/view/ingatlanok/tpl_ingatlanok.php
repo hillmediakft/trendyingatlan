@@ -13,31 +13,22 @@
                     <div class="listing__filter">
                         <div class="listing__sort">
                             <div class="form-group">
-                                <label for="in-listing-sort" class="control-label listing__filter-label">Sorba rendezés:</label>
+                                <label for="in-listing-sort" class="control-label listing__filter-label">Sorrend:</label>
                                 <!--div.listing__sort-wrap-->
                                 <select id="in-listing-sort" class="form-control js-in-select">
-                                    <option><a href="/ingatlan/elado?order=desc&amp;order_by=id">Legfrissebb elöl</a></option>
-                                    <option><a href="/ingatlan/elado?order=asc&amp;order_by=id">Legrégebbi elöl</a></option>
-                                    <option><a href="<?php echo Util::add_order_to_url('desc', 'ar'); ?>">Legdrágább elöl</a></option>
-                                    <option><a href="<?php echo Util::add_order_to_url('asc', 'ar'); ?>">Legolcsóbb elöl</a></option>
+                                    <option value="<?php echo Util::add_order_to_url('desc', 'ar'); ?>">Legfrissebb elöl</option>
+                                    <option value="<?php echo Util::add_order_to_url('asc', 'ar'); ?>">Legrégebbi elöl</option>
+                                    <option value="<?php echo Util::add_order_to_url('desc', 'ar'); ?>">Legdrágább elöl</option>
+                                    <option value="<?php echo Util::add_order_to_url('asc', 'ar'); ?>">Legolcsóbb elöl</option>
 
                                 </select>
                             </div>
                         </div>
                         <!--end of block .listing__sort-->
-                        <div class="listing__view"><span class="listing__filter-label">View:</span><a href="properties_listing_grid.html" class="listing__btn listing__btn--grid active"><span class="glyphicon glyphicon-th-large"></span></a><a href="properties_listing.html" class="listing__btn listing__btn--list"><i class="fa fa-bars"></i></a></div>
+
                         <!--end of block .listing__view-->
                         <div class="listing__show">
-                            <div class="form-group">
-                                <label for="in-listing-show" class="control-label listing__filter-label">Show on page:</label>
-                                <!--div.listing__show-wrap-->
-                                <select id="in-listing-show" class="form-control js-in-select">
-                                    <option>10</option>
-                                    <option>25</option>
-                                    <option>50</option>
-                                    <option>100</option>
-                                </select>
-                            </div>
+                            <button id="reset-filter" class="button__default button__default--reset ui__button reset-filter-button">Szűrés törlése</button>
                         </div>
                         <!--end of block .listing__show-->
                     </div>
@@ -64,8 +55,13 @@
                                                 <?php if ($value['kepek'] == null) { ?>
                                                     <img src="<?php echo Config::get('ingatlan_photo.upload_path') . 'placeholder.jpg'; ?>" alt="<?php echo $value['ingatlan_nev']; ?>">
                                                 <?php } ?>
+                                                <span class="properties__category"><?php echo($value['kat_nev']); ?></span>
                                             </a>
+                                            <div id="kedvencek_<?php echo $value['id']; ?>" data-id="<?php echo $value['id']; ?>" class="properties__favourite <?php echo (Cookie::is_id_in_cookie('kedvencek', $value['id'])) ? 'selected-favourite' : ''; ?>">
+                                                <i class="fa fa-heart"></i>
+                                            </div>
                                             <span class="properties__ribon"><?php echo($value['tipus'] == 1) ? 'Eladó' : 'Kiadó'; ?></span>
+
                                         </div>
                                         <!-- end of block .properties__thumb-->
                                         <div class="properties__info">
@@ -90,7 +86,7 @@
                             </div>
                         </div>
                     <?php } ?>
-                    <?php if(count($this->all_property) == 0) : ?>
+                    <?php if (count($this->all_property) == 0) : ?>
                         <div class="listing__empty">
 
                             <h4 class="listing__empty-title"><i class="fa fa-exclamation-circle"></i> A keresési feltételeknek egyetlen ingatlan sem felel meg!</h4><span class="listing__empty-headline">

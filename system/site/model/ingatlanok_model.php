@@ -13,7 +13,7 @@ class Ingatlanok_model extends Site_model {
      * 	
      * 	@param array 
      */
-    public function kiemelt_properties_query() {
+    public function kiemelt_properties_query($limit) {
         $this->query->reset();
 //        $this->query->debug(true);
         $this->query->set_table(array('ingatlanok'));
@@ -37,6 +37,9 @@ class Ingatlanok_model extends Site_model {
         $this->query->set_join('left', 'city_list', 'ingatlanok.varos', '=', 'city_list.city_id');
         $this->query->set_where('ingatlanok.kiemeles', '=', '1');
         $this->query->set_where('status', '=', 1);
+        if (!is_null($limit)) {
+            $this->query->set_limit($limit);
+        }
         $this->query->set_orderby('ingatlanok.id', 'DESC');
 
         return $this->query->select();
@@ -103,6 +106,7 @@ class Ingatlanok_model extends Site_model {
             'ingatlanok.alapterulet',
             'ingatlanok.szobaszam',
             'ingatlanok.allapot',
+            'ingatlanok.szerkezet',
             'ingatlanok.kepek',
             'ingatlanok.varos',
             'ingatlanok.utca',
@@ -143,13 +147,15 @@ class Ingatlanok_model extends Site_model {
             'ingatlan_parkolas.parkolas_leiras',
             'ingatlan_kilatas.kilatas_leiras',
             'ingatlan_energetika.energetika_leiras',
-            'ingatlan_kert.kert_leiras'
+            'ingatlan_kert.kert_leiras',
+            'ingatlan_szerkezet.szerkezet_leiras'
         ));
 
         $this->query->set_join('left', 'ingatlan_kategoria', 'ingatlanok.kategoria', '=', 'ingatlan_kategoria.kat_id');
         $this->query->set_join('left', 'city_list', 'ingatlanok.varos', '=', 'city_list.city_id');
         $this->query->set_join('left', 'district_list', 'ingatlanok.kerulet', '=', 'district_list.district_id');
         $this->query->set_join('left', 'ingatlan_allapot', 'ingatlanok.allapot', '=', 'ingatlan_allapot.all_id');
+        $this->query->set_join('left', 'ingatlan_szerkezet', 'ingatlanok.szerkezet', '=', 'ingatlan_szerkezet.szerkezet_id');
         $this->query->set_join('left', 'ingatlan_futes', 'ingatlanok.futes', '=', 'ingatlan_futes.futes_id');
         $this->query->set_join('left', 'ingatlan_parkolas', 'ingatlanok.parkolas', '=', 'ingatlan_parkolas.parkolas_id');
         $this->query->set_join('left', 'ingatlan_kilatas', 'ingatlanok.kilatas', '=', 'ingatlan_kilatas.kilatas_id');
@@ -237,22 +243,36 @@ class Ingatlanok_model extends Site_model {
         /*        if (isset($params['megye']) && !empty($params['megye'])) {
           $this->query->set_where('megye', '=', $params['megye']);
           } */
-        if (isset($params['varos']) && !empty($params['varos'])) {
+
+        if ((isset($params['varos']) && !empty($params['varos'])) && (isset($params['kerulet']) && !empty($params['kerulet']))) {
             if (is_array($params['varos'])) {
                 $this->query->set_where('AND (');
                 $this->query->set_where('varos', 'in', $params['varos']);
             } else {
-                $this->query->set_where('varos', '=', $params['varos']);
                 $this->query->set_where('AND (');
+                $this->query->set_where('varos', '=', $params['varos']);
             }
-        }
-        if (isset($params['kerulet']) && !empty($params['kerulet'])) {
             if (is_array($params['kerulet'])) {
                 $this->query->set_where('kerulet', 'in', $params['kerulet'], 'or');
                 $this->query->set_where(')');
             } else {
                 $this->query->set_where('kerulet', '=', $params['kerulet'], 'or');
                 $this->query->set_where(')');
+            }
+        }
+
+        if (isset($params['varos']) && !isset($params['kerulet'])) {
+            if (is_array($params['varos'])) {
+                $this->query->set_where('varos', 'in', $params['varos']);
+            } else {
+                $this->query->set_where('varos', '=', $params['varos']);
+            }
+        }
+        if (isset($params['kerulet']) && !isset($params['varos'])) {
+            if (is_array($params['kerulet'])) {
+                $this->query->set_where('kerulet', 'in', $params['kerulet']);
+            } else {
+                $this->query->set_where('kerulet', '=', $params['kerulet']);
             }
         }
 
@@ -296,7 +316,6 @@ class Ingatlanok_model extends Site_model {
                 }
             } elseif (isset($params['tipus']) && $params['tipus'] == 2) {
                 $this->query->set_where('ar_kiado', 'between', array($params['min_ar'], $params['max_ar']));
- 
             }
         }
 
@@ -331,7 +350,6 @@ class Ingatlanok_model extends Site_model {
         // minimum és maximum ár is meg van adva
         if ((isset($params['min_szobaszam']) && !empty($params['min_szobaszam'])) AND ( $params['min_szobaszam'] > 0) AND ( isset($params['max_szobaszam']) && !empty($params['max_szobaszam'])) AND ( $params['max_szobaszam'] > 0)) {
             $this->query->set_where('szobaszam', 'between', array($params['min_szobaszam'], $params['max_szobaszam']));
-
         }
 
         // állapot
@@ -350,6 +368,8 @@ class Ingatlanok_model extends Site_model {
                 $this->query->set_orderby(array('ar_elado'), $params['order']);
             } elseif (isset($params['tipus']) && $params['tipus'] == 2) {
                 $this->query->set_orderby(array('ar_kiado'), $params['order']);
+            } else {
+                $this->query->set_orderby(array('ar_elado'), $params['order']);
             }
         } else {
             $this->query->set_orderby('id', 'DESC');
@@ -617,28 +637,20 @@ class Ingatlanok_model extends Site_model {
 
         $string = '';
         $string .= '<article class="property-item" id="favourite_property_' . $property_data['id'] . '">';
-        $string .= '<div class="span5">';
-        $string .= '<div class="property-images">';
-        $string .= '<a href="property-single.html" title="Florida 5, Pinecrest, FL">';
-        $string .= '<img src="' . Util::small_path(Config::get('ingatlan_photo.upload_path') . $photo_array[0]) . '" class="wp-post-image" alt="' . $property_data['ingatlan_nev'] . '" title="' . $property_data['ingatlan_nev'] . '" />';
-        $string .= '</a>';
+        $string .= '<div class="row">';
+        $string .= '<div class="col-md-5">';
+        $string .= '<div class="properties__thumb">';
+        $string .= '<img src="' . Util::thumb_path(Config::get('ingatlan_photo.upload_path') . $photo_array[0]) . '" alt="' . $property_data['ingatlan_nev'] . '" title="' . $property_data['ingatlan_nev'] . '" />';
         $string .= '<div id="delete_kedvenc_' . $property_data['id'] . '" data-id="' . $property_data['id'] . '" class="favourite-delete"><i class="fa fa-trash"></i></div>';
         $string .= '</div>';
-        $string .= '</div>';
-        $string .= '<div class="span7">';
+        $string .= '</div>'; // col-md-5
+        $string .= '<div class="col-md-7">';
         $string .= '<div class="property-attribute">';
-        $string .= '<span class="attribute-city">';
         if (isset($property_data['kerulet'])) {
             $string .= $property_data['city_name'] . ', ' . $property_data['district_name'];
         } else {
             $string .= $property_data['city_name'];
         }
-        $string .= '</span>';
-        $string .= '<h3 class="attribute-title">';
-        $string .= '<a href="#" title="' . $property_data['ingatlan_nev'] . '" >' . $property_data['ingatlan_nev'];
-        $string .= '</a>';
-        $string .= '</h3>';
-
         $string .= '<div class="price">';
         if ($property_data['tipus'] == 1) {
             $string .= '<span class="attr-pricing">' . number_format($property_data['ar_elado'], 0, ',', '.') . ' Ft</span>';
@@ -648,7 +660,13 @@ class Ingatlanok_model extends Site_model {
         $string .= '</div>';
         $string .= '</div>';
         $string .= '</div>';
+        $string .= '<div class="col-md-12">';
+        $string .= '<a href="ingatlanok/adatlap/' . $property_data['id'] . '/' . Replacer::filterName($property_data['ingatlan_nev']) . '" title="' . $property_data['ingatlan_nev'] . '" ><h5>' . $property_data['ingatlan_nev'];
+        $string .= '</h5></a>';
+        $string .= '</div>';
 
+
+        $string .= '</div>'; //row
         $string .= '</article>';
         return $string;
     }

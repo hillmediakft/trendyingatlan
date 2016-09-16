@@ -41,54 +41,56 @@
                             <span class="header__span"> Kedvencek</span>
                         </button>
                         <div class="dropdown__menu auth__dropdown--login">
-                            <!-- BEGIN AUTH LOGIN-->
-                            <h5 class="auth__title">Kedvencek listája</h5>
-
-                            <?php if ($this->kedvencek_list) : ?>
-                                <?php foreach ($this->kedvencek_list as $value) { ?>
-                                    <?php $photo_array = json_decode($value['kepek']); ?>    
-
-                                    <article class="property-item" id="favourite_property_<?php echo $value['id']; ?>">
-                                        <div class="span5">
-                                            <div class="property-images">
-                                                <a href="ingatlanok/adatlap/<?php echo $value['id'] . '/' . Replacer::filterName($value['ingatlan_nev']); ?>" title="<?php echo $value['ingatlan_nev']; ?>">
-                                                    <img width="540" height="360" src=" <?php echo Util::thumb_path(Config::get('ingatlan_photo.upload_path') . $photo_array[0]); ?>" class="wp-post-image" alt="<?php echo $value['ingatlan_nev']; ?>" title="<?php echo $value['ingatlan_nev']; ?>" />
-                                                </a>
-                                                <div id="delete_kedvenc_<?php echo $value['id']; ?>" data-id="<?php echo $value['id']; ?>" class="favourite-delete"><i class="fa fa-trash"></i></div>  
 
 
+                            <div class="properties js-unhide-block favourite-properties" id="favourite-property-widget">
+                                <div class="properties__list">
+                                    <?php if (count($this->kedvencek_list) > 0) : ?>
+                                            <?php foreach ($this->kedvencek_list as $value) { ?>
+                                                <?php $photo_array = json_decode($value['kepek']); ?>    
+
+                                                <article class="property-item" id="favourite_property_<?php echo $value['id']; ?>">
+                                                    <div class="row">
+                                                    <div class="col-md-5 col-sm-5">
+                                                        <div class="properties__thumb">
+                                                            <a href="ingatlanok/adatlap/<?php echo $value['id'] . '/' . Replacer::filterName($value['ingatlan_nev']); ?>" title="<?php echo $value['ingatlan_nev']; ?>" class="item-photo item-photo--static">
+                                                               <img src=" <?php echo Util::thumb_path(Config::get('ingatlan_photo.upload_path') . $photo_array[0]); ?>"  alt="<?php echo $value['ingatlan_nev']; ?>" title="<?php echo $value['ingatlan_nev']; ?>" />
+                                                            </a>
+                                                            <div id="delete_kedvenc_<?php echo $value['id']; ?>" data-id="<?php echo $value['id']; ?>" class="favourite-delete"><i class="fa fa-trash"></i></div>  
 
 
-                                            </div><!-- /.property-images -->
-                                        </div>
-                                        <div class="span7">
-                                            <div class="property-attribute">
-                                                <span class="attribute-city">
-                                                    <?php
-                                                    echo $value['city_name'];
-                                                    echo (isset($value['kerulet'])) ? ', ' . $value['district_name'] : '';
-                                                    ?>
-                                                </span>
-                                                <h3 class="attribute-title">
-                                                    <a href="ingatlanok/adatlap/<?php echo $value['id'] . '/' . Replacer::filterName($value['ingatlan_nev']); ?>" title="<?php echo $value['ingatlan_nev']; ?>" ><?php echo $value['ingatlan_nev']; ?>
-                                                    </a>
-                                                </h3>
 
-                                                <div class="price">
-                                                    <span class="attr-pricing"><?php echo ($value['tipus'] == 1) ? number_format($value['ar_elado'], 0, ',', '.') : number_format($value['ar_kiado'], 0, ',', '.'); ?> Ft</span>
-                                                </div>
-                                            </div>
-                                        </div>
 
-                                    </article>
+                                                        </div><!-- /.property-images -->
+                                                    </div>
+                                                    <div class="col-md-7 col-sm-7">
+                                                        <div class="property-attribute">
+                                                            <span class="">
+                                                                <?php
+                                                                echo $value['city_name'];
+                                                                echo (isset($value['kerulet'])) ? ', ' . $value['district_name'] : '';
+                                                                ?>
+                                                            </span>
+                                                            <div class="price">
+                                                                <span class="attr-pricing"><?php echo ($value['tipus'] == 1) ? number_format($value['ar_elado'], 0, ',', '.') : number_format($value['ar_kiado'], 0, ',', '.'); ?> Ft</span>
 
-                                <?php } ?>
-                            <?php endif ?>
-                            <?php if (empty($this->kedvencek_list)) : ?>
-                                A kedvencek listája üres!
-                            <?php endif ?>
-                            <!-- end of block .auth__form-->
-                            <!-- END AUTH LOGIN-->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <a href="ingatlanok/adatlap/<?php echo $value['id'] . '/' . Replacer::filterName($value['ingatlan_nev']); ?>" title="<?php echo $value['ingatlan_nev']; ?>" ><h5><?php echo $value['ingatlan_nev']; ?></h5>
+                                                        </a>
+                                                    </div>
+                                                    </div>
+
+                                                </article>
+                                        <?php } ?>
+                                    <?php endif ?>
+
+                                    <!-- end of block .auth__form-->
+                                    <!-- END AUTH LOGIN-->
+                                </div>
+                            </div>
                         </div>
                     </li>
 
