@@ -34,5 +34,10 @@ $link['ckeditor'] = array(
 	'js' => ADMIN_ASSETS . 'plugins/ckeditor/ckeditor.js'
 );
 
+$link['flexslider'] = array(
+	'css' => SITE_CSS . 'flexslider.css',
+	'js' => SITE_JS . 'jquery.flexslider.js'
+);
+
 return $link;
 ?>

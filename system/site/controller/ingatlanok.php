@@ -13,40 +13,41 @@ class Ingatlanok extends Site_controller {
         }
 
         $this->view = new View();
-        
+
         $this->view->settings = $this->settings;
         $this->view->kedvencek_list = $this->kedvencek_list;
-        
+
         $this->view->blogs = $this->blogs;
 
-                // kiemelt ingatlanok
+        // kiemelt ingatlanok
         $this->view->kiemelt_ingatlanok = $this->ingatlanok_model->kiemelt_properties_query(4);
 
 
+
 // paginátor objektum létrehozása
-$pagine = new Paginator('oldal', $this->settings['pagination']);
+        $pagine = new Paginator('oldal', $this->settings['pagination']);
 // limit-el lekérdezett adatok
-$this->view->all_property = $this->ingatlanok_model->properties_filter_query($pagine->get_limit(), $pagine->get_offset());
+        $this->view->all_property = $this->ingatlanok_model->properties_filter_query($pagine->get_limit(), $pagine->get_offset());
 // összes elem, ami a szűrési feltételnek megfelel (vagy a tábla összes rekordja, ha nincs szűrés)
-$this->view->filtered_count = $this->ingatlanok_model->properties_filter_count_query();
+        $this->view->filtered_count = $this->ingatlanok_model->properties_filter_count_query();
 // összes elem megadása a paginátor objektumnak
-$pagine->set_total($this->view->filtered_count);
+        $pagine->set_total($this->view->filtered_count);
 // lapozó linkek visszadása (paraméter az uri path)
-$this->view->pagine_links = $pagine->page_links($this->request->get_uri('path'));
+        $this->view->pagine_links = $pagine->page_links($this->request->get_uri('path'));
 
 // ez nem tudom hogy kapcsolódik a lapozáshoz (?)
-$this->view->no_of_properties = $this->ingatlanok_model->get_count();   
+        $this->view->no_of_properties = $this->ingatlanok_model->get_count();
 
 
-/*
-// megoldás a pagine objektummal
-        $paginator = new Paginate('oldal', $this->settings['pagination'], $this->ingatlanok_model);
+        /*
+          // megoldás a pagine objektummal
+          $paginator = new Paginate('oldal', $this->settings['pagination'], $this->ingatlanok_model);
 
-        $this->view->all_property = $paginator->get_elements();
-        $this->view->pagine_links = $paginator->pagine_links();
-        $this->view->filtered_count = $paginator->filtered_count();
-        $this->view->no_of_properties = $paginator->no_of_elements();
-*/
+          $this->view->all_property = $paginator->get_elements();
+          $this->view->pagine_links = $paginator->pagine_links();
+          $this->view->filtered_count = $paginator->filtered_count();
+          $this->view->no_of_properties = $paginator->no_of_elements();
+         */
 
 
 // var_dump($this->view->all_property);
@@ -75,7 +76,7 @@ $this->view->no_of_properties = $this->ingatlanok_model->get_count();
 
 
 
-     //   $this->view->add_link('js', SITE_JS . 'ingatlanok.js');
+        //   $this->view->add_link('js', SITE_JS . 'ingatlanok.js');
         // lekérdezések
         // $this->view->settings = $this->ingatlanok_model->get_settings();
 
@@ -87,7 +88,7 @@ $this->view->no_of_properties = $this->ingatlanok_model->get_count();
         $this->view->set_layout('tpl_layout');
         $this->view->render('ingatlanok/tpl_ingatlanok');
     }
-    
+
     /**
      * 	Ingatlan adatlap  
      */
@@ -97,28 +98,43 @@ $this->view->no_of_properties = $this->ingatlanok_model->get_count();
 
         $this->view = new View();
 
+        $this->view->mapOnPage = true;
+
         $this->view->title = 'Ingatlanok oldal';
         $this->view->description = 'Ingatlanok description';
         $this->view->keywords = '';
 
-        
+
         $this->ingatlanok_model->increase_no_of_clicks($id);
 
 //        $this->view->kiemelt_properties = $this->ingatlanok_model->hasonló_properties_query();
         $property_data = $this->ingatlanok_model->get_property_query($id);
 
-       $this->view->settings = $this->settings;
+        $this->view->settings = $this->settings;
         $this->view->kedvencek_list = $this->kedvencek_list;
+        $this->view->kiemelt_ingatlanok = $this->ingatlanok_model->kiemelt_properties_query(8);
+
+
+        // referens lekérdezése
+
+        $this->view->add_links(array('flexslider'));
 
         $this->view->property_data = $property_data[0];
+        $this->view->referens = $this->ingatlanok_model->get_agent($this->view->property_data['ref_id']);
 
+        $this->view->js_vars = '
+var ingatlan = {
+  "city": "' . $this->view->property_data['city_name'] . '",
+  "type": "' . $this->view->property_data['tipus'] . '",
+  "category": "' . $this->view->property_data['kat_nev'] . '",
+  "lat": "' . $this->view->property_data['latitude'] . '",
+  "lng": "' . $this->view->property_data['longitude'] . '"
+}';
         // koordináták a Google maps megjelenítéshez   
         $this->view->javascript = '<script type="text/javascript">var property_location = {"lat":"' . substr($this->view->property_data["latitude"], 0, 6) . '","lng":"' . substr($this->view->property_data["longitude"], 0, 6) . '"};</script>';
 
         $this->view->photos = json_decode($this->view->property_data['kepek']);
         // kedvencek lekérdezése
-
-
         // hasonló ingatlanok lekérdezése
 
         $ingatlan_id = $this->view->property_data['id'];
@@ -132,11 +148,10 @@ $this->view->no_of_properties = $this->ingatlanok_model->get_count();
 
         // referens lekérdezése
         $this->view->referens = $this->ingatlanok_model->get_agent($this->view->property_data['ref_id']);
-        
+
         $this->view->set_layout('tpl_layout');
         $this->view->render('ingatlanok/tpl_ingatlan_adatlap');
     }
-    
 
     /**
      * 	(AJAX) - törli a filter session változót  

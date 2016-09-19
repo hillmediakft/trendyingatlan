@@ -38,7 +38,7 @@
                     <li class="dropdown auth__nav-item">
                         <button data-toggle="dropdown" type="button" class="dropdown-toggle js-auth-nav-btn auth__nav-btn">
                             <i class="fa fa-heart"></i>
-                            <span class="header__span"> Kedvencek</span>
+                            <span class="header__span"> Kedvencek (<span id="kedvencek_szama"><?php echo count($this->kedvencek_list);?></span>)</span>
                         </button>
                         <div class="dropdown__menu auth__dropdown--login">
 
@@ -46,15 +46,15 @@
                             <div class="properties js-unhide-block favourite-properties" id="favourite-property-widget">
                                 <div class="properties__list">
                                     <?php if (count($this->kedvencek_list) > 0) : ?>
-                                            <?php foreach ($this->kedvencek_list as $value) { ?>
-                                                <?php $photo_array = json_decode($value['kepek']); ?>    
+                                        <?php foreach ($this->kedvencek_list as $value) { ?>
+                                            <?php $photo_array = json_decode($value['kepek']); ?>    
 
-                                                <article class="property-item" id="favourite_property_<?php echo $value['id']; ?>">
-                                                    <div class="row">
+                                            <article class="property-item" id="favourite_property_<?php echo $value['id']; ?>">
+                                                <div class="row">
                                                     <div class="col-md-5 col-sm-5">
                                                         <div class="properties__thumb">
                                                             <a href="ingatlanok/adatlap/<?php echo $value['id'] . '/' . Replacer::filterName($value['ingatlan_nev']); ?>" title="<?php echo $value['ingatlan_nev']; ?>" class="item-photo item-photo--static">
-                                                               <img src=" <?php echo Util::thumb_path(Config::get('ingatlan_photo.upload_path') . $photo_array[0]); ?>"  alt="<?php echo $value['ingatlan_nev']; ?>" title="<?php echo $value['ingatlan_nev']; ?>" />
+                                                                <img src=" <?php echo Util::thumb_path(Config::get('ingatlan_photo.upload_path') . $photo_array[0]); ?>"  alt="<?php echo $value['ingatlan_nev']; ?>" title="<?php echo $value['ingatlan_nev']; ?>" />
                                                             </a>
                                                             <div id="delete_kedvenc_<?php echo $value['id']; ?>" data-id="<?php echo $value['id']; ?>" class="favourite-delete"><i class="fa fa-trash"></i></div>  
 
@@ -81,12 +81,14 @@
                                                         <a href="ingatlanok/adatlap/<?php echo $value['id'] . '/' . Replacer::filterName($value['ingatlan_nev']); ?>" title="<?php echo $value['ingatlan_nev']; ?>" ><h5><?php echo $value['ingatlan_nev']; ?></h5>
                                                         </a>
                                                     </div>
-                                                    </div>
+                                                </div>
 
-                                                </article>
+                                            </article>
                                         <?php } ?>
                                     <?php endif ?>
-
+                                    <?php if (count($this->kedvencek_list) == 0) : ?>
+                                    <span id="empty-favourites-list"><i class="fa fa-exclamation-triangle"></i> A kedvencek listája üres!</span>
+                                    <?php endif ?>
                                     <!-- end of block .auth__form-->
                                     <!-- END AUTH LOGIN-->
                                 </div>

@@ -19,6 +19,7 @@
         <link rel="shortcut icon" href="<?php echo SITE_IMAGE; ?>favicon.ico?v=1" type="image/x-icon">
         <!-- OLDALSPECIFIKUS CSS LINKEK -->
         <?php $this->get_css_link(); ?>
+        <script><?php echo $this->js_vars; ?></script>
 
         <?php if (ENV == "production") { ?>
             <script>
@@ -42,15 +43,16 @@
         </div>
         <button type="button" class="scrollup js-scrollup"></button>
         <!-- end of block .scrollup-->
-
-        <script type="text/javascript" src="http://maps.google.com/maps/api/js?libraries=places"></script>
+      
+            <script type="text/javascript" src="http://maps.google.com/maps/api/js?libraries=places&key= AIzaSyDsyHr_ERbn8TBSwHRB1mWk28VDByR-oL0"></script>
+      
         <script src="<?php echo SITE_JS; ?>vendor.js"></script>
         <script src="<?php echo SITE_JS; ?>demodata.js"></script>
-        
+
         <script src="<?php echo Util::auto_version(SITE_JS . 'app.js'); ?>"></script>
         <script src="<?php echo Util::auto_version(SITE_JS . 'demo.js'); ?>"></script>
         <script src="<?php echo SITE_JS; ?>owl.carousel.min.js"></script>
-        <script src="<?php echo Util::auto_version(SITE_JS . 'trendy.js');?>"></script>
+        <script src="<?php echo Util::auto_version(SITE_JS . 'trendy.js'); ?>"></script>
 
         <!-- BEGIN PAGE LEVEL SCRIPTS -->
         <?php $this->get_js_link(); ?>
