@@ -4,6 +4,7 @@ class Logs extends Admin_controller {
 
     function __construct() {
         parent::__construct();
+        $this->loadModel('logs_model');
     }
 
     public function index() {

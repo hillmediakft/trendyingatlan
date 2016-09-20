@@ -6,6 +6,7 @@ class Slider extends Admin_controller {
     {
         parent::__construct();
         Acl::check('menu_slider', $this->request->get_httpreferer());
+        $this->loadModel('slider_model');
     }
 
     public function index()

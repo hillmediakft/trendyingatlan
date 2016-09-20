@@ -4,6 +4,7 @@ class Content extends Admin_controller {
 	function __construct()
 	{
 		parent::__construct();
+		$this->loadModel('content_model');
 	}
 
 	public function index()

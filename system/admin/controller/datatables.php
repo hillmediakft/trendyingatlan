@@ -5,7 +5,7 @@ class Datatables extends Admin_controller {
     function __construct()
     {
         parent::__construct();
-        Auth::handleLogin();
+        $this->loadModel('datatables_model');
     }
 
     public function index()

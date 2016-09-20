@@ -4,6 +4,7 @@ class Users extends Admin_controller {
 	function __construct()
 	{
 		parent::__construct();
+		$this->loadModel('users_model');
 	}
 
 	public function index()
