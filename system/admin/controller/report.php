@@ -47,6 +47,7 @@ class Report extends Admin_controller {
         $this->user_name = Session::get('user_name');
         $this->user_id = Session::get('user_id');
         $this->user_role_id = Session::get('user_role_id');
+        $this->loadModel('report_model');
     }
 
     /**

@@ -4,6 +4,7 @@ class Ingatlanok extends Site_controller {
 
     function __construct() {
         parent::__construct();
+        $this->loadModel('ingatlanok_model');
     }
 
     public function index() {

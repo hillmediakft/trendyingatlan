@@ -11,6 +11,7 @@ class Site_model extends Model {
 	 *
 	 * @return array a beállítások tömbje
 	 */
+	/*
 	public function get_settings()
 	{
 		$this->query->reset();
@@ -18,7 +19,8 @@ class Site_model extends Model {
 		$this->query->set_columns('*'); 
 		$result = $this->query->select(); 
 		return $result[0];
-	}	
+	}
+	*/	
 	
 	/**
 	 *	Oldal tartalmak lekérdezése
@@ -73,11 +75,12 @@ class Site_model extends Model {
         }
     } 
     
-/**
+	/**
      * 	Beolvassa a blog bejegyzéseket a blog táblából
      *
      *  @return array  ahárom legfrissebb blog bejegyzés   
      */
+    /*
     public function get_blogs($limit = 3) {
         $this->query->reset();
         $this->query->set_table(array('blog'));
@@ -86,6 +89,6 @@ class Site_model extends Model {
         $this->query->set_orderby(array('blog_add_date'), 'DESC');
         return $this->query->select();
     }     
-    
+    */
 }
 ?>
