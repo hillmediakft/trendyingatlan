@@ -34,6 +34,7 @@
                             <?php } ?> 
                             <?php if ($this->property_data['kepek']) { ?>
                                 <div id="flex-slider" class="flexslider">
+                                    <div class="property__ribon"><?php echo ($this->property_data['tipus'] == 1) ? 'Eladó' : 'Kiadó'; ?></div>
                                     <ul class="slides">
                                         <?php foreach ($this->photos as $value) { ?>            
                                             <li>
@@ -104,13 +105,13 @@
 
 
                         <!-- BEGIN SECTION ARTICLE-->
-                        <section class="article js-unhide-block article--sidebar">
+                        <section class="article">
                             <!-- end of block .article__header-->
                             <div class="article__list">
                                 <div class="article__item">
 
                                     <div class="property__info">
-                                        <div class="property__id"><span class="alert alert-info"><?php echo ($this->property_data['tipus'] == 1) ? 'Eladó' : 'Kiadó'; ?> <?php echo mb_strtolower($this->property_data['kat_nev'], 'UTF-8'); ?></span><span class="alert alert-refid">Ref.:<?php echo $this->property_data['id']; ?></span></div>
+                                        <div class="property__id"><span class="alert alert-info"><?php echo ($this->property_data['tipus'] == 1) ? 'Eladó' : 'Kiadó'; ?> <?php echo mb_strtolower($this->property_data['kat_nev'], 'UTF-8'); ?></span><span class="alert alert-refid">Ref. szám:<?php echo $this->property_data['id']; ?></span></div>
                                       
                                     </div>
                                     <div class="property__plan">

@@ -19,6 +19,7 @@ var Trendy = function () {
                     $('#favourite-property-widget .properties__list').append(data);
                     $('#kedvencek_' + property_id).addClass('selected-favourite');
                     $('#empty-favourites-list').remove();
+                    $('#kedvencek_szama').html(getKedvencekNumber());
                     app.notifier.showSuccess('Az ingatlant hozzáadta a kedvencekhez!');
                     // $('#hozzaadas_modal').modal('show');
                 }
@@ -49,10 +50,10 @@ var Trendy = function () {
                     $('#favourite_property_' + property_id).remove();
                     $('#kedvencek_' + property_id).removeClass('selected-favourite');
                     kedvencekSzama = $("#favourite-property-widget > .properties__list > article").length;
-                    if(kedvencekSzama == 0) {
+                    if (kedvencekSzama == 0) {
                         $('#favourite-property-widget .properties__list').append('<span id="empty-favourites-list"><i class="fa fa-exclamation-triangle"></i> A kedvencek listája üres!</span>');
                     }
-                    $('#kedvencek_szama').html(getKedvencekNumber());
+                    $('#kedvencek_szama').html(kedvencekSzama);
                     app.notifier.showSuccess('Az ingatlant törölte a kedvencek közül!');
                     // $('#torles_modal').modal('show');
                 }
@@ -64,22 +65,29 @@ var Trendy = function () {
 
     /* ********************** Listázási sorrend módosítása ************************* */
     var getKedvencekNumber = function () {
-        var kedvencekCookie = readCookie('kedvencek');
-        kedvencekCookie.substring(1);
-        
-console.log(kedvencekCookie);
+        var kedvencekCookie = decodeURIComponent(readCookie('kedvencek'));
+        kedvencekCookie = kedvencekCookie.substring(1);
+        kedvencekCookie = kedvencekCookie.slice(0, -1);
+        kedvencekCookie = kedvencekCookie.split(',');
+        number = kedvencekCookie.length;
+         console.log(kedvencekCookie);
+        console.log(number);
+        return number;
+
     }
-    
+
     var readCookie = function (name) {
         var nameEQ = name + "=";
-    var ca = document.cookie.split(';');
-    for(var i=0;i < ca.length;i++) {
-        var c = ca[i];
-        while (c.charAt(0)==' ') c = c.substring(1,c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ')
+                c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0)
+                return c.substring(nameEQ.length, c.length);
+        }
+        return null;
     }
-    return null;
-    }    
 
     /* ********************** Listázási sorrend módosítása ************************* */
     var setOrder = function () {

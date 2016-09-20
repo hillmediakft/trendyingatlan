@@ -8656,14 +8656,14 @@ mark {
 .worker--sidebar .worker__list {
   background: #e4e4e4;
   border: 1px solid #d6d6d6;
-  padding: 30px 30px 20px;
+  padding: 20px;
   margin-top: 12px;
 }
 
 @media (max-width: 767px) {
   .worker--sidebar .worker__list {
     margin: 18px 0 0 0;
-    display: none;
+    display: block;
   }
 }
 
@@ -8833,10 +8833,10 @@ mark {
 
 @media (max-width: 767px) {
   .worker--properties .worker__photo {
-    width: 62%;
+    width: 80px;
     padding: 0;
     margin: 0 auto;
-    float: none;
+    float: left;
   }
 
   .worker--properties .worker__photo img {
@@ -8908,7 +8908,7 @@ mark {
 
 @media (max-width: 767px) {
   .worker--properties .worker__intro-row {
-    display: none;
+    display: block;
   }
 
   .opened .worker--properties .worker__intro-row {
@@ -10070,7 +10070,7 @@ mark {
 }
 
 .article__list {
-  margin-top: 57px;
+  margin-top: 20px;
 }
 
 @media (max-width: 767px) {
@@ -10845,7 +10845,7 @@ mark {
 
 @media (max-width: 767px) {
   .article--sidebar .article__list {
-    display: none;
+    display: block;
   }
 }
 
@@ -11415,7 +11415,7 @@ fieldset[disabled] .form__in {
 }
 
 .form__in--textarea {
-  min-height: 140px;
+  min-height: 130px;
 }
 
 .form__submit {
@@ -22605,9 +22605,9 @@ fieldset[disabled] .subscribe__field {
 
 @media (max-width: 767px) {
   .property__plan-item {
-    width: 92px;
+    width: 33.3333%;
     float: left;
-    margin-bottom: 13px;
+    margin-bottom: 0px;
   }
 }
 

@@ -1,4 +1,4 @@
-                <div class="properties properties--similar js-unhide-block">
+                <div class="properties properties--similar">
                     <div class="container">
                         <button type="button" class="widget__show js-unhide">Hasonló ingatlanok</button>
                         <header class="properties__header">
