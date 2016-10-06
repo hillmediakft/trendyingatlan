@@ -17,6 +17,9 @@
     <!-- END HEAD -->
     <!-- BEGIN BODY -->
     <body>
+        <div class="logo">
+                <img alt="" class="img-responsive" src="<?php echo SITE_IMAGE;?>logo.png">
+        </div>
         <div class="login">
             <h1>Admin bejelentkezés</h1>
 
