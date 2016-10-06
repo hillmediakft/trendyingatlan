@@ -38,7 +38,7 @@
                     <li class="dropdown auth__nav-item">
                         <button data-toggle="dropdown" type="button" class="dropdown-toggle js-auth-nav-btn auth__nav-btn">
                             <i class="fa fa-heart"></i>
-                            <span class="header__span"> Kedvencek (<span id="kedvencek_szama"><?php echo count($this->kedvencek_list);?></span>)</span>
+                            <span class="header__span"> Kedvencek (<span id="kedvencek_szama"><?php echo count($this->kedvencek_list); ?></span>)</span>
                         </button>
                         <div class="dropdown__menu auth__dropdown--login">
 
@@ -87,7 +87,7 @@
                                         <?php } ?>
                                     <?php endif ?>
                                     <?php if (count($this->kedvencek_list) == 0) : ?>
-                                    <span id="empty-favourites-list"><i class="fa fa-exclamation-triangle"></i> A kedvencek listája üres!</span>
+                                        <span id="empty-favourites-list"><i class="fa fa-exclamation-triangle"></i> A kedvencek listája üres!</span>
                                     <?php endif ?>
                                     <!-- end of block .auth__form-->
                                     <!-- END AUTH LOGIN-->
@@ -128,7 +128,7 @@
                     <li class="navbar__item <?php $this->menu_active('home'); ?>">
                         <a class="navbar__link" href="">Kezdőoldal</a>
                     </li>
-                    <li class="navbar__item js-dropdown">
+                    <li class="navbar__item js-dropdown <?php $this->menu_active('ingatlanok'); ?>">
                         <a class="navbar__link">Ingatlanok <i class="fa fa-chevron-down"></i></a>
                         <div role="menu" class="js-dropdown-menu navbar__dropdown">
                             <button class="navbar__back js-navbar-submenu-back">
@@ -145,17 +145,23 @@
                             </div>
                         </div>
                     </li>
-                    <li class="navbar__item <?php $this->menu_active('szolgaltatasok'); ?>">
-                        <a class="navbar__link" href="#">Szolgáltatások</a>
+                    <li class="navbar__item <?php $this->menu_active('eladna'); ?>">
+                        <a class="navbar__link" href="eladna">Eladna?</a>
                     </li>
+                    <li class="navbar__item <?php $this->menu_active('energetikai_tanusitvany'); ?>">
+                        <a class="navbar__link" href="energetikai-tanusitvany">Energetikai tanusítvány</a>
+                    </li>
+     <!--               <li class="navbar__item <?php $this->menu_active('szolgaltatasok'); ?>">
+                        <a class="navbar__link" href="szolgaltatasok">Szolgáltatások</a>
+                    </li>  -->
                     <li class="navbar__item <?php $this->menu_active('hitelek'); ?>">
-                        <a class="navbar__link" href="#">Hitelek</a>
+                        <a class="navbar__link" href="hitelek">Hitelek</a>
                     </li>
                     <li class="navbar__item <?php $this->menu_active('hirek'); ?>">
-                        <a class="navbar__link" href="#">Hírek</a>
+                        <a class="navbar__link" href="blog">Hírek</a>
                     </li>
-                    <li class="navbar__item <?php $this->menu_active('kapcsolat'); ?>">
-                        <a class="navbar__link" href="#">Kapcsolat</a>
+                    <li class="navbar__item <?php $this->menu_active('irodank'); ?>">
+                        <a class="navbar__link" href="irodank">Irodánk</a>
                     </li>
 
 

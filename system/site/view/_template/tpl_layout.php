@@ -19,7 +19,7 @@
         <link rel="shortcut icon" href="<?php echo SITE_IMAGE; ?>favicon.ico?v=1" type="image/x-icon">
         <!-- OLDALSPECIFIKUS CSS LINKEK -->
         <?php $this->get_css_link(); ?>
-        <script><?php echo $this->js_vars; ?></script>
+        <script><?php echo (isset($this->js_vars)) ? $this->js_vars : ''?></script>
 
         <?php if (ENV == "production") { ?>
             <script>

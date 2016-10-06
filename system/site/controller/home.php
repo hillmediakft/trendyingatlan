@@ -5,6 +5,7 @@ class Home extends Site_controller {
     function __construct() {
         parent::__construct();
         $this->loadModel('home_model'); 
+
     }
 
     public function index() {

@@ -14,6 +14,8 @@ class Ingatlanok extends Site_controller {
         }
 
         $this->view = new View();
+		
+		$this->view->js_vars = 'var ingatlan =""';
 
         $this->view->settings = $this->settings;
         $this->view->kedvencek_list = $this->kedvencek_list;

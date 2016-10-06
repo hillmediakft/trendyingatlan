@@ -1,10 +1,10 @@
 <?php
 
-class Error extends Site_controller {
+class Hitelek extends Site_controller {
 
     function __construct() {
         parent::__construct();
-        $this->loadModel('error_model');
+        $this->loadModel('hitelek_model');
     }
 
     public function index() {
@@ -17,7 +17,7 @@ class Error extends Site_controller {
         $this->ingatlanok = $this->loadmodel('ingatlanok_model');
         // kiemelt ingatlanok
         $this->view->kiemelt_ingatlanok = $this->ingatlanok_model->kiemelt_properties_query(4);
-        $this->view->data_arr = $this->error_model->page_data_query('error');
+        $this->view->data_arr = $this->hitelek_model->page_data_query('hitelek');
 
 
         $this->view->title = $this->view->data_arr['page_metatitle'];
@@ -26,7 +26,7 @@ class Error extends Site_controller {
         $this->view->content = $this->view->data_arr['page_body'];
 
         $this->view->set_layout('tpl_layout');
-        $this->view->render('error/tpl_404');
+        $this->view->render('hitelek/tpl_hitelek');
     }
 
 }

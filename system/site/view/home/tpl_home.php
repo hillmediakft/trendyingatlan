@@ -142,27 +142,27 @@
     <div class="container">
         <div class="article__header">
             <h3 class="article__title">Hírek, hasznos cikkek</h3>
-            
+
         </div>
         <!-- end of block .article__header-->
         <div class="article__list">
-            
+
             <?php foreach ($this->blogs as $value) { ?> 
-            
-            
-            <div data-sr="enter left over 1s and scale up 20%" data-animate-end="" class="article__item"><a href="<?php echo $this->registry->site_url . 'blog/' . $value['blog_slug'] . '/' . $value['blog_id']; ?>" class="article__photo"><img src="<?php echo Config::get('blogphoto.upload_path') . $value['blog_picture']; ?>" alt="News title" class="article__photo-img">
+
+
+                <div data-sr="enter left over 1s and scale up 20%" data-animate-end="" class="article__item"><a href="<?php echo $this->registry->site_url . 'blog/' . $value['blog_slug'] . '/' . $value['blog_id']; ?>" class="article__photo"><img src="<?php echo Config::get('blogphoto.upload_path') . $value['blog_picture']; ?>" alt="News title" class="article__photo-img">
                     </a>
-                <div class="article__details"><a href="<?php echo $this->registry->site_url . 'blog/' . $value['blog_slug'] . '/' . $value['blog_id']; ?>" class="article__item-title"><?php echo $value['blog_title']; ?></a>
-                    <div class="article__intro">
-                        <p><?php echo Util::sentence_trim($value['blog_body'], 1); ?></p>
-                    </div><a href="<?php echo $this->registry->site_url . 'blog/' . $value['blog_slug'] . '/' . $value['blog_id']; ?>" class="article__more">Tovább</a>
+                    <div class="article__details"><a href="<?php echo $this->registry->site_url . 'blog/' . $value['blog_slug'] . '/' . $value['blog_id']; ?>" class="article__item-title"><?php echo $value['blog_title']; ?></a>
+                        <div class="article__intro">
+                            <p><?php echo Util::sentence_trim($value['blog_body'], 1); ?></p>
+                        </div><a href="<?php echo $this->registry->site_url . 'blog/' . $value['blog_slug'] . '/' . $value['blog_id']; ?>" class="article__more">Tovább</a>
+                    </div>
                 </div>
-            </div>
-            
+
             <?php } ?>
             <!-- end of block .article__item-->
-            
-            
+
+
         </div>
         <!-- end of block .article__list--><a href="#" class="article__btn-more"> További cikkek...</a>
     </div>
@@ -200,9 +200,57 @@
             </div>
         </div>
         <!-- end of block .review__list-->
+
+
+
+
+
     </div>
+
+
+
+
 </section>
 <!-- END SECTION REVIEW-->
+
+
+<section class="article article--index">
+<div class="container">
+    <div class="pricing">
+
+        <div class="pricing__row">
+            <div class="pricing__col3">
+                <div class="pricing__item">
+                    <dl class="pricing__list">
+                        <dd class="pricing__total"><span class="pricing__summa"><i class="fa fa-phone"></i></span></dd>
+                        <dd class="pricing__feature"><strong>Hívjon minket:<br>06 1 -613-5251, +36-283-5550</strong></dd>
+                    </dl>
+                </div>
+            </div>
+            <div class="pricing__col3">
+                <div class="pricing__item">
+                    <dl class="pricing__list">
+                        <dd class="pricing__total"><span class="pricing__summa"><i class="fa fa-phone-square"></i></span></dd>
+                        <dd class="pricing__feature"><strong>Kérjen visszahívást<br>Kérdéseire személyesen válaszolunk.</strong></dd>
+                    </dl>
+                </div>
+            </div>
+            <div class="pricing__col3">
+                <div class="pricing__item">
+                    <dl class="pricing__list">
+                        <dd class="pricing__total"><span class="pricing__summa"><i class="fa fa-envelope"></i></span></dd>
+                        <dd class="pricing__feature"><strong>Írjon nekünk<br>Emailjére személyesen válaszolunk.
+</strong></dd>
+                    </dl>
+                </div>
+            </div>
+
+        </div>
+
+    </div>    
+</div>    
+</section>
+
 
 
 

@@ -51,13 +51,17 @@
     initWideSlider('#slider-wide');
     initBannerSlider('.js-banner-slider');
     // initIndexMap('.js-map-index-canvas', window.demodata);
-    initPropertyMapAndPanorama('.js-map-canvas[data-type="map"]', '.js-map-canvas[data-type="panorama"]', ingatlan);
+    if ($('.js-map-canvas[data-type="map"]').length) {
+        initPropertyMapAndPanorama('.js-map-canvas[data-type="map"]', '.js-map-canvas[data-type="panorama"]', ingatlan);
+    }
     initSubmitPropertyForm('.js-form');
     initRangeSliders();
     initSlider('.js-slick-blog');
     initSlider('#counter-slider');
     initSlider('#properties-banner');
-    initGoogleMap('.js-map-canvas-contact', ingatlan);
+    if ($('.js-map-canvas[data-type="map"]').length) {
+        initGoogleMap('.js-map-canvas-contact', ingatlan);
+    }
     initBtnDemo('.js-btn-demo');
     initPopovers('.js-popover');
     // initGeocoderGoogleMap('#autocomplete-map', {lat: 37.7749295, lng: -122.41941550000001});

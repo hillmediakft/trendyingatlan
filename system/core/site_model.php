@@ -28,12 +28,12 @@ class Site_model extends Model {
 	 *	@param	integer	$id 	(page_id az oldal id-je a pages táblában)
 	 *	@return array
 	 */
-	public function page_data_query($id)
+	public function page_data_query($page_name)
 	{
 		$this->query->reset();		
 		$this->query->set_table(array('pages'));		
 		$this->query->set_columns('*');
-		$this->query->set_where('page_id', '=', $id);
+		$this->query->set_where('page_friendlyurl', '=', $page_name);
 		$result = $this->query->select();
 		return $result[0];
 	}	

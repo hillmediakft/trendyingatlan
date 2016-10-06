@@ -4162,7 +4162,7 @@ input[type=checkbox].in-checkbox:indeterminate + label:before {
 }
 
 .site__panel {
-  background: #01a1bb;
+  background: #be272e;
   color: #2c3e50;
 }
 
@@ -4182,6 +4182,10 @@ input[type=checkbox].in-checkbox:indeterminate + label:before {
   padding: 8px 17px 0;
   margin-bottom: 11px;
   font-weight: 600;
+}
+
+.site__header-text p {
+  color: #fff;
 }
 
 .site__header-text a {
@@ -5520,7 +5524,7 @@ input[type=checkbox].in-checkbox:indeterminate + label:before {
   display: inline-block;
   font-family: FontAwesome;
   content: "";
-  color: #01a1bb;
+  color: #be272e;
   left: 0;
   position: absolute;
   top: 4px;
@@ -10026,7 +10030,7 @@ mark {
 }
 
 .sidebar .article__title {
-  font-size: 28px;
+  font-size: 20px;
 }
 
 .footer .article__title {
@@ -18358,7 +18362,7 @@ fieldset[disabled] .search__form-control {
 }
 
 .sidebar .properties__title {
-  font-size: 28px;
+  font-size: 20px;
 }
 
 .footer .properties__title {
@@ -21502,7 +21506,7 @@ fieldset[disabled] .subscribe__field {
 
 @media (min-width: 1200px) {
   .pricing__row {
-    min-height: 600px;
+    min-height: 200px;
   }
 }
 
@@ -21660,8 +21664,8 @@ fieldset[disabled] .subscribe__field {
 }
 
 @media (min-width: 1200px) {
-  .pricing__item:hover {
-    border: 5px solid #01a1bb;
+/*  .pricing__item:hover {
+
     -webkit-transform: scaleY(1) translateY(-20px);
     -ms-transform: scaleY(1) translateY(-20px);
     transform: scaleY(1) translateY(-20px);
@@ -21678,7 +21682,7 @@ fieldset[disabled] .subscribe__field {
 
   .pricing__item:hover .pricing__summa {
     font-size: 92px;
-  }
+  } */
 }
 
 .pricing__item--col {
@@ -21763,7 +21767,7 @@ fieldset[disabled] .subscribe__field {
 }
 
 .pricing__total {
-  background: #01a1bb;
+  background: #e4e4e4;
   padding: 1px 0 7px;
   text-align: center;
   vertical-align: top;
@@ -21772,7 +21776,7 @@ fieldset[disabled] .subscribe__field {
   margin-left: -3px;
   margin-right: -3px;
   position: relative;
-  color: #fff;
+  color: #999;
 }
 
 .pricing__currency {
@@ -21797,10 +21801,10 @@ fieldset[disabled] .subscribe__field {
 
 .pricing__favorite {
   position: absolute;
-  top: -30px;
-  right: 5%;
-  background: #f3bc65;
-  font-size: 11px;
+  bottom: -30px;
+  left: 5%;
+  background: #01a1bb;
+  font-size: 40px;
   font-weight: 600;
   text-transform: uppercase;
   border-radius: 60px;
@@ -21808,7 +21812,8 @@ fieldset[disabled] .subscribe__field {
   display: block;
   height: 60px;
   line-height: 1;
-  padding: 19px 0;
+  padding: 10px 0;
+  color: #fff;
 }
 
 .pricing__list {
@@ -22994,7 +22999,7 @@ fieldset[disabled] .subscribe__field {
 }
 
 .listing__headline {
-  font-size: 14px;
+  font-size: 20px;
   font-weight: 400;
   margin-top: 30px;
   margin-bottom: 0;
@@ -25524,7 +25529,7 @@ fieldset[disabled] .form-property__control {
 }
 
 .contacts__title {
-  font-size: 46px;
+  font-size: 36px;
   color: #2c3e50;
   font-weight: 600;
   text-transform: uppercase;

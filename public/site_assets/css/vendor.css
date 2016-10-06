@@ -12371,3 +12371,12 @@ a.pswp__share--download:hover {
     clear: none;
   }
 }
+
+footer::before {
+    background-image: url("../img/city_skyline.jpg");
+    background-size: 100% 100%;
+    content: "";
+    display: inline-block;
+    height: 100px;
+    width: 100%;
+}
