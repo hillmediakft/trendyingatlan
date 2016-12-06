@@ -61,14 +61,21 @@ class Property_model extends Admin_model {
             'ingatlanok.ar_elado',
             'ingatlanok.ar_kiado',
             'ingatlanok.alapterulet',
+            'ingatlanok.erkely_terulet',
+            'ingatlanok.terasz_terulet',
+            'ingatlanok.belmagassag',
+            'ingatlanok.tajolas',
             'ingatlanok.szobaszam',
+            'ingatlanok.felszobaszam',
             'ingatlanok.allapot',
             'ingatlanok.kepek',
             'ingatlanok.docs',
             'ingatlanok.varos',
             'ingatlanok.megye',
             'ingatlanok.utca',
+            'ingatlanok.emelet_ajto',
             'ingatlanok.iranyitoszam',
+            'ingatlanok.tetoter',
             'ingatlanok.utca_megjelenites',
             'ingatlanok.hazszam_megjelenites',
             'ingatlanok.terkep',
@@ -84,6 +91,10 @@ class Property_model extends Admin_model {
             'ingatlanok.butor',
             'ingatlanok.energetika',
             'ingatlanok.kert',
+            'ingatlanok.haz_allapot_kivul',
+            'ingatlanok.haz_allapot_belul',
+            'ingatlanok.furdo_wc',
+            'ingatlanok.fenyviszony',
             'ingatlanok.erkely',
             'ingatlanok.terasz',
             'ingatlanok.medence',
@@ -129,6 +140,10 @@ class Property_model extends Admin_model {
         $this->query->set_join('left', 'ingatlan_kilatas', 'ingatlanok.kilatas', '=', 'ingatlan_kilatas.kilatas_id');
         $this->query->set_join('left', 'ingatlan_energetika', 'ingatlanok.energetika', '=', 'ingatlan_energetika.energetika_id');
         $this->query->set_join('left', 'ingatlan_kert', 'ingatlanok.kert', '=', 'ingatlan_kert.kert_id');
+        $this->query->set_join('left', 'ingatlan_haz_allapot_kivul', 'ingatlanok.haz_allapot_kivul', '=', 'ingatlan_haz_allapot_kivul.haz_allapot_kivul_id');
+        $this->query->set_join('left', 'ingatlan_haz_allapot_belul', 'ingatlanok.haz_allapot_belul', '=', 'ingatlan_haz_allapot_belul.haz_allapot_belul_id');
+        $this->query->set_join('left', 'ingatlan_furdo_wc', 'ingatlanok.furdo_wc', '=', 'ingatlan_furdo_wc.furdo_wc_id');
+        $this->query->set_join('left', 'ingatlan_fenyviszony', 'ingatlanok.fenyviszony', '=', 'ingatlan_fenyviszony.fenyviszony_id');
         $this->query->set_join('left', 'users', 'ingatlanok.ref_id', '=', 'users.user_id');
 
         $this->query->set_where('id', '=', $id);
@@ -160,7 +175,8 @@ class Property_model extends Admin_model {
         //megadja, hogy insert utáni update, normál update lesz (modositas_datum megadása miatt)
         $update_real = false;
 
-        $data = $this->request->get_post();
+        $data = $this->request->get_post(null, 'strip_danger_tags');
+
 //echo json_encode($data);
         // megvizsgáljuk, hogy a post adatok között van-e update_id
         // update-nél a javasriptel hozzáadunk a post adatokhoz egy update_id elemet
@@ -252,6 +268,7 @@ class Property_model extends Admin_model {
             $data['hazszam_megjelenites'] = (isset($data['hazszam_megjelenites'])) ? 1 : 0;
             $data['terkep'] = (isset($data['terkep'])) ? 1 : 0;
 // jellemzők
+            $data['tetoter'] = (isset($data['tetoter'])) ? 1 : 0;
             $data['erkely'] = (isset($data['erkely'])) ? 1 : 0;
             $data['terasz'] = (isset($data['terasz'])) ? 1 : 0;
             $data['medence'] = (isset($data['medence'])) ? 1 : 0;
@@ -284,7 +301,7 @@ class Property_model extends Admin_model {
 
                     if ($update_real) {
                         Message::set('success', 'A módosítások sikeresen elmentve!');
-                         EventManager::trigger('update_property', array('update', '#' . $id . ' azonosítójú ingatlan módosítása'));
+                        EventManager::trigger('update_property', array('update', '#' . $id . ' azonosítójú ingatlan módosítása'));
                     } else {
                         Message::set('success', 'Ingatlan adatai elmentve.');
                     }
@@ -311,8 +328,8 @@ class Property_model extends Admin_model {
                 // a last insert id-t adja vissza
                 $last_id = $this->query->insert($data);
 
-                 EventManager::trigger('insert_property', array('insert', '#' . $last_id . ' azonosítójú ingatlan létrehozása'));
-                
+                EventManager::trigger('insert_property', array('insert', '#' . $last_id . ' azonosítójú ingatlan létrehozása'));
+
                 return array(
                     "status" => 'success',
                     "last_insert_id" => $last_id,
@@ -326,6 +343,20 @@ class Property_model extends Admin_model {
                 "error_messages" => $error_messages
             );
         }
+    }
+
+    /**
+     * 	(AJAX) Lakás törlése
+     *
+     * 	@param	integer||array	$id 	a törlendő rekord id-je
+     * 	@return	bool	false || integer
+     */
+    public function soft_delete_property_AJAX($id) {
+        $data = array();
+        $data['deleted'] = 1;
+        $this->query->set_table(array('ingatlanok'));
+        $this->query->set_where('id', '=', $id);
+        return $this->query->update($data);
     }
 
     /**
@@ -1173,6 +1204,7 @@ class Property_model extends Admin_model {
         $display_draw = intval($request_data['draw']);
 
         $this->query->reset();
+        $this->query->debug(false);
         $this->query->set_table(array('ingatlanok'));
         $this->query->set_columns('SQL_CALC_FOUND_ROWS 
             `ingatlanok`.`id`,
@@ -1185,6 +1217,8 @@ class Property_model extends Admin_model {
             `ingatlanok`.`ar_kiado`,
             `ingatlanok`.`alapterulet`,
             `ingatlanok`.`szobaszam`,
+            `ingatlanok`.`kerulet`,
+            `ingatlanok`.`utca`,
             `ingatlanok`.`megtekintes`,
             `ingatlan_kategoria`.`kat_nev`,
             `users`.`user_first_name`,
@@ -1205,6 +1239,8 @@ class Property_model extends Admin_model {
         if (Session::get('user_role_id') != 1) {
             $this->query->set_where('ref_id', '=', Session::get('user_id'));
         }
+        
+        $this->query->set_where('deleted', '=', 0);
 
         //szűrés beállítások
         if (isset($request_data['action']) && $request_data['action'] == 'filter') {
@@ -1300,6 +1336,15 @@ class Property_model extends Admin_model {
             $num = $request_data['order'][0]['column']; //ez az oszlop száma
             $dir = $request_data['order'][0]['dir']; // asc vagy desc
             $order = $request_data['columns'][$num]['name']; // az oszlopokat az adatbázis mezői szerint kell elnevezni (a javascript datattables columnDefs beállításában)
+            if ($order == "ref_id") {
+                $order = 'user_last_name';
+            }
+            if ($order == "kategoria") {
+                $order = 'kat_nev';
+            }
+            if ($order == "varos") {
+                $order = 'city_name';
+            }
 
             $this->query->set_orderby(array($order), $dir);
         }
@@ -1341,12 +1386,12 @@ class Property_model extends Admin_model {
             } else {
                 $temp['kepek'] = '<img src="' . ADMIN_ASSETS . 'img/placeholder_80x60.jpg" alt="" />';
             }
-
+            $temp['ref_id'] = $value['user_first_name'] . '<br>' . $value['user_last_name'];
             $temp['tipus'] = ($value['tipus'] == 1) ? 'eladó' : 'kiadó';
 
             $temp['kategoria'] = $value['kat_nev'];
-
-            $temp['varos'] = $value['city_name'];
+            $kerulet = !empty($value['kerulet']) ? '<br>' . $value['kerulet'] . '. kerület' : '';
+            $temp['varos'] = $value['city_name'] . $kerulet . '<br>' . $value['utca'];
 
             $temp['alapterulet'] = $value['alapterulet'];
 
@@ -1354,7 +1399,7 @@ class Property_model extends Admin_model {
 
             $temp['megtekintes'] = $value['megtekintes'];
 
-            $temp['ar'] = (!empty($value['ar_elado'])) ? $value['ar_elado'] : $value['ar_kiado'];
+            $temp['ar'] = (!empty($value['ar_elado'])) ? Util::nice_number($value['ar_elado']) : Util::nice_number($value['ar_kiado']);
 
             $temp['status'] = ($value['status'] == 1) ? '<span class="label label-sm label-success">Aktív</span>' : '<span class="label label-sm label-danger">Inaktív</span>';
 
@@ -1369,7 +1414,7 @@ class Property_model extends Admin_model {
                 <i class="fa fa-cogs"></i>
                   </a>          
                   <ul class="dropdown-menu pull-right">
-                <li><a data-toggle="modal" data-target="#ajax_modal" href="' . $this->request->get_uri('site_url') . 'property/view_property_ajax/' . $value['id'] . '"><i class="fa fa-eye"></i> Részletek</a></li>';
+                <li><a href="' . $this->request->get_uri('site_url') . 'property/details/' . $value['id'] . '"><i class="fa fa-eye"></i> Részletek</a></li>';
 
             // update
             $temp['menu'] .= (1) ? '<li><a href="' . $this->request->get_uri('site_url') . 'property/update/' . $value['id'] . '"><i class="fa fa-pencil"></i> Szerkeszt</a></li>' : '';

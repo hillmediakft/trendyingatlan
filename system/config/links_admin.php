@@ -152,6 +152,7 @@ $link['testimonial_update'] = array('js' => ADMIN_JS . 'pages/testimonial_update
 
 // property
 $link['property_list'] = array('js' => ADMIN_JS . 'pages/property_list.js');
+$link['property_list_superadmin'] = array('js' => ADMIN_JS . 'pages/property_list_superadmin.js');
 $link['property_details'] = array('js' => ADMIN_JS . 'pages/property_details.js');
 $link['property_insert'] = array('js' => ADMIN_JS . 'pages/property_insert.js');
 $link['property_update'] = array('js' => ADMIN_JS . 'pages/property_update.js');
@@ -165,6 +166,11 @@ $link['kert'] = array('js' => ADMIN_JS . 'pages/kert.js');
 $link['kilatas'] = array('js' => ADMIN_JS . 'pages/kilatas.js');
 $link['parkolas'] = array('js' => ADMIN_JS . 'pages/parkolas.js');
 $link['szerkezet'] = array('js' => ADMIN_JS . 'pages/szerkezet.js');
+$link['komfort'] = array('js' => ADMIN_JS . 'pages/komfort.js');
+$link['haz_allapot_kivul'] = array('js' => ADMIN_JS . 'pages/haz_allapot_kivul.js');
+$link['haz_allapot_belul'] = array('js' => ADMIN_JS . 'pages/haz_allapot_belul.js');
+$link['furdo_wc'] = array('js' => ADMIN_JS . 'pages/furdo_wc.js');
+$link['fenyviszony'] = array('js' => ADMIN_JS . 'pages/fenyviszony.js');
 
 // Google Maps
 $link['google-maps'] = array(
@@ -176,6 +182,14 @@ $link['google-maps'] = array(
 
 // logs
 $link['logs'] = array('js' => ADMIN_JS . 'pages/logs.js');
+
+// documents
+$link['documents'] = array('js' => ADMIN_JS . 'pages/documents.js');
+$link['document_insert'] = array('js' => ADMIN_JS . 'pages/document_insert.js');
+$link['document_update'] = array('js' => ADMIN_JS . 'pages/document_update.js');
+$link['document_category'] = array('js' => ADMIN_JS . 'pages/document_category.js');
+$link['document_category_insert'] = array('js' => ADMIN_JS . 'pages/document_category_insert.js');
+$link['document_category_update'] = array('js' => ADMIN_JS . 'pages/document_category_update.js');
 
 return $link;
 ?>

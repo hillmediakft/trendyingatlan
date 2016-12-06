@@ -48,6 +48,11 @@
                             <label for="setting_tel">Telefonszám</label>	
                             <input type='text' name='setting_tel' class='form-control input-large' value="<?php echo (empty($this->settings['tel'])) ? "" : $this->settings['tel']; ?>"/>
                         </div>
+                                            
+                         <div class="form-group">
+                            <label for="setting_tel_2">Telefonszám 2</label>	
+                            <input type='text' name='setting_tel_2' class='form-control input-large' value="<?php echo (empty($this->settings['tel_2'])) ? "" : $this->settings['tel_2']; ?>"/>
+                        </div>                                           
 
                         <div class="form-group">
                             <label for="setting_email">E-mail (lábléc e-mail űrlap)</label>	

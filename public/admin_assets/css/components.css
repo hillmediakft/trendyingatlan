@@ -13277,7 +13277,7 @@ Customized Bootstrap Tables
 ***/
 .table td,
 .table th {
-  font-size: 14px; }
+  font-size: 13px; }
 
 .table.table-bordered thead > tr > th {
   border-bottom: 0; }

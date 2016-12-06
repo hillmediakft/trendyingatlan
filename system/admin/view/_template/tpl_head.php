@@ -21,6 +21,7 @@
     <link href="<?php echo ADMIN_ASSETS; ?>plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="<?php echo ADMIN_ASSETS; ?>plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css" />
     <link href="<?php echo ADMIN_ASSETS; ?>plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo ADMIN_ASSETS; ?>plugins/titatoggle/titatoggle.min.css" rel="stylesheet" type="text/css" />
     <!-- END GLOBAL MANDATORY STYLES -->
 
     <!-- BEGIN PAGE LEVEL PLUGIN STYLES -->
@@ -272,16 +273,6 @@
                         </a>
                     </li>
 
-                    <!-- NELVEK -->
-                    <!--
-                    <li class="nav-item <?php //$this->menu_active('languages'); ?> ">
-                        <a href="admin/languages" class="nav-link ">
-                            <i class="fa fa-globe"></i>
-                            <span class="title">Nyelvek</span>
-                        </a>
-                    </li>
-                    -->
-
                     <!-- HÍRLEVÉL -->
                     <li class="nav-item <?php $this->menu_active('newsletter'); ?> ">
                         <a href="javascript:;" class="nav-link nav-toggle">
@@ -334,6 +325,8 @@
                         </ul>
                     </li>
                 <!-- END MENU ITEMS -->
+                
+           
 
                 </ul>
                 <!-- END SIDEBAR MENU -->

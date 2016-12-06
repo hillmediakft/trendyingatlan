@@ -2,8 +2,7 @@
 
 class Property extends Admin_controller {
 
-    function __construct()
-    {
+    function __construct() {
         parent::__construct();
         $this->loadModel('property_model');
     }
@@ -11,35 +10,26 @@ class Property extends Admin_controller {
     /**
      * Ingatlanok listája
      */
-    public function index()
-    {
+    public function index() {
         $this->view = new View();
+        $this->view->is_superadmin = (Session::get('user_role_id') == 1) ? true : false;
 
         $this->view->filter = array();
 
         $this->view->title = 'Ingatlanok oldal';
         $this->view->description = 'Ingatlanok oldal description';
 
-        $this->view->add_links(array('datatable','select2', 'bootbox', 'vframework', 'property_list'));
-
+        if (!$this->view->is_superadmin) {
+            $this->view->add_links(array('datatable', 'select2', 'bootbox', 'vframework', 'property_list'));
+        } else {
+            $this->view->add_links(array('datatable', 'select2', 'bootbox', 'vframework', 'property_list_superadmin'));
+        }
         $this->view->users = $this->property_model->users_list_query();
         $this->view->county_list = $this->property_model->county_list_query();
         // kerületek nevének és id-jének lekérdezése az option listához
         $this->view->district_list = $this->property_model->list_query('district_list');
         // ingatlan kategóriák lekérdezése
         $this->view->ingatlan_kat_list = $this->property_model->list_query('ingatlan_kategoria');
-
-/*
-        if ($this->request->has_query('action') && $this->request->get_query('action') == 'search') {
-
-            $this->view->all_property = $this->property_model->properties_filter_query();
-            Session::init();
-            Session::set('filter', $this->request->get_query() );
-            $this->view->filter = Session::get('filter');
-        } else {
-            $this->view->all_property = $this->property_model->all_property_query();
-        }
-*/
 
 //$this->view->debug(true);
 
@@ -50,8 +40,7 @@ class Property extends Admin_controller {
     /**
      * Ingatlan részletek
      */
-    public function details()
-    {
+    public function details() {
         $this->view = new View();
 
         $id = (int) $this->request->get_params('id');
@@ -62,7 +51,7 @@ class Property extends Admin_controller {
         $this->view->add_links(array('fancybox', 'property_details'));
 
         $this->view->property_data = $this->property_model->get_property_query($id);
-        
+
         $this->view->photos = json_decode($this->view->property_data['kepek']);
         $this->view->docs = json_decode($this->view->property_data['docs']);
 
@@ -72,38 +61,28 @@ class Property extends Admin_controller {
         $this->view->render('property/tpl_property_details');
     }
 
-    public function search()
-    {
+    public function search() {
         die('work in progress');
     }
 
-
-
-            /**
-             *  (AJAX) Az ingatlanok listáját adja vissza és kezeli a csoportos művelteket is
-             */
-            public function ajax_get_property()
-            {
-                if ($this->request->is_ajax()) {
-                    $request_data = $this->request->get_post();  //$_REQUEST;
-                    $json_data = $this->property_model->ajax_get_propertys($request_data);
-                    // adatok visszaküldése a javascriptnek
-                    echo json_encode($json_data);
-                
-                } else {
-                    Util::redirect('error');
-                }       
-            }
-
-
-
-
+    /**
+     *  (AJAX) Az ingatlanok listáját adja vissza és kezeli a csoportos művelteket is
+     */
+    public function ajax_get_property() {
+        if ($this->request->is_ajax()) {
+            $request_data = $this->request->get_post();  //$_REQUEST;
+            $json_data = $this->property_model->ajax_get_propertys($request_data);
+            // adatok visszaküldése a javascriptnek
+            echo json_encode($json_data);
+        } else {
+            Util::redirect('error');
+        }
+    }
 
     /**
      * 	Új lakás hozzáadása
      */
-    public function insert()
-    {
+    public function insert() {
         $this->view = new View();
 
         // adatok bevitele a view objektumba
@@ -124,6 +103,12 @@ class Property extends Admin_controller {
         $this->view->ingatlan_kilatas_list = $this->property_model->list_query('ingatlan_kilatas');
         $this->view->ingatlan_energetika_list = $this->property_model->list_query('ingatlan_energetika');
         $this->view->ingatlan_kert_list = $this->property_model->list_query('ingatlan_kert');
+        $this->view->ingatlan_szerkezet_list = $this->property_model->list_query('ingatlan_szerkezet');
+        $this->view->ingatlan_komfort_list = $this->property_model->list_query('ingatlan_komfort');
+        $this->view->ingatlan_haz_allapot_belul_list = $this->property_model->list_query('ingatlan_haz_allapot_belul');
+        $this->view->ingatlan_haz_allapot_kivul_list = $this->property_model->list_query('ingatlan_haz_allapot_kivul');
+        $this->view->ingatlan_furdo_wc_list = $this->property_model->list_query('ingatlan_furdo_wc');
+        $this->view->ingatlan_fenyviszony_list = $this->property_model->list_query('ingatlan_fenyviszony');
 
 //$this->view->debug(true);
         $this->view->set_layout('tpl_layout');
@@ -133,16 +118,15 @@ class Property extends Admin_controller {
     /**
      * 	Lakás adatainak módosítása oldal	
      */
-    public function update()
-    {
+    public function update() {
         $this->view = new View();
 
         $id = (int) $this->request->get_params('id');
 
-        $this->view->title = 'Lakás adatok módosítás oldal';
-        $this->view->description = 'Lakás adatok módosítás description';
-        
-        $this->view->add_links(array('jquery-ui', 'select2', 'validation', 'ckeditor', 'kartik-bootstrap-fileinput', 'property_update'));
+        $this->view->title = 'Ingatlan adatok módosítás oldal';
+        $this->view->description = 'Ingatlan adatok módosítás description';
+
+        $this->view->add_links(array('jquery-ui', 'select2', 'validation', 'ckeditor', 'kartik-bootstrap-fileinput', 'google-maps', 'property_update', 'autocomplete'));
 
         // a lakás összes adatának lekérdezése az ingatlanok táblából
         $this->view->content = $this->property_model->one_property_alldata_query($id);
@@ -158,6 +142,12 @@ class Property extends Admin_controller {
         $this->view->ingatlan_kilatas_list = $this->property_model->list_query('ingatlan_kilatas');
         $this->view->ingatlan_energetika_list = $this->property_model->list_query('ingatlan_energetika');
         $this->view->ingatlan_kert_list = $this->property_model->list_query('ingatlan_kert');
+        $this->view->ingatlan_szerkezet_list = $this->property_model->list_query('ingatlan_szerkezet');
+        $this->view->ingatlan_komfort_list = $this->property_model->list_query('ingatlan_komfort');
+        $this->view->ingatlan_haz_allapot_belul_list = $this->property_model->list_query('ingatlan_haz_allapot_belul');
+        $this->view->ingatlan_haz_allapot_kivul_list = $this->property_model->list_query('ingatlan_haz_allapot_kivul');
+        $this->view->ingatlan_furdo_wc_list = $this->property_model->list_query('ingatlan_furdo_wc');
+        $this->view->ingatlan_fenyviszony_list = $this->property_model->list_query('ingatlan_fenyviszony');
 //$this->view->debug(true);
         // template betöltése
         $this->view->set_layout('tpl_layout');
@@ -167,10 +157,9 @@ class Property extends Admin_controller {
     /**
      * 	(AJAX) Lakás részletek (modal-ba)
      */
-    public function view_property_ajax()
-    {
+    public function view_property_ajax() {
         if ($this->request->is_ajax()) {
-            $id = (int)$this->request->get_params('id');
+            $id = (int) $this->request->get_params('id');
             $this->view->content = $this->property_model->property_details_query($id);
 
 //$this->view->debug(true);			
@@ -181,33 +170,30 @@ class Property extends Admin_controller {
         }
     }
 
-/* ------- AJAX hívások --------------------------------------- */
+    /* ------- AJAX hívások --------------------------------------- */
 
     /**
      *  (AJAX) Lakás törlése
      */
-    public function delete_property_AJAX()
-    {
-        if($this->request->is_ajax()){
+    public function delete_property_AJAX() {
+        if ($this->request->is_ajax()) {
             //if(Acl::check('delete_user')){
-            if(1){
+            if (1) {
                 // a POST-ban kapott item_id egy string ami egy szám vagy számok felsorolása pl.: "23" vagy "12,45,76" 
                 $id = $this->request->get_post('item_id');
                 $result = $this->property_model->delete_property_AJAX($id);
 
-                if($result !== false) {
+                if ($result !== false) {
                     echo json_encode(array(
                         "status" => 'success',
                         "message_success" => 'Ingatlan törölve.'
                     ));
-
                 } else {
                     echo json_encode(array(
                         "status" => 'error',
                         "message" => 'Adatbázis lekérdezési hiba!'
                     ));
                 }
-
             } else {
                 echo json_encode(array(
                     'status' => 'error',
@@ -217,17 +203,48 @@ class Property extends Admin_controller {
         } else {
             Util::redirect('error');
         }
-
     }
+    
+    /**
+     *  (AJAX) Lakás törlése
+     */
+    public function soft_delete_property_AJAX() {
+        if ($this->request->is_ajax()) {
+            //if(Acl::check('delete_user')){
+            if (1) {
+                // a POST-ban kapott item_id egy string ami egy szám vagy számok felsorolása pl.: "23" vagy "12,45,76" 
+                $id = $this->request->get_post('item_id');
+                $result = $this->property_model->soft_delete_property_AJAX($id);
+
+                if ($result !== false) {
+                    echo json_encode(array(
+                        "status" => 'success',
+                        "message_success" => 'Ingatlan törölve.'
+                    ));
+                } else {
+                    echo json_encode(array(
+                        "status" => 'error',
+                        "message" => 'Adatbázis lekérdezési hiba!'
+                    ));
+                }
+            } else {
+                echo json_encode(array(
+                    'status' => 'error',
+                    'message' => 'Nincs engedélye a művelet végrehajtásához!'
+                ));
+            }
+        } else {
+            Util::redirect('error');
+        }
+    }    
 
     /**
      *  (AJAX) Új lakás adatok bevitele adatbázisba,
      *  Lakás adatok módosítása az adatbázisban
      */
-    public function insert_update_data_ajax()
-    {
-        if ( $this->request->is_ajax() ) {
-            if ( $this->request->has_post() ) {
+    public function insert_update_data_ajax() {
+        if ($this->request->is_ajax()) {
+            if ($this->request->has_post()) {
                 $result = $this->property_model->insert_update_property_data();
                 // válasz a javascriptnek
                 echo json_encode($result);
@@ -240,11 +257,10 @@ class Property extends Admin_controller {
     /**
      * 	(AJAX) File listát jeleníti (frissíti) meg feltöltéskor (képek)
      */
-    public function show_file_list()
-    {
+    public function show_file_list() {
         if ($this->request->is_ajax()) {
             // db rekord id-je
-            $id =  $this->request->get_post('id', 'integer');
+            $id = $this->request->get_post('id', 'integer');
             // típus: kepek vagy docs
             $type = $this->request->get_post('type');
 
@@ -286,8 +302,7 @@ class Property extends Admin_controller {
     /**
      * 	Képek sorbarendezése (AJAX)
      */
-    public function photo_sort()
-    {
+    public function photo_sort() {
         if ($this->request->is_ajax()) {
             $id = $this->request->get_post('id', 'integer');
             $sort_json = $this->request->get_post('sort');
@@ -307,8 +322,7 @@ class Property extends Admin_controller {
     /**
      * 	(AJAX) Kép vagy dokumentum törlése a feltöltöttek listából
      */
-    public function file_delete()
-    {
+    public function file_delete() {
         if ($this->request->is_ajax()) {
             $id = $this->request->get_post('id', 'integer');
             // a kapott szorszámból kivonunk egyet, mert a képeket tartalamzó tömbben 0-tól indul a számozás
@@ -334,8 +348,7 @@ class Property extends Admin_controller {
     /**
      * 	(AJAX) File feltöltés (képek)
      */
-    public function file_upload_ajax()
-    {
+    public function file_upload_ajax() {
         if ($this->request->is_ajax()) {
             //uploadExtraData beállítás küldi
             $id = $this->request->get_post('id', 'integer');
@@ -347,7 +360,6 @@ class Property extends Admin_controller {
             } else {
                 echo json_encode(array('status' => 'error', 'message' => 'Ismeretlen hiba!'));
             }
-
         } else {
             Util::redirect('error');
         }
@@ -356,8 +368,7 @@ class Property extends Admin_controller {
     /**
      * 	(AJAX) Dokumentum feltöltés
      */
-    public function doc_upload_ajax()
-    {
+    public function doc_upload_ajax() {
         if ($this->request->is_ajax()) {
             //uploadExtraData beállítás küldi
             $id = $this->request->get_post('id', 'integer');
@@ -380,22 +391,21 @@ class Property extends Admin_controller {
      *
      * @return void
      */
-    public function change_status()
-    {
-        if ( $this->request->is_ajax() ) {
+    public function change_status() {
+        if ($this->request->is_ajax()) {
 
-            if ( $this->request->has_post('action') && $this->request->has_post('id') ) {
-            
+            if ($this->request->has_post('action') && $this->request->has_post('id')) {
+
                 $id = $this->request->get_post('id', 'integer');
                 $action = $this->request->get_post('action');
 
-                if($action == 'make_active') {
+                if ($action == 'make_active') {
                     $result = $this->property_model->change_status_query($id, 1);
-                    if($result !== false){
+                    if ($result !== false) {
                         echo json_encode(array(
                             "status" => 'success',
                             "message" => 'Az elem aktiválása megtörtént!'
-                        ));     
+                        ));
                     } else {
                         echo json_encode(array(
                             "status" => 'error',
@@ -403,20 +413,19 @@ class Property extends Admin_controller {
                         ));
                     }
                 }
-                if($action == 'make_inactive') {
+                if ($action == 'make_inactive') {
                     $result = $this->property_model->change_status_query($id, 0);
-                    if($result !== false){
+                    if ($result !== false) {
                         echo json_encode(array(
                             "status" => 'success',
                             "message" => 'Az elem blokkolása megtörtént!'
-                        ));     
+                        ));
                     } else {
                         echo json_encode(array(
                             "status" => 'error',
                             "message" => 'Adatbázis lekérdezési hiba!'
                         ));
                     }
-                    
                 }
             } else {
                 echo json_encode(array(
@@ -427,17 +436,16 @@ class Property extends Admin_controller {
         } else {
             Util::redirect('error');
         }
-    }   
+    }
 
     /**
      * (AJAX) Az ingatlanok táblában módosítja az kiemeles mező értékét
      *
      * @return void
      */
-    public function change_kiemeles()
-    {
-        if ( $this->request->is_ajax() ) {
-            if ( $this->request->has_post('action') && $this->request->has_post('id') ) {
+    public function change_kiemeles() {
+        if ($this->request->is_ajax()) {
+            if ($this->request->has_post('action') && $this->request->has_post('id')) {
 
                 $id = $this->request->get_post('id', 'integer');
 
@@ -466,8 +474,7 @@ class Property extends Admin_controller {
     /**
      * 	(AJAX) - Visszadja a kiválasztott kerület városrészeinek option listáját  
      */
-    public function kerulet_utca_list()
-    {
+    public function kerulet_utca_list() {
         if ($this->request->is_ajax()) {
             if ($this->request->has_post('district_id')) {
                 $id = $this->request->get_post('district_id', 'integer');
@@ -489,8 +496,7 @@ class Property extends Admin_controller {
     /**
      * 	(AJAX) - Visszadja a kiválasztott megye városainak option listáját  
      */
-    public function county_city_list()
-    {
+    public function county_city_list() {
         if ($this->request->is_ajax()) {
             if ($this->request->has_post('county_id')) {
                 $id = $this->request->get_post('county_id', 'integer');
@@ -511,22 +517,27 @@ class Property extends Admin_controller {
             Util::redirect('error');
         }
     }
-    
-   /**
+
+    /**
      * 	utca keresés autocomplete 
      */
-    public function street_list()
-    {
+    public function street_list() {
         if ($this->request->is_ajax()) {
             $text = $this->request->get_query('query');
-            if($text) {
+            if ($text) {
                 $result = $this->property_model->get_street_suggestions($text);
                 echo json_encode(array('suggestions' => $result));
-                
             }
-        }    
-
+        }
+    }
+    
+    public function download() {
+        $file = $this->request->get_params('file');
+        $file_path = Config::get('ingatlan_doc.upload_path') . $file;
+        Util::outputFile($file_path, $file);
+        exit;
     }    
 
 }
+
 ?>

@@ -182,9 +182,108 @@ class Datatables extends Admin_controller {
 
         $this->view->set_layout('tpl_layout');
         $this->view->render('datatables/tpl_szerkezet');
+    }  
+    
+    /**
+     * Ingatlan komfort
+     *
+     * @return void
+     */
+    public function ingatlan_komfort()
+    {
+        $this->view = new View();
+
+        $this->view->title = 'Komfort oldal';
+        $this->view->description = 'Komfort description';
+
+        $this->view->add_links(array('datatable', 'bootbox', 'komfort'));
+
+        $this->view->komfort = $this->datatables_model->get_jellemzo_list('ingatlan_komfort');
+
+        $this->view->set_layout('tpl_layout');
+        $this->view->render('datatables/tpl_komfort');
     }    
     
+    /**
+     * Ház állípota kívül
+     *
+     * @return void
+     */
+    public function ingatlan_haz_allapot_kivul()
+    {
+        $this->view = new View();
 
+        $this->view->title = 'Ház állapota kívül oldal';
+        $this->view->description = 'Ház állapota kívül description';
+
+        $this->view->add_links(array('datatable', 'bootbox', 'haz_allapot_kivul'));
+
+        $this->view->haz_allapot_kivul = $this->datatables_model->get_jellemzo_list('ingatlan_haz_allapot_kivul');
+
+        $this->view->set_layout('tpl_layout');
+        $this->view->render('datatables/tpl_haz_allapot_kivul');
+    }  
+    
+    /**
+     * Ház állípota kívül
+     *
+     * @return void
+     */
+    public function ingatlan_haz_allapot_belul()
+    {
+        $this->view = new View();
+
+        $this->view->title = 'Ház állapota belül oldal';
+        $this->view->description = 'Ház állapota belül description';
+
+        $this->view->add_links(array('datatable', 'bootbox', 'haz_allapot_belul'));
+
+        $this->view->haz_allapot_belul = $this->datatables_model->get_jellemzo_list('ingatlan_haz_allapot_belul');
+
+        $this->view->set_layout('tpl_layout');
+        $this->view->render('datatables/tpl_haz_allapot_belul');
+    }  
+
+    /**
+     * Fürdőszoba WC
+     *
+     * @return void
+     */
+    public function ingatlan_furdo_wc()
+    {
+        $this->view = new View();
+
+        $this->view->title = 'Fürdő WC oldal';
+        $this->view->description = 'Fürdő WC description';
+
+        $this->view->add_links(array('datatable', 'bootbox', 'furdo_wc'));
+
+        $this->view->furdo_wc = $this->datatables_model->get_jellemzo_list('ingatlan_furdo_wc');
+
+        $this->view->set_layout('tpl_layout');
+        $this->view->render('datatables/tpl_furdo_wc');
+    }     
+    
+    /**
+     * Fényviszonyok
+     *
+     * @return void
+     */
+    public function ingatlan_fenyviszony()
+    {
+        $this->view = new View();
+
+        $this->view->title = 'fényviszony oldal';
+        $this->view->description = 'fényviszony description';
+
+        $this->view->add_links(array('datatable', 'bootbox', 'fenyviszony'));
+
+        $this->view->fenyviszony = $this->datatables_model->get_jellemzo_list('ingatlan_fenyviszony');
+
+        $this->view->set_layout('tpl_layout');
+        $this->view->render('datatables/tpl_fenyviszony');
+    } 
+    
     /**
      * 	Jellemző törlése törlése Ajax-szal
      */

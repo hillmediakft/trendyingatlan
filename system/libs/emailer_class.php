@@ -80,10 +80,10 @@ class Emailer {
 
         if ($this->use_smtp) {
             // küldés SMTP-vel
-            $this->send_with_smtp();
+            return $this->send_with_smtp();
         } else {
             // egyszerű küldés 
-            $this->simple_send();
+            return $this->simple_send();
         }
     }
 
@@ -181,10 +181,24 @@ class Emailer {
      */
     public function load_template_with_data($template, $form_data) {
 
-        $body = file_get_contents('system/site/view/email/tpl_' . $template . '.php');
-        foreach ($form_data as $key => $value) {
-            $body = str_replace('{' . $key . '}', $value, $body);
-        }
+        $output = function($template, array $form_data) {
+            extract($form_data, EXTR_REFS);
+            // Capture the view output
+            ob_start();
+            try {
+                // Load the view within the current scope
+                include 'system/site/view/email/tpl_' . $template . '.php';
+            } catch (\Exception $e) {
+                // Delete the output buffer
+                ob_end_clean();
+
+                // Re-throw the exception
+                throw $e;
+            }
+            // Get the captured output and close the buffer
+            return ob_get_clean();
+        };
+        $body = $output($template, $form_data);
         return $body;
     }
 

@@ -27,8 +27,8 @@ var updateProperty = function () {
                     //console.log(data);
                     $("#varos_div > select").html(data);
 
-       // a kiválasztott város kijelölése az option listában (az lista select elemének data-selected attribútumából)
-                    var selected_city = $('#varos_select').attr("data-selected");    
+                    // a kiválasztott város kijelölése az option listában (az lista select elemének data-selected attribútumából)
+                    var selected_city = $('#varos_select').attr("data-selected");
                     $("#varos_select option").filter('[value="' + selected_city + '"]').prop("selected", true);
                     $('#varos_select').removeAttr("data-selected");
                 }
@@ -89,8 +89,7 @@ var updateProperty = function () {
             // ha Budapest (id=5)
             if (option_value == '5') {
                 $('#district_select').prop("disabled", false);
-            }
-            else {
+            } else {
                 $('#district_select').prop("disabled", true);
                 $('#district_select option:selected').prop('selected', false);
             }
@@ -104,8 +103,7 @@ var updateProperty = function () {
             // ha Budapest (id=5), akkor a kerület lista engedélyezve lesz
             if (option_value != '') {
                 $('#epulet_szintjei').prop("disabled", false);
-            }
-            else {
+            } else {
                 $('#epulet_szintjei').prop("disabled", true);
             }
         })
@@ -117,12 +115,11 @@ var updateProperty = function () {
         // ha Budapest (id=5), akkor a kerület lista engedélyezve lesz
         if (option_value != '') {
             $('#epulet_szintjei').prop("disabled", false);
-        }
-        else {
+        } else {
             $('#epulet_szintjei').prop("disabled", true);
         }
     };
-
+    
     /**
      *	Form adatok UPDATE elküldése gomb
      */
@@ -280,14 +277,27 @@ var updateProperty = function () {
                 varos: {
                     required: true
                 },
+				iranyitoszam: {
+                    required: true,
+					number: true
+                },
                 kerulet: {
                     required: true
                 },
                 utca: {
                     required: true
                 },
+				hazszam: {
+                    required: true
+                },
                 alapterulet: {
                     required: true,
+                    number: true
+                },
+				erkely_terulet: {
+                    number: true
+                },
+				terasz_terulet: {
                     number: true
                 },
                 kozos_koltseg: {
@@ -353,10 +363,10 @@ var updateProperty = function () {
                 //form adatok elküldése ajax-al
                 // ha a gomb nem disabled
                 /*
-                if ($('#data_upload_ajax').prop('disabled') == false) {
-                    insert_data();
-                }
-                */
+                 if ($('#data_upload_ajax').prop('disabled') == false) {
+                 insert_data();
+                 }
+                 */
                 // ha a gomb nem disabled
                 if ($('#data_update_ajax').prop('disabled') == false) {
                     update_data();
@@ -627,7 +637,7 @@ var updateProperty = function () {
      * CKeditor inicializálása
      */
     var ckeditorInit = function () {
-        CKEDITOR.replace('leiras', {customConfig: 'config_minimal1.js'});
+        CKEDITOR.replace('leiras', {customConfig: 'config_custom3.js'});
     };
 
     /**
@@ -757,6 +767,80 @@ var updateProperty = function () {
         })
     }
 
+    var mapGeocoding = function () {
+
+        var map = new GMaps({
+            div: '#gmap_geocoding',
+            lat: 47.50,
+            lng: 19.04
+        });
+        varos = $('#varos_select option:selected').text();
+        utca = $('#utca_autocomplete').val();
+        iranyitoszam = $('#iranyitoszam').val();
+        hazszam = $('#hazszam').val();
+
+        var text = iranyitoszam + ' ' + varos + ', ' + utca + ' ' + hazszam;
+
+        GMaps.geocode({
+            address: text,
+            callback: function (results, status) {
+                if (status == 'OK' && results[0].formatted_address != '') {
+
+                    $('#address_message').html('<div class="note note-info note-bordered">' + results[0].formatted_address + '</div>');
+
+                    var latlng = results[0].geometry.location;
+                    map.setCenter(latlng.lat(), latlng.lng());
+                    map.addMarker({
+                        lat: latlng.lat(),
+                        lng: latlng.lng()
+                    });
+                    App.scrollTo($('#gmap_geocoding'));
+
+                } else {
+                    $('#address_message').html('<div class="note note-danger note-bordered">Nem állapítható meg cím! Ellenőrizza a cím adatokat!</div>');
+                }
+            }
+        });
+    }
+
+    var showMap = function () {
+        $('#show_map').click(function (e) {
+            e.preventDefault();
+            mapGeocoding();
+        });
+    }
+
+    var streetAutocomplete = function () {
+        $('#utca_autocomplete').autocomplete({
+            serviceUrl: 'admin/property/street_list',
+            onSelect: function (suggestion) {
+            }
+        });
+    };
+
+    var checkErkely = function () {
+
+        $('#erkely').change(function () {
+            if ($(this).is(":checked")) {
+                $('#erkely_terulet').prop("disabled", false);
+            } else {
+                $('#erkely_terulet').prop("disabled", true);
+                $('#erkely_terulet').val("");
+            }
+        });
+    };
+
+    var checkTerasz = function () {
+
+        $('#terasz').change(function () {
+            if ($(this).is(":checked")) {
+                $('#terasz_terulet').prop("disabled", false);
+            } else {
+                $('#terasz_terulet').prop("disabled", true);
+                $('#terasz_terulet').val("");
+            }
+        });
+    };
 
     return {
         //main function to initiate the module
@@ -776,6 +860,10 @@ var updateProperty = function () {
             enableEpuletSzintjei();
             setEpuletSzintjei();
             ckeditorInit();
+            showMap();
+            streetAutocomplete();
+            checkErkely();
+            checkTerasz();
         }
     };
 

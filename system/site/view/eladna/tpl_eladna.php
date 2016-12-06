@@ -36,36 +36,40 @@
                                 <div class="col-md-12">
                                     <div class="contacts__form">
                                         <div class="form form--form--contacts">
-                                            <form class="form__wrap js-contact-form" method="POST" action="#" novalidate="">
+                                            <form class="form__wrap" method="POST" action="send_email/init/seller" id="contact_seller_form">
                                                 <div class="col-md-6">
                                                     <div class="form__row form-group">
                                                         <label class="form__label control-label" for="in-form-name">Az ön neve</label>
-                                                        <input type="text" class="form__in form__in--text form-control" required="" name="name" id="in-form-name" data-parsley-id="43">
+                                                        <input type="text" class="form__in form__in--text form-control" required="" name="name" id="in-form-name">
                                                     </div>
                                                     <div class="form__row form-group">
                                                         <label class="form__label control-label" for="in-form-name">Lakcíme</label>
-                                                        <input type="text" class="form__in form__in--text form-control" required="" name="name" id="in-form-name" data-parsley-id="43">
+                                                        <input type="text" class="form__in form__in--text form-control" required="" name="address" id="in-form-name">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form__row form__row--tel form-group">
                                                         <label class="form__label control-label" for="in-form-phone">Telefonszáma</label>
-                                                        <input type="text" class="form__in form__in--text form-control" name="phone" id="in-form-phone" data-parsley-id="45">
+                                                        <input type="text" class="form__in form__in--text form-control" name="phone" id="in-form-phone">
                                                     </div>
                                                     <div class="form__row form__row--email form-group">
                                                         <label class="form__label control-label" for="in-form-email">E-mail címe</label>
-                                                        <input type="email" class="form__in form__in--text form-control" data-parsley-trigger="change" required="" name="email" id="in-form-email" data-parsley-id="47">
+                                                        <input type="email" class="form__in form__in--text form-control" required="" name="email" id="in-form-email">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="form__row form-group">
                                                         <label class="form__label control-label" for="in-form-message">Az eladó, vagy kiadó, vagy keresett ingatlan rövid leírása</label>
-                                                        <textarea class="form__in form__in--textarea form-control" data-parsley-minlength-message="You need to enter at least a 20 caracters long comment.." data-parsley-validation-threshold="10" data-parsley-minlength="20" data-parsley-trigger="keyup" required="" name="message" id="in-form-message" data-parsley-id="49"></textarea>
+                                                        <textarea class="form__in form__in--textarea form-control" required="" name="message" id="in-form-message"></textarea>
                                                     </div>
                                                 </div>
+
+                                                <input type="text" name="mezes_bodon" id="mezes_bodon">
                                                 <div class="col-md-12">
-                                                    <button class="form__submit" type="submit">Adatok elküldése</button>
-                                                </div>
+                                                    <div id="submit_button">
+                                                        <button class="form__submit" type="submit" name="submit_contact_seller" id="submit_contact_seller" value="Küldés">Adatok elküldése</button>
+                                                    </div>
+                                                </div>                          
                                             </form>
                                         </div>
                                         <!-- end of block form-->

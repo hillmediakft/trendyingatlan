@@ -33,6 +33,7 @@ class Settings_model extends Admin_model {
 		$data['cim'] = $this->request->get_post('setting_cim');
 		$data['email'] = $this->request->get_post('setting_email');
 		$data['tel'] = $this->request->get_post('setting_tel');
+                $data['tel_2'] = $this->request->get_post('setting_tel_2');
         $data['pagination'] = $this->request->get_post('setting_pagination', 'integer');
 		
 		// új adatok beírása az adatbázisba (update) a $data tömb tartalmazza a frissítendő adatokat 

@@ -125,16 +125,15 @@ class Ingatlanok extends Site_controller {
         $this->view->property_data = $property_data[0];
         $this->view->referens = $this->ingatlanok_model->get_agent($this->view->property_data['ref_id']);
 
-        $this->view->js_vars = '
-var ingatlan = {
+        $this->view->js_vars = 'var ingatlan = {
   "city": "' . $this->view->property_data['city_name'] . '",
   "type": "' . $this->view->property_data['tipus'] . '",
   "category": "' . $this->view->property_data['kat_nev'] . '",
-  "lat": "' . $this->view->property_data['latitude'] . '",
-  "lng": "' . $this->view->property_data['longitude'] . '"
+  "lat": "' . substr($this->view->property_data['latitude'], 0, 6) . '",
+  "lng": "' . substr($this->view->property_data['longitude'], 0, 6) . '"
 }';
-        // koordináták a Google maps megjelenítéshez   
-        $this->view->javascript = '<script type="text/javascript">var property_location = {"lat":"' . substr($this->view->property_data["latitude"], 0, 6) . '","lng":"' . substr($this->view->property_data["longitude"], 0, 6) . '"};</script>';
+
+
 
         $this->view->photos = json_decode($this->view->property_data['kepek']);
         // kedvencek lekérdezése

@@ -98,6 +98,10 @@ $config['ingatlan_photo'] = array(
     'placeholder' => ADMIN_ASSETS . 'img/placeholder_323x242.jpg'
 );
 
+$config['documents'] = array(
+    'upload_path' => UPLOADS . 'documents/'
+);
+
 $config['ingatlan_doc'] = array(
     'upload_path' => UPLOADS . 'ingatlan_doc/'
 );

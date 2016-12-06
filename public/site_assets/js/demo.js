@@ -44,7 +44,6 @@
     initSelect2('.js-in-select');
     initSearch('.js-search-form');
     initGallery('.js-gallery-item');
-    initAgentForm('.js-contact-form');
     initSubscribe('.js-subscribe-form');
     initReviewSlider('#review-slider');
     initMainBanner('.js-banner');
@@ -54,13 +53,13 @@
     if ($('.js-map-canvas[data-type="map"]').length) {
         initPropertyMapAndPanorama('.js-map-canvas[data-type="map"]', '.js-map-canvas[data-type="panorama"]', ingatlan);
     }
-    initSubmitPropertyForm('.js-form');
+    // initSubmitPropertyForm('.js-form');
     initRangeSliders();
     initSlider('.js-slick-blog');
     initSlider('#counter-slider');
     initSlider('#properties-banner');
-    if ($('.js-map-canvas[data-type="map"]').length) {
-        initGoogleMap('.js-map-canvas-contact', ingatlan);
+    if ($('.js-map-canvas-contact').length) {
+        initGoogleMap('.js-map-canvas-contact', {"lat": "47.506230", "lng": "19.075624"});
     }
     initBtnDemo('.js-btn-demo');
     initPopovers('.js-popover');
@@ -116,38 +115,6 @@
                     app.notifier.showError('Subscription failed! Please try again.');
                     return false;
                 });
-    }
-
-    function initAgentForm(container) {
-        /**
-         * Agent contact form validation
-         ==============================================================*/
-        var $agentForm = $(container);
-        if (!$agentForm.length)
-            return;
-        var $agentFormSubmitBtn = $agentForm.find(':submit');
-        $agentForm.parsley()
-                .on('form:success', function (formInstance) {
-                    $agentFormSubmitBtn.addClass('loading');
-                    $agentFormSubmitBtn.prop('disabled', true);
-                    $.post('php/contact.php', $agentForm.serialize())
-                            .done(function () {
-                                app.notifier.showSuccess('The message was sent!');
-                                formInstance.reset();
-                                $agentForm[0].reset();
-                            })
-                            .fail(function () {
-                                app.notifier.showError('Something went wrong!');
-                            })
-                            .always(function () {
-                                $agentFormSubmitBtn.prop('disabled', false);
-                                $agentFormSubmitBtn.removeClass('loading');
-                            });
-
-                    formInstance.submitEvent.preventDefault();
-
-                });
-
     }
 
     function initGallery(container) {
@@ -629,7 +596,7 @@
             // We're using here sample coordinates, please replace them with real ones
             var coordinates = new google.maps.LatLng(location.lat, location.lng);
             // Default map zoom
-            var zoom = 7;
+            var zoom = 15;
             // jQuery object with map container
 
             var $mapBtn = $('.js-map-btn');
@@ -847,7 +814,7 @@
         var coordinates = new google.maps.LatLng(property.lat, property.lng);
 
         // Default map zoom
-        var zoom = 14;
+        var zoom = 15;
         var $mapBtn = $('.js-map-btn');
         var $panoramaBtn = $('.js-panorama-btn');
         var active;
@@ -921,6 +888,18 @@
                                             $mapCanvas.data('infoboxTheme')
                                             );
                                     // Save the created marker for later use for clustering
+                                    // 500 méter sugarú kör létrehozása
+                                    var circle = new google.maps.Circle({
+                                        center: coordinates,
+                                        radius: 500,
+                                        strokeColor: "#f3d83f",
+                                        strokeOpacity: 0.8,
+                                        strokeWeight: 2,
+                                        fillColor: "#f3d83f",
+                                        fillOpacity: 0.2
+                                    });
+
+                                    circle.setMap(map);
                                 });
 
                         /**

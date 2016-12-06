@@ -158,7 +158,7 @@
                         <a class="navbar__link" href="hitelek">Hitelek</a>
                     </li>
                     <li class="navbar__item <?php $this->menu_active('hirek'); ?>">
-                        <a class="navbar__link" href="blog">Hírek</a>
+                        <a class="navbar__link" href="hirek">Hírek</a>
                     </li>
                     <li class="navbar__item <?php $this->menu_active('irodank'); ?>">
                         <a class="navbar__link" href="irodank">Irodánk</a>

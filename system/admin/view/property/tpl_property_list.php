@@ -4,18 +4,6 @@
         <div class="row">
             <div class="col-md-12">
 
-                <!-- MODAL 1  -->	
-                <div class="modal" id="ajax_modal" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content" id="modal_container"></div>
-                    </div>
-                </div>	
-                <!-- MODAL 1 END -->	
-
-                <!-- KERESŐ DOBOZ HTML -->	
-                <?php //include "system/admin/view/property/search_form.php"; ?>
-
-
                 <!-- ÜZENETEK MEGJELENÍTÉSE -->
                 <div id="ajax_message"></div> 						
                 <?php $this->renderFeedbackMessages(); ?>				
@@ -71,19 +59,21 @@
                                 <thead>
 
                                     <tr role="row" class="heading">
-                                        <th >
+                                        <th width="1%">
                                             <input type="checkbox" class="group-checkable" data-set="#property .checkboxes"/>
                                         </th>
                                         <th width="1%" title="Az ingatlan azonosító száma">#id</th>
                                         <th width="1%">Kép</th>
-                                        <th>Típus</th>
-                                        <th>Kategória</th>
+                                        <?php if($this->is_superadmin) { ?>
+                                        <th width="1%">Referens</th>
+                                        <?php } ?>
+                                        <th width="1%">Típus</th>
+                                        <th width="1%">Kategória</th>
                                         <th>Város</th>
-                                        <th>Terület</th>
-                                        <th>Szoba</th>
-                                        <th><i class="fa fa-eye"></i></th>
-                                        <th>Ár (Ft)</th>
-                                        <th style="max-width:50px;">Státusz</th>
+                                        <th width="1%">m<sup>2</sup></th>
+                                        <th width="1%"><i class="fa fa-eye"></i></th>
+                                        <th width="1%">Ár(Ft)</th>
+                                        <th width="1%"></th>
                                         <th width="1%"></th>
                                     </tr>
 

@@ -70,7 +70,7 @@ var Trendy = function () {
         kedvencekCookie = kedvencekCookie.slice(0, -1);
         kedvencekCookie = kedvencekCookie.split(',');
         number = kedvencekCookie.length;
-         console.log(kedvencekCookie);
+        console.log(kedvencekCookie);
         console.log(number);
         return number;
 
@@ -152,6 +152,217 @@ var Trendy = function () {
         }
     }
 
+    var contactPanel = function () {
+        // feedback side panel 
+        $("#feedback-tab").click(function () {
+            $("#feedback-form").toggle("slide");
+        });
+
+        $("#feedback-form form").on('submit', function (event) {
+            var $form = $(this);
+            // $('#panel_ajax_message').empty();
+            // $('#panel_ajax_message').hide();
+
+
+            $('#submit_button').after('<img src="public/site_assets/img/ajax-loader.gif" class="loader" />');
+            $('#submit_contact').attr('disabled', 'disabled');
+            $.ajax({
+                type: $form.attr('method'),
+                url: $form.attr('action'),
+                data: $form.serialize(),
+                success: function (msg) {
+                    msg = JSON.parse(msg);
+                    //    $('#panel_ajax_message').append(msg);
+                    //    $('#panel_ajax_message').slideDown('slow');
+                    $('#feedback-form img.loader').fadeOut('slow', function () {
+                        $(this).remove()
+                    });
+                    $('#submit_contact').removeAttr('disabled');
+                    //$('#panel_ajax_message').delay(7500).slideUp(700);
+                    if (msg.success) {
+                        app.notifier.showSuccess(msg.success);
+                    }
+                    if (msg.error) {
+                        app.notifier.showError(msg.error);
+                    }
+
+                    $('#panel_name').val('');
+                    $('#panel_email').val('');
+                    $('#panel_phone').val('');
+                    $('#panel_message').val('');
+                }
+            });
+            event.preventDefault();
+        });
+    }
+    // kapcsolat űrlap az irodánk oldalon
+    var contactOfficePage = function () {
+
+        $("#contact-form-office").on('submit', function (event) {
+            var $form = $(this);
+            // $('#panel_ajax_message').empty();
+            // $('#panel_ajax_message').hide();
+
+            $('#submit_contact_office').addClass('button--loading');
+            //     $('#submit_contact_office').attr('disabled', 'disabled');
+            $.ajax({
+                type: $form.attr('method'),
+                url: $form.attr('action'),
+                data: $form.serialize(),
+                success: function (msg) {
+                    msg = JSON.parse(msg);
+                    //    $('#panel_ajax_message').append(msg);
+                    //    $('#panel_ajax_message').slideDown('slow');
+                    $('#submit_contact_office').removeAttr('disabled');
+                    $('#submit_contact_office').removeClass('button--loading');
+                    //$('#panel_ajax_message').delay(7500).slideUp(700);
+                    if (msg.success) {
+                        app.notifier.showSuccess(msg.success);
+                    }
+                    if (msg.error) {
+                        app.notifier.showError(msg.error);
+                    }
+
+                    $('#contact-form-office input[name="name"]').val('');
+                    $('#contact-form-office input[name="email"]').val('');
+                    $('#contact-form-office input[name="phone"]').val('');
+                    $('#contact-form-office textarea[name="message"]').val('');
+                }
+            });
+            event.preventDefault();
+        });
+    }
+
+    // ingatlan referens kapcsolatfelvételi űrlap kezelése az ingatlan adatlap oldalon
+    var contactAgent = function () {
+
+        $("#contact_agent_form").on('submit', function (event) {
+            var $form = $(this);
+            // $('#panel_ajax_message').empty();
+            // $('#panel_ajax_message').hide();
+
+            $('#submit_contact_agent').addClass('button--loading');
+            //     $('#submit_contact_office').attr('disabled', 'disabled');
+            $.ajax({
+                type: $form.attr('method'),
+                url: $form.attr('action'),
+                data: $form.serialize(),
+                success: function (msg) {
+                    msg = JSON.parse(msg);
+                    //    $('#panel_ajax_message').append(msg);
+                    //    $('#panel_ajax_message').slideDown('slow');
+                    $('#submit_contact_agent').removeAttr('disabled');
+                    $('#submit_contact_agent').removeClass('button--loading');
+                    //$('#panel_ajax_message').delay(7500).slideUp(700);
+                    if (msg.success) {
+                        app.notifier.showSuccess(msg.success);
+                    }
+                    if (msg.error) {
+                        app.notifier.showError(msg.error);
+                    }
+
+                    $('#contact_agent_form input[name="name"]').val('');
+                    $('#contact_agent_form input[name="email"]').val('');
+                    $('#contact_agent_form input[name="phone"]').val('');
+                    $('#contact_agent_form textarea[name="message"]').val('');
+                }
+            });
+            event.preventDefault();
+        });
+    }
+
+    // ingatlan referens kapcsolatfelvételi űrlap kezelése az ingatlan adatlap oldalon
+    var contactSeller = function () {
+
+        $("#contact_seller_form").on('submit', function (event) {
+            var $form = $(this);
+            // $('#panel_ajax_message').empty();
+            // $('#panel_ajax_message').hide();
+
+            $('#submit_contact_seller').addClass('button--loading');
+            //     $('#submit_contact_office').attr('disabled', 'disabled');
+            $.ajax({
+                type: $form.attr('method'),
+                url: $form.attr('action'),
+                data: $form.serialize(),
+                success: function (msg) {
+                    msg = JSON.parse(msg);
+                    //    $('#panel_ajax_message').append(msg);
+                    //    $('#panel_ajax_message').slideDown('slow');
+                    $('#submit_contact_seller').removeAttr('disabled');
+                    $('#submit_contact_seller').removeClass('button--loading');
+                    //$('#panel_ajax_message').delay(7500).slideUp(700);
+                    if (msg.success) {
+                        app.notifier.showSuccess(msg.success);
+                    }
+                    if (msg.error) {
+                        app.notifier.showError(msg.error);
+                    }
+
+                    $('#submit_contact_seller input[name="name"]').val('');
+                    $('#submit_contact_seller input[name="email"]').val('');
+                    $('#submit_contact_seller input[name="phone"]').val('');
+                    $('#submit_contact_seller input[name="address"]').val('');
+                    $('#submit_contact_seller textarea[name="message"]').val('');
+                }
+            });
+            event.preventDefault();
+        });
+    }
+    
+    // ingatlan referens kapcsolatfelvételi űrlap kezelése az ingatlan adatlap oldalon
+    var orderTanusitvanyForm = function () {
+
+        $("#tanusitvany_form").on('submit', function (event) {
+            var $form = $(this);
+            // $('#panel_ajax_message').empty();
+            // $('#panel_ajax_message').hide();
+
+            $('#submit_tanusitvany').addClass('button--loading');
+            //     $('#submit_contact_office').attr('disabled', 'disabled');
+            $.ajax({
+                type: $form.attr('method'),
+                url: $form.attr('action'),
+                data: $form.serialize(),
+                success: function (msg) {
+                    msg = JSON.parse(msg);
+                    //    $('#panel_ajax_message').append(msg);
+                    //    $('#panel_ajax_message').slideDown('slow');
+                    $('#submit_tanusitvany').removeAttr('disabled');
+                    $('#submit_tanusitvany').removeClass('button--loading');
+                    //$('#panel_ajax_message').delay(7500).slideUp(700);
+                    if (msg.success) {
+                        app.notifier.showSuccess(msg.success);
+                    }
+                    if (msg.error) {
+                        app.notifier.showError(msg.error);
+                    }
+
+                    $('#tanusitvany_form input[name="name"]').val('');
+                    $('#tanusitvany_form input[name="email"]').val('');
+                    $('#tanusitvany_form input[name="phone"]').val('');
+                    $('#tanusitvany_form input[name="address"]').val('');
+                    $('#tanusitvany_form textarea[name="message"]').val('');
+                }
+            });
+            event.preventDefault();
+        });
+    }    
+
+    var scrollToTanusitvanyForm = function () {
+        $("#scroll_button").click(function () {
+            $('html, body').animate({
+                scrollTop: $("#energia_tanusitvany_form").offset().top
+            }, 2000);
+        });
+    }
+    
+    var cookieConsent = function () {
+        $('.cookie-message').cookieBar({ 
+            closeButton : '.cookiebar-close' 
+        });
+    }    
+
     return {
         //main function to initiate the module
         init: function () {
@@ -161,6 +372,13 @@ var Trendy = function () {
             resetFilter();
             adatlapFlexSlider();
             OwlCarousel();
+            contactPanel();
+            contactOfficePage();
+            contactAgent();
+            contactSeller();
+            scrollToTanusitvanyForm();
+            orderTanusitvanyForm();
+            cookieConsent();
         }
     };
 

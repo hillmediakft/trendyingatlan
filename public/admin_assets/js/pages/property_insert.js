@@ -270,16 +270,29 @@ var InsertProperty = function () {
                     required: true,
                     number: true
                 },
+                szobaszam: {
+                    number: true
+                },
+                felszobaszam: {
+                    number: true
+                },
                 megye: {
                     required: true
                 },
                 varos: {
                     required: true
                 },
-                kerulet: {
+				kerulet: {
                     required: true
                 },
+				iranyitoszam: {
+                    required: true,
+					number: true
+                },
                 utca: {
+                    required: true
+                },
+				hazszam: {
                     required: true
                 },
                 alapterulet: {
@@ -290,6 +303,12 @@ var InsertProperty = function () {
                     number: true
                 },
                 rezsi: {
+                    number: true
+                },
+				erkely_terulet: {
+                    number: true
+                },
+				terasz_terulet: {
                     number: true
                 },
                 tulaj_nev: {
@@ -882,13 +901,11 @@ var InsertProperty = function () {
             lng: 19.04
         });
         varos = $('#varos_select option:selected').text();
-        utca = $('#utca').val();
+        utca = $('#utca_autocomplete').val();
         iranyitoszam = $('#iranyitoszam').val();
         hazszam = $('#hazszam').val();
 
         var text = iranyitoszam + ' ' + varos + ', ' + utca + ' ' + hazszam;
-
-
 
         GMaps.geocode({
             address: text,
@@ -896,7 +913,6 @@ var InsertProperty = function () {
                 if (status == 'OK' && results[0].formatted_address != '') {
 
                     $('#address_message').html('<div class="note note-info note-bordered">' + results[0].formatted_address + '</div>');
-                    console.log(results[0].formatted_address);
 
                     var latlng = results[0].geometry.location;
                     map.setCenter(latlng.lat(), latlng.lng());
@@ -911,10 +927,6 @@ var InsertProperty = function () {
                 }
             }
         });
-
-
-
-
     }
 
     var showMap = function () {
@@ -928,11 +940,33 @@ var InsertProperty = function () {
         $('#utca_autocomplete').autocomplete({
             serviceUrl: 'admin/property/street_list',
             onSelect: function (suggestion) {
-                alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
-
             }
         });
     };
+
+    var checkErkely = function () {
+
+        $('#erkely').change(function () {
+            if ($(this).is(":checked")) {
+                $('#erkely_terulet').prop("disabled", false);
+            } else {
+                $('#erkely_terulet').prop("disabled", true);
+                $('#erkely_terulet').val("");
+            }
+        });
+    };
+    
+    var checkTerasz = function () {
+
+        $('#terasz').change(function () {
+            if ($(this).is(":checked")) {
+                $('#terasz_terulet').prop("disabled", false);
+            } else {
+                $('#terasz_terulet').prop("disabled", true);
+                $('#terasz_terulet').val("");
+            }
+        });
+    };    
 
     return {
         //main function to initiate the module
@@ -954,6 +988,8 @@ var InsertProperty = function () {
             //     mapGeocoding();
             showMap();
             streetAutocomplete();
+            checkErkely();
+            checkTerasz();
         }
     };
 

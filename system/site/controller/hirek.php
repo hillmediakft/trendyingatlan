@@ -1,6 +1,6 @@
 <?php
 
-class Blog extends Site_controller {
+class Hirek extends Site_controller {
 
     function __construct() {
         parent::__construct();
@@ -25,7 +25,7 @@ class Blog extends Site_controller {
         $this->view->blog_categories = $this->blog_model->get_blog_categories();
         $this->view->blogs_per_page = 6;
 
-        $pagine = new Paginator('page', $this->view->blogs_per_page);
+        $pagine = new Paginator('oldal', $this->view->blogs_per_page);
         // adatok lekérdezése limittel
         $this->view->blog_list = $this->blog_model->blog_pagination_query($pagine->get_limit(), $pagine->get_offset());
 
@@ -33,9 +33,8 @@ class Blog extends Site_controller {
         $blog_count = $this->blog_model->blog_pagination_count_query();
 
         $pagine->set_total($blog_count);
-        $language_code = ($this->registry->lang == 'hu') ? '' : $this->registry->lang;
-        // lapozó linkek
-        $this->view->pagine_links = $pagine->page_links($language_code . '/' . $this->registry->uri_path);
+
+        $this->view->pagine_links = $pagine->page_links($this->registry->uri_path);
 
         $this->view->data_arr = $this->blog_model->page_data_query('hirek');
         $this->view->title = $this->view->data_arr['page_metatitle'];
@@ -53,22 +52,16 @@ class Blog extends Site_controller {
         Session::set('prev_url', $this->registry->site_url . 'blog/reszletek/' . $id);
 
         $this->view = new View();
+        $this->view->settings = $this->settings;
+        $this->view->kedvencek_list = $this->kedvencek_list;
+        $this->view->blogs = $this->blogs;
+
+        $this->ingatlanok = $this->loadmodel('ingatlanok_model');
+        // kiemelt ingatlanok
+        $this->view->kiemelt_ingatlanok = $this->ingatlanok_model->kiemelt_properties_query(4);
 
         $this->view->blog_categories = $this->blog_model->get_blog_categories();
-        $this->view->blogs_per_page = 6;
 
-        $data = array(
-            "id" => Session::get('user_site_id'),
-            "username" => Session::get('user_site_name'),
-            "email" => Session::get('user_site_email'),
-        );
-
-        /*        include_once(LIBS . '/sso_class.php');
-          $sso = new Sso_class(); */
-
-        //       $this->view->message = $sso->get_message($data);
-//        $this->view->timestamp = $sso->get_timestamp();
-        //       $this->view->hmac = $sso->get_hmac($this->view->message, $this->view->timestamp);
 
         $content = $this->blog_model->blog_query($id);
         if (empty($content)) {
@@ -77,16 +70,23 @@ class Blog extends Site_controller {
         $this->view->title = $content[0]['blog_title'];
         $this->view->description = $content[0]['blog_title'];
         $this->view->blog = $content[0];
+        $this->view->keywords = 'hírek';
 
-        $this->view->keywords = 'blog';
-
+        $this->view->set_layout('tpl_layout');
         $this->view->render('blog/tpl_show_blog');
     }
 
     public function kategoria() {
-        $category_id = (int) $this->registry->params['id'];
+        $category_id = (int) $this->request->get_params('id');
 
         $this->view = new View();
+        $this->view->settings = $this->settings;
+        $this->view->kedvencek_list = $this->kedvencek_list;
+        $this->view->blogs = $this->blogs;
+
+        $this->ingatlanok = $this->loadmodel('ingatlanok_model');
+        // kiemelt ingatlanok
+        $this->view->kiemelt_ingatlanok = $this->ingatlanok_model->kiemelt_properties_query(4);
 
         $this->view->blog_categories = $this->blog_model->get_blog_categories();
         $this->view->blogs_per_page = 6;
@@ -94,6 +94,8 @@ class Blog extends Site_controller {
         $category_data = $this->blog_model->blog_category_query($category_id);
         $this->view->category_name = $category_data['category_name'];
         $this->view->content = $this->blog_model->blog_query_by_category($category_id);
+        
+
 
         $pagine = new Paginator('page', $this->view->blogs_per_page);
         // adatok lekérdezése limittel
@@ -104,13 +106,13 @@ class Blog extends Site_controller {
 
         $pagine->set_total($blog_count);
         // lapozó linkek
-        $language_code = ($this->registry->lang == 'hu') ? '' : $this->registry->lang;
-        $this->view->pagine_links = $pagine->page_links($language_code . '/' . $this->registry->uri_path);
+        $this->view->pagine_links = $pagine->page_links($this->registry->uri_path);
 
         $this->view->title = $this->view->category_name;
         $this->view->description = $this->view->category_name;
         $this->view->keywords = 'blog: ' . $this->view->category_name;
 
+        $this->view->set_layout('tpl_layout');
         $this->view->render('blog/tpl_blog_category');
     }
 

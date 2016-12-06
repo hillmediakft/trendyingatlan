@@ -12,28 +12,35 @@
 
                 <div class="listing__main">
                     <div class="article article--details article--page">
-                     
-<?php foreach ($this->blog_list as $value) { ?>
 
-                            <article class="article__item"><a class="article__comment" href="blog_details.html"><i class="fa fa-comments"></i>2 Comments</a>
-                                <time class="article__time" datetime="2009-08-29">SEP<strong>02</strong></time>
-                                <h3 class="article__item-title"><a href="blog_details.html">You’ve been approved for a rental home. Now what?</a></h3>
-                                <div class="article__tags">Category:<a href="#">Villa for sale</a>, <a href="#">Florida</a>, <a href="#">Miami</a>
+                        <?php foreach ($this->blog_list as $value) { ?>
+
+                            <article class="article__item">
+
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <img src="<?php echo Config::get('blogphoto.upload_path') . $value['blog_picture']; ?>" class="img-responsive img-thumbnail" alt="<?php echo $value['blog_title']; ?>">
+                                    </div>
+                                    <div class="col-md-9">
+                                        <a class="article__comment" href="<?php echo $this->registry->site_url . 'hirek/' . $value['blog_slug'] . '/' . $value['blog_id']; ?>"><i class="fa fa-calendar"></i><?php echo $value['blog_add_date']; ?></a>
+
+                                        <h3 class="article__item-title"><a href="<?php echo $this->registry->site_url . 'hirek/' . $value['blog_slug'] . '/' . $value['blog_id']; ?>"><?php echo $value['blog_title']; ?></a></h3>
+                                        <div class="article__tags">Kategória:<a href="<?php echo $this->registry->site_url . 'hirek/kategoria/' . $value['blog_category']; ?>"><?php echo $value['category_name']; ?></a>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <div class="article__intro">
+                                            <p><?php echo Util::sentence_trim($value['blog_body'], 3); ?><a href="<?php echo $this->registry->site_url . 'hirek/' . $value['blog_slug'] . '/' . $value['blog_id']; ?>"> [tovább...]</a></p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="clearfix"></div>
-                                <div class="article__preview">
+                            </article> 
+                            <hr>
 
-                                </div>
-                                <div class="article__intro">
-                                    <p>Congratulations! You’ve found the perfect rental property and your application has been approved. Now there’s just a few things you’ll need. We work hard to achieve quality at affordable prices for our customers through optimizing our entire value chain, by building long-term supplier relationships, investing in highly automated production and producing large volumes.</p>
-                                </div><a class="article__more" href="blog_details.html">Read more</a>
-                            </article>                            
-
-<?php } ?>
+                        <?php } ?>
 
                     </div>
                 </div>                
-
+                <?php echo $this->pagine_links; ?>
 
             </div>
             <!-- END LISTING-->

@@ -137,7 +137,7 @@
 												
 											<label>
 											<input type="radio" name="user_group" value="2" checked />
-											Adminisztrátor - széles körű jogkör
+											Ingatlanreferens - korlátozott jogkör
 											</label>  
 								<!--			<label>
 											<input type="radio" name="user_group" value="3" />

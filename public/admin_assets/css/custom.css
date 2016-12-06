@@ -201,3 +201,8 @@ cursor: move;
 .autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
 .autocomplete-group { padding: 2px 5px; }
 .autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    background-color: #f3f3f3;
+    opacity: 1;
+}

@@ -16,19 +16,13 @@
  * 
  */
 $routes = array(
-    //users útvonalak
-    //'(users)/(login)/?' => array('error/index'),
-    //'(users)/(logout)/?' => array('error/index'),
-    //'(felhasznalok)/(bejelentkezes)/?' => array('users/login'),
-    //'(felhasznalok)/(kijelentkezes)/?' => array('users/logout'),
-    //'(felhasznalok)/(regisztracio)/?' => array('users/register'),
-    //'(felhasznalok)/(feliratkozas)/?' => array('users/subscribe_newsletter'),
     // ingatlan adatlap
     '(ingatlanok)/(adatlap)/:id/:title/?' => array('ingatlanok/adatlap', 'id', 'ingatlan_nev'),
     '(ingatlanok)/(adatlap_nyomtatas)/:id/?' => array('ingatlanok/adatlap_nyomtatas', 'id'),
-    '(blog)/(kategoria)/:id/?' => array('blog/kategoria', 'id'),
-    '(blog)/:title/:id/?' => array('blog/reszletek', 'id'),
-    '(blog)/?' => array('$1'),
+    '(hirek)/(kategoria)/:id/?' => array('hirek/kategoria', 'id'),
+    '(hirek)/:title/:id/?' => array('hirek/reszletek', 'id'),
+    '(hirek)/?' => array('$1'),
+    '(send_email)/(init)/:title/?' => array('send_email/init', 'type'),
     // /controller/action/param1/val1/param2/val2 (opcionális / jel)
     ':controller/:action/:any/:any/:any/:any/?' => array('$1/$2'),
     // /controller/action/param1/val1 (opcionális / jel)

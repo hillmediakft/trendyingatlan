@@ -4,8 +4,8 @@
             <!-- BEGIN LISTING-->
             <div class="listing listing--properties-list">
                 <header class="listing__header">
-                    <h1 class="listing__title"><i class="fa fa-file-text"></i> Energetikai tanusítvány</h1>
-                    <h5 class="listing__headline">Néhány napon belül elkészítjük energiatanúsítványát</h5>
+                    <h1 class="listing__title"><i class="fa fa-file-text"></i> Rendeljen energiatanúsítványt!</h1>
+                    <h5 class="listing__headline">2012 január 01-től az 50 m2-nél nagyobb hasznos alapterületű ingatlanokra adásvétel esetén kötelező az energiatanúsítvány beszerzése.</h5>
                 </header>
 
 
@@ -14,7 +14,10 @@
                     <div class="article article--details article--page">
                         <article class="article__item">
                             <div class="article__body">
-                                <p>Mi az energetikai tanusítvány? Az energetikai tanúsítvány egy „igazoló okirat, amely az épületnek vagy önálló rendeltetési egységnek a külön jogszabály szerinti számítási módszerrel meghatározott energetikai teljesítőképességét tartalmazza.”Az ingatlan energetikai minőségét hivatott mutatni, úgy, ahogy a háztartási gépeknél már jól megszokhattuk. A tanúsítványból elsősorban azt tudhatjuk meg, hogy előreláthatóan mekkora az ingatlan éves energiafelhasználása.</p> 
+                                <p>Mi az energetikai tanusítvány? Helyszíni szemlén alapuló, hiteles „igazoló okirat, amely az épületnek vagy önálló rendeltetési egységnek a külön jogszabály szerinti számítási módszerrel meghatározott energetikai teljesítőképességét tartalmazza.”Az ingatlan energetikai minőségét hivatott mutatni, úgy, ahogy a háztartási gépeknél már jól megszokhattuk. A tanúsítványból elsősorban azt tudhatjuk meg, hogy előreláthatóan mekkora az ingatlan éves energiafelhasználása.</p> 
+                                <div class="text-center">
+                                    <button class="button__default button__default--normal ui__button ui__button--5" id="scroll_button"><i class="fa fa-edit"></i>  Egyszerűen és gyorsan itt rendelhető meg.</button>
+                                </div>
                             </div>
 
 
@@ -58,42 +61,68 @@
                             </div>                       
 
 
-                                    <div class="contacts__form">
-                                        <div class="form form--form--contacts">
-                                            <form class="form__wrap js-contact-form" method="POST" action="#" novalidate="">
-                                                <div class="col-md-6">
-                                                    <div class="form__row form-group">
-                                                        <label class="form__label control-label" for="in-form-name">Az ön neve</label>
-                                                        <input type="text" class="form__in form__in--text form-control" required="" name="name" id="in-form-name" data-parsley-id="43">
-                                                    </div>
-                                                    <div class="form__row form-group">
-                                                        <label class="form__label control-label" for="in-form-name">Lakcíme</label>
-                                                        <input type="text" class="form__in form__in--text form-control" required="" name="name" id="in-form-name" data-parsley-id="43">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form__row form__row--tel form-group">
-                                                        <label class="form__label control-label" for="in-form-phone">Telefonszáma</label>
-                                                        <input type="text" class="form__in form__in--text form-control" name="phone" id="in-form-phone" data-parsley-id="45">
-                                                    </div>
-                                                    <div class="form__row form__row--email form-group">
-                                                        <label class="form__label control-label" for="in-form-email">E-mail címe</label>
-                                                        <input type="email" class="form__in form__in--text form-control" data-parsley-trigger="change" required="" name="email" id="in-form-email" data-parsley-id="47">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <div class="form__row form-group">
-                                                        <label class="form__label control-label" for="in-form-message">Az eladó, vagy kiadó, vagy keresett ingatlan rövid leírása</label>
-                                                        <textarea class="form__in form__in--textarea form-control" data-parsley-minlength-message="You need to enter at least a 20 caracters long comment.." data-parsley-validation-threshold="10" data-parsley-minlength="20" data-parsley-trigger="keyup" required="" name="message" id="in-form-message" data-parsley-id="49"></textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <button class="form__submit" type="submit">Adatok elküldése</button>
-                                                </div>
-                                            </form>
+                            <div class="contacts__form" id="energia_tanusitvany_form">
+                                <div class="form form--form--contacts">
+                                    <form class="form__wrap" method="POST" action="send_email/init/tanusitvany" id="tanusitvany_form">
+                                        <div class="col-md-6">
+                                            <div class="form__row form-group">
+                                                <label class="form__label control-label" for="in-form-name">Az ön neve</label>
+                                                <input type="text" class="form__in form__in--text form-control" required="" name="name" id="in-form-name">
+                                            </div>
+                                            <div class="form__row form-group">
+                                                <label class="form__label control-label" for="in-form-name">Lakcíme</label>
+                                                <input type="text" class="form__in form__in--text form-control" required="" name="address" id="in-form-name">
+                                            </div>
                                         </div>
-                                        <!-- end of block form-->
-                                    </div>   
+                                        <div class="col-md-6">
+                                            <div class="form__row form__row--tel form-group">
+                                                <label class="form__label control-label" for="in-form-phone">Telefonszáma</label>
+                                                <input type="text" class="form__in form__in--text form-control" name="phone" id="in-form-phone">
+                                            </div>
+                                            <div class="form__row form__row--email form-group">
+                                                <label class="form__label control-label" for="in-form-email">E-mail címe</label>
+                                                <input type="email" class="form__in form__in--text form-control" required="" name="email" id="in-form-email">
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-6">
+                                            <div class="form__row form-group">
+                                                <label class="form__label control-label" for="in-form-name">Ingatlanok száma</label>
+                                                <input type="text" class="form__in form__in--text form-control" name="no_of_properties" id="in-form-name">
+                                            </div>
+                                            <div class="form__row form-group">
+                                                <label class="form__label control-label" for="in-form-name">Ingatlanok típusa</label>
+                                                <input type="text" class="form__in form__in--text form-control" name="type_of_properties" id="in-form-name">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form__row form__row--tel form-group">
+                                                <label class="form__label control-label" for="in-form-phone">Összes terület</label>
+                                                <input type="text" class="form__in form__in--text form-control" name="floor_area" id="in-form-phone">
+                                            </div>
+                                            <div class="form__row form__row--email form-group">
+                                                <label class="form__label control-label" for="in-form-email">Szintek száma</label>
+                                                <input type="text" class="form__in form__in--text form-control" name="no_of_floors" id="in-form-email">
+                                            </div>
+                                        </div>                                        
+
+
+                                        <div class="col-md-12">
+                                            <div class="form__row form-group">
+                                                <label class="form__label control-label" for="in-form-message">Megjegyzés, kérdés</label>
+                                                <textarea class="form__in form__in--textarea form-control" name="message" id="in-form-message"></textarea>
+                                            </div>
+                                        </div>
+                                        <input type="text" name="mezes_bodon" id="mezes_bodon">
+                                        <div class="col-md-12">
+
+                                            <button class="form__submit" type="submit" name="submit_tanusitvany" id="submit_tanusitvany">Adatok elküldése</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- end of block form-->
+                            </div>   
 
 
                             <div class="article__footer">

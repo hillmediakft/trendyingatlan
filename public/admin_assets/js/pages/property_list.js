@@ -64,11 +64,11 @@ var Property = function () {
                     {"name": "kategoria", "searchable": true, "orderable": true, "targets": 4},
                     {"name": "varos", "searchable": true, "orderable": true, "targets": 5},
                     {"name": "alapterulet", "searchable": true, "orderable": true, "targets": 6},
-                    {"name": "szobaszam", "searchable": true, "orderable": true, "targets": 7},
-                    {"name": "megtekintes", "searchable": false, "orderable": true, "targets": 8},
-                    {"name": "ar_elado", "searchable": true, "orderable": true, "targets": 9},
-                    {"name": "status", "searchable": true, "orderable": true, "targets": 10},
-                    {"name": "menu", "searchable": false, "orderable": false, "targets": 11}
+         //           {"name": "szobaszam", "searchable": true, "orderable": true, "targets": 7},
+                    {"name": "megtekintes", "searchable": false, "orderable": true, "targets": 7},
+                    {"name": "ar_elado", "searchable": true, "orderable": true, "targets": 8},
+                    {"name": "status", "searchable": true, "orderable": true, "targets": 9},
+                    {"name": "menu", "searchable": false, "orderable": false, "targets": 10}
                 
                 ],
                 
@@ -83,7 +83,7 @@ var Property = function () {
                     { "data": "kategoria" },
                     { "data": "varos" },
                     { "data": "alapterulet" },
-                    { "data": "szobaszam" },
+              //      { "data": "szobaszam" },
                     { "data": "megtekintes" },
                     { "data": "ar" },
                     { "data": "status" },
@@ -95,7 +95,7 @@ var Property = function () {
                     [10, 20, 50, 100, 150] // change per page values here 
                 ],
 
-                "pageLength": 10, // default record count per page
+                "pageLength": 50, // default record count per page
 
                 "ajax": {
                     "url": "admin/property/ajax_get_property", // ajax source
@@ -440,7 +440,7 @@ var Property = function () {
 
             vframework.deleteItems({
                 table_id: "property",
-                url: "admin/property/delete_property_AJAX",
+                url: "admin/property/soft_delete_property_AJAX",
                 confirm_message: "Biztosan törölni akarja az ingatlant?"
             });
 

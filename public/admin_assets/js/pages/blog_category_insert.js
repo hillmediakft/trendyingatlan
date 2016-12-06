@@ -1,14 +1,14 @@
-var Blog_category_insert = function () {
+var Dcument_category_insert = function () {
 
     return {
         //main function to initiate the module
         init: function () {
-			vframework.hideAlert();
+            vframework.hideAlert();
         }
     };
 
 }();
 
-jQuery(document).ready(function() {    
-	Blog_category_insert.init();	
+jQuery(document).ready(function () {
+    Document_category_insert.init();
 });

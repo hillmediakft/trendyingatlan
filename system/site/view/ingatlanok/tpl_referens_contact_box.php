@@ -6,7 +6,7 @@
         <div class="worker--properties">
 
             <div class="worker__photo"><span class="item-photo item-photo--static"><img src="<?php echo Config::get('user.upload_path') . $this->referens['user_photo']; ?>" alt="<?php echo $this->referens['user_first_name'] . ' ' . $this->referens['user_last_name']; ?>" class="photo">
-                    </span></div>
+                </span></div>
             <div class="worker__intro">
                 <h3 class="worker__name fn"><?php echo $this->referens['user_first_name'] . ' ' . $this->referens['user_last_name']; ?></h3>
 
@@ -21,9 +21,7 @@
                         </div>
                         <!-- end of block .worker__contacts-->
                     </div>
-                    <div class="worker__intro-col">
-                        <div class="social social--worker"><a href="#" class="social__item"><i class="fa fa-facebook"></i></a><a href="#" class="social__item"><i class="fa fa-linkedin"></i></a><a href="#" class="social__item"><i class="fa fa-twitter"></i></a><a href="#" class="social__item"><i class="fa fa-google-plus"></i></a></div>
-                    </div>
+
                 </div>
             </div>
 
@@ -32,29 +30,32 @@
         <div class="clearfix"></div>  
         <div class="">
             <div class="form form--properties">
-                <form action="#" method="POST" class="form__wrap js-contact-form">
+                <form action="send_email/init/agent" method="POST" class="form__wrap" id="contact_agent_form">
+
                     <div class="form__row form-group">
-                        <input id="in-form-name" type="text" name="name" required class="form__in form__in--text form-control" placeholder="Az Ön neve">
+                        <input type="text" required="" name="name" id="panel_name" placeholder="Az Ön neve" class="form__in form__in--text form-control">
                     </div>
                     <div class="row">
+                        <div class="col-md-6 col-sm-12"> 
+                            <div class="form__row form__row--email form-group">
+                                <input type="email" placeholder="Az Ön e-mail címe" required="" name="email" id="panel_email"class="form__in form__in--text form-control">
+                            </div>
+                        </div>
                         <div class="col-md-6 col-sm-12">
                             <div class="form__row form__row--tel form-group">
-                                <input id="in-form-phone" type="text" name="phone" class="form__in form__in--text form-control" placeholder="Az Ön telefonszáma">
+                                <input type="text" placeholder="Az Ön telefonszáma" required="" name="phone" id="panel_phone"class="form__in form__in--text form-control">
                             </div>
                         </div>
-                        <div class="col-md-6 col-sm-12">
-                            <div class="form__row form__row--email form-group">
-                                <input id="in-form-email" type="email" name="email" required data-parsley-trigger="change" class="form__in form__in--text form-control" placeholder="Az Ön e-mail címe">
-                            </div>
-                        </div>
-                        </div>
+                    </div>
+                    <div class="form__row form-group">
+                        <textarea rows="5" required="" name="message" id="panel_message" class="form__in form__in--textarea form-control">Érdekel a <?php echo $this->property_data['id']; ?> referencia számú ingatlan, kérem vegyék fel velem a kapcsolatot!</textarea>
+                    </div>
 
-                        <div class="form__row form-group">
-                            <textarea id="in-form-message" name="message" required data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-validation-threshold="10" class="form__in form__in--textarea form-control">Érdekel a <?php echo $this->property_data['id']; ?> referencia számú ingatlan, kérem vegyék fel velem a kapcsolatot!</textarea>
-                        </div>
-                        <div class="form__row">
-                            <button type="submit" class="form__submit">Elküld</button>
-                        </div>
+                    <input type="hidden" name="agent_name" id="agent_name" value="<?php echo $this->referens['user_first_name'] . ' ' . $this->referens['user_last_name']; ?>">
+                    <input type="hidden" name="agent_email" id="agent_email" value="<?php echo $this->referens['user_email']; ?>">
+                    <input type="text" name="mezes_bodon" id="mezes_bodon">
+
+                    <button class="form__submit" type="submit" name="submit_contact_agent" id="submit_contact_agent">Küldés</button>
                 </form>
             </div>
 

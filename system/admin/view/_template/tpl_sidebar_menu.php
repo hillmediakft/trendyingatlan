@@ -46,7 +46,7 @@
                     </a>
                 </li>
                 <!--
-                    <li class="nav-item <?php //$this->menu_active('property', 'search');  ?> ">
+                    <li class="nav-item <?php //$this->menu_active('property', 'search');   ?> ">
                     <a href="admin/property/search" class="nav-link">
                         <span class="title">Ingatlan keresése</span>
                     </a>
@@ -100,6 +100,31 @@
                 <li class="<?php $this->menu_active('datatables', 'ingatlan_szerkezet'); ?>">
                     <a href="admin/datatables/ingatlan_szerkezet" class="nav-link">
                         <span class="title">Szerkezet</span>
+                    </a>
+                </li>  
+                <li class="<?php $this->menu_active('datatables', 'ingatlan_komfort'); ?>">
+                    <a href="admin/datatables/ingatlan_komfort" class="nav-link">
+                        <span class="title">Komfort</span>
+                    </a>
+                </li> 
+                <li class="<?php $this->menu_active('datatables', 'ingatlan_haz_allapot_kivul'); ?>">
+                    <a href="admin/datatables/ingatlan_haz_allapot_kivul" class="nav-link">
+                        <span class="title">Ház állapota kívül</span>
+                    </a>
+                </li> 
+                <li class="<?php $this->menu_active('datatables', 'ingatlan_haz_allapot_belul'); ?>">
+                    <a href="admin/datatables/ingatlan_haz_allapot_belul" class="nav-link">
+                        <span class="title">Ház állapota belül</span>
+                    </a>
+                </li> 
+                 <li class="<?php $this->menu_active('datatables', 'ingatlan_furdo_wc'); ?>">
+                    <a href="admin/datatables/ingatlan_furdo_wc" class="nav-link">
+                        <span class="title">Fürdőszoba - WC</span>
+                    </a>
+                </li>  
+                 <li class="<?php $this->menu_active('datatables', 'ingatlan_fenyviszony'); ?>">
+                    <a href="admin/datatables/ingatlan_fenyviszony" class="nav-link">
+                        <span class="title">Fényviszony</span>
                     </a>
                 </li>                 
             </ul>
@@ -226,6 +251,33 @@
                 </li>
             </ul>
         </li>
+
+        <!-- BLOG -->
+        <li class="nav-item <?php $this->menu_active('documents'); ?> ">
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="fa fa-upload"></i>
+                <span class="title">Dokumentumok</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li class="nav-item <?php $this->menu_active('documents', 'index'); ?> ">
+                    <a href="admin/documents" class="nav-link ">
+                        <span class="title">Feltöltött dokumentumok</span>
+                    </a>
+                </li>
+                <li class="nav-item <?php $this->menu_active('documents', 'insert'); ?> ">
+                    <a href="admin/documents/insert" class="nav-link ">
+                        <span class="title">Új feltöltés</span>
+                    </a>
+                </li>
+                <li class="nav-item <?php $this->menu_active('documents', 'category'); ?> ">
+                    <a href="admin/documents/category" class="nav-link ">
+                        <span class="title">Kategóriák</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <!-- END MENU ITEMS --> 
 
         <!-- FILE-KEZELŐ -->
         <li class="nav-item <?php $this->menu_active('logs'); ?> ">

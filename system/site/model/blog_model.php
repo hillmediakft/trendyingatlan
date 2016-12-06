@@ -102,6 +102,7 @@ class Blog_model extends Site_model {
             $this->query->set_where('category_id', '=', $id);
         }
         $result = $this->query->select();
+
         return $result[0];
     }
 
@@ -116,7 +117,7 @@ class Blog_model extends Site_model {
         $this->query->reset();
         $this->query->debug(false);
         $this->query->set_table(array('blog'));
-        $this->query->set_columns('SQL_CALC_FOUND_ROWS blog_id, blog_slug, blog_title, blog_body, blog_picture, blog_category, blog_add_date, blog_category.category_name_' . $this->registry->lang);
+        $this->query->set_columns('SQL_CALC_FOUND_ROWS blog_id, blog_slug, blog_title, blog_body, blog_picture, blog_category, blog_add_date, blog_category.category_name');
         $this->query->set_where('blog_category', '=', $id);
         $this->query->set_join('left', 'blog_category', 'blog.blog_category', '=', 'blog_category.category_id');
 

@@ -9,7 +9,11 @@ class Irodank extends Site_controller {
 
     public function index() {
 
+        $this->loadModel('agent_model');
+       
+        
         $this->view = new View();
+        $this->view->agents = $this->agent_model->get_agents();
         $this->view->settings = $this->settings;
         $this->view->kedvencek_list = $this->kedvencek_list;
 

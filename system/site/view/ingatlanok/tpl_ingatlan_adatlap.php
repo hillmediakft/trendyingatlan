@@ -245,7 +245,7 @@
                             </table>
                         </div>
                         <div class="property__params">
-                            <h4 class="property__subtitle">Extrék</h4>
+                            <h4 class="property__subtitle">Extrák</h4>
                             <ul class="property__params-list property__params-list--options">
                                 <?php echo ($this->property_data['erkely']) ? '<li> Erkély</li>' : ''; ?>
                                 <?php echo ($this->property_data['terasz']) ? '<li> Terasz</li>' : ''; ?>
@@ -266,7 +266,6 @@
                             <div class="property__description-wrap">
                                 <?php echo $this->property_data['leiras']; ?>
                             </div>
-                            <button type="button" class="property__btn-more js-unhide">További infó ...</button>
                         </div>
                         <div class="property__files js-unhide-block">
                             <h4 class="property__subtitle">Kapcsolódó dokumentumok:</h4>

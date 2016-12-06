@@ -1,33 +1,5 @@
 @charset "UTF-8";
 
-/*------------------------------------------------------------------
- * Brand color ($brandColor): #00bbaa
- * Brand color dark ($brandColorDark): darken($brandColor, 10%)
- * Highlight color ($highlightColor): #f3bc65
- * Highlight Color Dark ($highlightColorDark): #d99221
- * Default Color ($defaultColor): #2c3e50
- * Gray Color ($grayColor): #a6a6a6
- * Footer HeadColor ($brandHighlightColor): $brandColor
- * Footer Social Color ($footerSocialColor): $brandHighlightColor
- * Banner Line Color ($highlightColorOnDark): $brandColor
- * On Brand Color ($onBrandColor): $defaultColor
- * Button Color ($buttonColor): #222
- *
- * Brand Color Hover ($brandColorHover: lighten($brandColor, 10%)
- * Highlight Color Hover ($highlightColorHover: lighten($highlightColor, 15%)
- * PlaceholderColorOnDark ($placeholderColorOnDark): #bebebe
- *
- * Link color ($link-color): $brandColor
- * Link hover color ($link-hover-color): $brandColorHover
- * Link hover decoration ($link-hover-decoration): underline
- *
- * Footer Color ($footerColor): #bebebe
- *
- * Succes Color ($succesColor): $brandColor
- * Warning Color ($warningColor): #f3bc65
- * Danger Color ($dangerColor): #e95b35
- *
- * ============================================================== */
 
 a {
   color: #00bbaa;
@@ -1404,7 +1376,7 @@ a:focus {
 }
 
 a:focus {
-  outline: thin dotted;
+  outline: 0;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -12380,3 +12352,23 @@ footer::before {
     height: 100px;
     width: 100%;
 }
+
+@media (min-width: 320px) and (max-width: 480px) {
+footer::before {
+    height: 20px;
+}
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+footer::before {
+    height: 45px;
+}
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+footer::before {
+    height: 70px;
+}
+}
+
+

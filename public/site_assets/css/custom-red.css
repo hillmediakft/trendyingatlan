@@ -10,6 +10,10 @@ body {
   -webkit-backface-visibility: hidden;
 }
 
+a {
+   outline: 0;
+}
+
 .animated {
   -webkit-animation-duration: 1s;
   animation-duration: 1s;
@@ -2949,7 +2953,7 @@ a:hover {
 
 a.focus,
 a:focus {
-  color: #01a1bb;
+  color: #fff;
 }
 
 a.active,
@@ -4030,7 +4034,7 @@ input[type=radio].in-radio:checked + label:before {
   font-size: 8px;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
   color: #01a1bb;
   text-align: center;
   line-height: 13px;
@@ -4312,7 +4316,7 @@ input[type=checkbox].in-checkbox:indeterminate + label:before {
   font-size: 14px;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
   -webkit-animation: fa-spin 2s infinite linear;
   animation: fa-spin 2s infinite linear;
 }
@@ -4348,15 +4352,15 @@ input[type=checkbox].in-checkbox:indeterminate + label:before {
 }
 
 .button--loading-circle-o-notch .button__action.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .button--loading-refresh .button__action.button--loading:before {
-  content: "";
+  content: "ďĄ";
 }
 
 .button--loading-spinner .button__action.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .button__action.hover,
@@ -4411,7 +4415,7 @@ input[type=checkbox].in-checkbox:indeterminate + label:before {
   font-size: 14px;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
   -webkit-animation: fa-spin 2s infinite linear;
   animation: fa-spin 2s infinite linear;
 }
@@ -4447,15 +4451,15 @@ input[type=checkbox].in-checkbox:indeterminate + label:before {
 }
 
 .button--loading-circle-o-notch .button__more.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .button--loading-refresh .button__more.button--loading:before {
-  content: "";
+  content: "ďĄ";
 }
 
 .button--loading-spinner .button__more.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .button__more.hover,
@@ -4570,7 +4574,7 @@ input[type=checkbox].in-checkbox:indeterminate + label:before {
   font-size: 14px;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
   -webkit-animation: fa-spin 2s infinite linear;
   animation: fa-spin 2s infinite linear;
 }
@@ -4606,15 +4610,15 @@ input[type=checkbox].in-checkbox:indeterminate + label:before {
 }
 
 .button--loading-circle-o-notch .button__default.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .button--loading-refresh .button__default.button--loading:before {
-  content: "";
+  content: "ďĄ";
 }
 
 .button--loading-spinner .button__default.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 @media (min-width: 992px) {
@@ -4656,7 +4660,7 @@ input[type=checkbox].in-checkbox:indeterminate + label:before {
 .button__default--medium {
   font-size: 12px;
   padding: 4px 10px;
-  width: 115px;
+  width: auto;
 }
 
 .button__default--small {
@@ -4763,7 +4767,7 @@ input[type=checkbox].in-checkbox:indeterminate + label:before {
 }
 
 .ui__button--5 {
-  width: 100px;
+  width: auto;
   margin-right: 7px;
 }
 
@@ -4775,7 +4779,7 @@ input[type=checkbox].in-checkbox:indeterminate + label:before {
 }
 
 .ui__button--6 {
-  width: 104px;
+  width: width;
   margin-right: 7px;
 }
 
@@ -5573,12 +5577,12 @@ input[type=checkbox].in-checkbox:indeterminate + label:before {
 
 .ul-list--star li:before {
   content: "";
-  color: #be272e;
+  color: #f3bc65;
 }
 
 .ul-list--x li:before {
   content: "";
-  color: #be272e;
+  color: #f3bc65;
 }
 
 .ul-list--ordered {
@@ -5659,7 +5663,7 @@ input[type=checkbox].in-checkbox:indeterminate + label:before {
   }
 
   .widget__show.active:after {
-    content: "";
+    content: "ď¸";
   }
 
   .opened .widget__show {
@@ -5944,7 +5948,7 @@ fieldset[disabled] .widget_search .search-field {
   font-style: normal;
   font-weight: normal;
   line-height: 1;
-  content: "";
+  content: "î";
 }
 
 .textwidget {
@@ -6065,7 +6069,7 @@ fieldset[disabled] .widget_search .search-field {
   font-size: 10px;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
   color: #2c3e50;
   margin-right: 10px;
 }
@@ -6207,7 +6211,7 @@ fieldset[disabled] .widget_search .search-field {
   font-size: 14px;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
   -webkit-animation: fa-spin 2s infinite linear;
   animation: fa-spin 2s infinite linear;
 }
@@ -6243,15 +6247,15 @@ fieldset[disabled] .widget_search .search-field {
 }
 
 .button--loading-circle-o-notch .comments-link a.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .button--loading-refresh .comments-link a.button--loading:before {
-  content: "";
+  content: "ďĄ";
 }
 
 .button--loading-spinner .comments-link a.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .comments-link a.hover,
@@ -6358,7 +6362,7 @@ fieldset[disabled] .widget_search .search-field {
   font-size: 14px;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
   -webkit-animation: fa-spin 2s infinite linear;
   animation: fa-spin 2s infinite linear;
 }
@@ -6394,15 +6398,15 @@ fieldset[disabled] .widget_search .search-field {
 }
 
 .button--loading-circle-o-notch .edit-link a.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .button--loading-refresh .edit-link a.button--loading:before {
-  content: "";
+  content: "ďĄ";
 }
 
 .button--loading-spinner .edit-link a.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .edit-link a.hover,
@@ -6563,7 +6567,7 @@ fieldset[disabled] .post-password-form label > input {
   font-size: 14px;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
   -webkit-animation: fa-spin 2s infinite linear;
   animation: fa-spin 2s infinite linear;
 }
@@ -6599,15 +6603,15 @@ fieldset[disabled] .post-password-form label > input {
 }
 
 .button--loading-circle-o-notch .post-password-form input[type="submit"].button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .button--loading-refresh .post-password-form input[type="submit"].button--loading:before {
-  content: "";
+  content: "ďĄ";
 }
 
 .button--loading-spinner .post-password-form input[type="submit"].button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .post-password-form input[type="submit"].hover,
@@ -7188,7 +7192,7 @@ hr {
   font-size: 1em;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
   border: 1px solid #2c3e50;
   margin-left: 10px;
   padding: 0;
@@ -7205,7 +7209,7 @@ hr {
 }
 
 .button__toggle.active:after {
-  content: "";
+  content: "ď¸";
 }
 
 @media (max-width: 767px) {
@@ -7259,7 +7263,7 @@ mark {
   font-size: 3em;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
   -webkit-animation: fa-spin 2s infinite linear;
   animation: fa-spin 2s infinite linear;
   position: absolute;
@@ -7873,7 +7877,7 @@ mark {
   font-size: 1em;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
 }
 
 .worker__favorites--highlight {
@@ -7960,7 +7964,7 @@ mark {
   font-size: 14px;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
   -webkit-animation: fa-spin 2s infinite linear;
   animation: fa-spin 2s infinite linear;
 }
@@ -7996,15 +8000,15 @@ mark {
 }
 
 .button--loading-circle-o-notch .worker__btn-more.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .button--loading-refresh .worker__btn-more.button--loading:before {
-  content: "";
+  content: "ďĄ";
 }
 
 .button--loading-spinner .worker__btn-more.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .worker__btn-more.hover,
@@ -8078,7 +8082,7 @@ mark {
   font-size: 1em;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
   margin-right: 10px;
 }
 
@@ -8179,7 +8183,7 @@ mark {
   font-size: 14px;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
   -webkit-animation: fa-spin 2s infinite linear;
   animation: fa-spin 2s infinite linear;
 }
@@ -8215,15 +8219,15 @@ mark {
 }
 
 .button--loading-circle-o-notch .worker__more.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .button--loading-refresh .worker__more.button--loading:before {
-  content: "";
+  content: "ďĄ";
 }
 
 .button--loading-spinner .worker__more.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 @media (min-width: 992px) {
@@ -10213,7 +10217,7 @@ mark {
   font-size: 14px;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
   -webkit-animation: fa-spin 2s infinite linear;
   animation: fa-spin 2s infinite linear;
 }
@@ -10249,15 +10253,15 @@ mark {
 }
 
 .button--loading-circle-o-notch .article__more.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .button--loading-refresh .article__more.button--loading:before {
-  content: "";
+  content: "ďĄ";
 }
 
 .button--loading-spinner .article__more.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 @media (min-width: 992px) {
@@ -10347,7 +10351,7 @@ mark {
   font-size: 14px;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
   -webkit-animation: fa-spin 2s infinite linear;
   animation: fa-spin 2s infinite linear;
 }
@@ -10383,15 +10387,15 @@ mark {
 }
 
 .button--loading-circle-o-notch .article__btn-more.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .button--loading-refresh .article__btn-more.button--loading:before {
-  content: "";
+  content: "ďĄ";
 }
 
 .button--loading-spinner .article__btn-more.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .article__btn-more.hover,
@@ -10503,7 +10507,7 @@ mark {
   font-size: 3em;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
   color: #fff;
 }
 
@@ -11013,7 +11017,7 @@ mark {
 }
 
 .article--details .article__item-title {
-  margin: 0 0 0 62px;
+  margin: 0 0 0 0px;
   position: relative;
   top: -5px;
   display: block;
@@ -11031,7 +11035,10 @@ mark {
 }
 
 .article--details .article__tags {
-  margin: 2px 0 0 62px;
+  margin: 2px 0 0 0px;
+}
+.article--details .article__tags i {
+  margin-right: 5px;
 }
 
 @media (max-width: 767px) {
@@ -11439,10 +11446,6 @@ fieldset[disabled] .form__in {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-left: 10px;
-  margin-right: 10px;
   font-weight: 700;
   font-size: 15px;
   position: relative;
@@ -11452,7 +11455,7 @@ fieldset[disabled] .form__in {
   color: #fff;
   width: 150px;
   margin-right: 0;
-  width: 40%;
+  width: auto;
   float: right;
   margin-top: 10px;
 }
@@ -11466,7 +11469,7 @@ fieldset[disabled] .form__in {
 .form__submit:hover,
 .form__submit:focus,
 .form__submit.active {
-  color: #333;
+  color: #fff;
   text-decoration: none;
   outline: none;
 }
@@ -11496,11 +11499,11 @@ fieldset[disabled] .form__in {
 }
 
 .form__submit.button--loading:before {
-  margin: 0 10px 0;
+  margin: 0 10px 0 0;
   font-size: 14px;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
   -webkit-animation: fa-spin 2s infinite linear;
   animation: fa-spin 2s infinite linear;
 }
@@ -11536,15 +11539,15 @@ fieldset[disabled] .form__in {
 }
 
 .button--loading-circle-o-notch .form__submit.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .button--loading-refresh .form__submit.button--loading:before {
-  content: "";
+  content: "ďĄ";
 }
 
 .button--loading-spinner .form__submit.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .form__submit.hover,
@@ -12454,7 +12457,7 @@ fieldset[disabled] .form__in {
   font-size: 14px;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
   -webkit-animation: fa-spin 2s infinite linear;
   animation: fa-spin 2s infinite linear;
 }
@@ -12490,15 +12493,15 @@ fieldset[disabled] .form__in {
 }
 
 .button--loading-circle-o-notch .slider--wide .slider__more.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .button--loading-refresh .slider--wide .slider__more.button--loading:before {
-  content: "";
+  content: "ďĄ";
 }
 
 .button--loading-spinner .slider--wide .slider__more.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .slider--wide .slider__more.hover,
@@ -13230,14 +13233,14 @@ fieldset[disabled] .form__in {
   font-size: 10px;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
 }
 
 .slider--dots .slick-dots li.slick-active button:after {
   font-size: 10px;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
 }
 
 @media (max-width: 991px) {
@@ -14267,7 +14270,7 @@ fieldset[disabled] .form__in {
   font-size: 10px;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "";
   color: #be272e;
 }
 
@@ -14822,7 +14825,7 @@ fieldset[disabled] .dropdown--select .dropdown-toggle {
   font-size: 10px;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
   padding: 0 0 0 11px;
   text-align: left;
   opacity: 0.5;
@@ -14985,7 +14988,7 @@ fieldset[disabled] .dropdown--select .dropdown-toggle {
   font-size: 2.1em;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
   color: #fff;
 }
 
@@ -16967,7 +16970,7 @@ fieldset[disabled] .search__form-control {
   font-size: 14px;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
   -webkit-animation: fa-spin 2s infinite linear;
   animation: fa-spin 2s infinite linear;
 }
@@ -17003,15 +17006,15 @@ fieldset[disabled] .search__form-control {
 }
 
 .button--loading-circle-o-notch .search__btn.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .button--loading-refresh .search__btn.button--loading:before {
-  content: "";
+  content: "ďĄ";
 }
 
 .button--loading-spinner .search__btn.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 @media (min-width: 992px) {
@@ -17127,7 +17130,7 @@ fieldset[disabled] .search__form-control {
   font-size: 14px;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
   -webkit-animation: fa-spin 2s infinite linear;
   animation: fa-spin 2s infinite linear;
 }
@@ -17163,15 +17166,15 @@ fieldset[disabled] .search__form-control {
 }
 
 .button--loading-circle-o-notch .search__btn--action.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .button--loading-refresh .search__btn--action.button--loading:before {
-  content: "";
+  content: "ďĄ";
 }
 
 .button--loading-spinner .search__btn--action.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .search__btn--action.hover,
@@ -17210,7 +17213,7 @@ fieldset[disabled] .search__form-control {
   font-size: 2.2em;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
   color: #d6d6d6;
 }
 
@@ -17815,7 +17818,7 @@ fieldset[disabled] .search__form-control {
   font-size: 0.4em;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "\f078";
   vertical-align: middle;
   margin-left: 10px;
   font-weight: normal;
@@ -17943,7 +17946,7 @@ fieldset[disabled] .search__form-control {
 }
 
 .search--hide .search__title-btn:after {
-  content: "";
+  content: "\f077";
 }
 
 .search--map-dark {
@@ -18225,7 +18228,7 @@ fieldset[disabled] .search__form-control {
   font-size: 14px;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
   -webkit-animation: fa-spin 2s infinite linear;
   animation: fa-spin 2s infinite linear;
 }
@@ -18261,15 +18264,15 @@ fieldset[disabled] .search__form-control {
 }
 
 .button--loading-circle-o-notch .region-select__btn.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .button--loading-refresh .region-select__btn.button--loading:before {
-  content: "";
+  content: "ďĄ";
 }
 
 .button--loading-spinner .region-select__btn.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 @media (min-width: 992px) {
@@ -18623,7 +18626,7 @@ fieldset[disabled] .search__form-control {
   font-size: 14px;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
   -webkit-animation: fa-spin 2s infinite linear;
   animation: fa-spin 2s infinite linear;
 }
@@ -18659,15 +18662,15 @@ fieldset[disabled] .search__form-control {
 }
 
 .button--loading-circle-o-notch .properties__btn-more.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .button--loading-refresh .properties__btn-more.button--loading:before {
-  content: "";
+  content: "ďĄ";
 }
 
 .button--loading-spinner .properties__btn-more.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .properties__btn-more.hover,
@@ -18792,7 +18795,7 @@ fieldset[disabled] .search__form-control {
   font-size: 14px;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
   -webkit-animation: fa-spin 2s infinite linear;
   animation: fa-spin 2s infinite linear;
 }
@@ -18828,15 +18831,15 @@ fieldset[disabled] .search__form-control {
 }
 
 .button--loading-circle-o-notch .properties__action-call.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .button--loading-refresh .properties__action-call.button--loading:before {
-  content: "";
+  content: "ďĄ";
 }
 
 .button--loading-spinner .properties__action-call.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .properties__action-call.hover,
@@ -18863,7 +18866,7 @@ fieldset[disabled] .search__form-control {
   font-size: 0.8em;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
   position: relative;
   z-index: 1;
   margin: 1px 0 0 15px;
@@ -19209,7 +19212,7 @@ fieldset[disabled] .search__form-control {
   font-size: 14px;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
   -webkit-animation: fa-spin 2s infinite linear;
   animation: fa-spin 2s infinite linear;
 }
@@ -19245,15 +19248,15 @@ fieldset[disabled] .search__form-control {
 }
 
 .button--loading-circle-o-notch .properties__pay.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .button--loading-refresh .properties__pay.button--loading:before {
-  content: "";
+  content: "ďĄ";
 }
 
 .button--loading-spinner .properties__pay.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .properties__pay.hover,
@@ -19302,7 +19305,7 @@ fieldset[disabled] .search__form-control {
     font-size: 14px;
     display: inline-block;
     font-family: FontAwesome;
-    content: "";
+    content: "ď";
     border: 1px solid #2c3e50;
     margin-left: 10px;
     width: 26px;
@@ -19314,7 +19317,7 @@ fieldset[disabled] .search__form-control {
   }
 
   .properties__show.active:after {
-    content: "";
+    content: "ď¸";
   }
 
   .opened .properties__show {
@@ -20853,7 +20856,7 @@ fieldset[disabled] .search__form-control {
   font-size: 14px;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
   -webkit-animation: fa-spin 2s infinite linear;
   animation: fa-spin 2s infinite linear;
 }
@@ -20889,15 +20892,15 @@ fieldset[disabled] .search__form-control {
 }
 
 .button--loading-circle-o-notch .gosubmit__btn.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .button--loading-refresh .gosubmit__btn.button--loading:before {
-  content: "";
+  content: "ďĄ";
 }
 
 .button--loading-spinner .gosubmit__btn.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .gosubmit__btn.hover,
@@ -21120,7 +21123,7 @@ fieldset[disabled] .search__form-control {
   font-size: 5em;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
 }
 
 .partners__arrow--next {
@@ -21131,7 +21134,7 @@ fieldset[disabled] .search__form-control {
   font-size: 5em;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
 }
 
 /*------------------------------------------------------------------
@@ -21393,7 +21396,7 @@ fieldset[disabled] .subscribe__field {
   font-size: 14px;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
   -webkit-animation: fa-spin 2s infinite linear;
   animation: fa-spin 2s infinite linear;
 }
@@ -21429,15 +21432,15 @@ fieldset[disabled] .subscribe__field {
 }
 
 .button--loading-circle-o-notch .subscribe__submit.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .button--loading-refresh .subscribe__submit.button--loading:before {
-  content: "";
+  content: "ďĄ";
 }
 
 .button--loading-spinner .subscribe__submit.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .subscribe__submit.hover,
@@ -21922,7 +21925,7 @@ fieldset[disabled] .subscribe__field {
   font-size: 14px;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
   -webkit-animation: fa-spin 2s infinite linear;
   animation: fa-spin 2s infinite linear;
 }
@@ -21958,15 +21961,15 @@ fieldset[disabled] .subscribe__field {
 }
 
 .button--loading-circle-o-notch .pricing__button.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .button--loading-refresh .pricing__button.button--loading:before {
-  content: "";
+  content: "ďĄ";
 }
 
 .button--loading-spinner .pricing__button.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .pricing__button.hover,
@@ -22275,12 +22278,12 @@ fieldset[disabled] .subscribe__field {
 }
 
 .property__description-wrap {
-  -webkit-column-count: 2;
+ /* -webkit-column-count: 2;
   -moz-column-count: 2;
   column-count: 2;
   -webkit-column-gap: 30px;
   -moz-column-gap: 30px;
-  column-gap: 30px;
+  column-gap: 30px; */
 }
 
 @media (max-width: 767px) {
@@ -22352,7 +22355,7 @@ fieldset[disabled] .subscribe__field {
   font-size: 14px;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
   -webkit-animation: fa-spin 2s infinite linear;
   animation: fa-spin 2s infinite linear;
 }
@@ -22388,15 +22391,15 @@ fieldset[disabled] .subscribe__field {
 }
 
 .button--loading-circle-o-notch .property__btn-more.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .button--loading-refresh .property__btn-more.button--loading:before {
-  content: "";
+  content: "ďĄ";
 }
 
 .button--loading-spinner .property__btn-more.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .property__btn-more.hover,
@@ -22768,7 +22771,7 @@ fieldset[disabled] .subscribe__field {
 }
 
 .property__files-show.active:after {
-  content: "";
+  content: "";
 }
 
 @media (max-width: 767px) {
@@ -22779,7 +22782,7 @@ fieldset[disabled] .subscribe__field {
 }
 
 .property__map {
-  margin: 25px 0 0;
+  margin: 25px 0 25px 0;
   position: relative;
 }
 
@@ -23003,9 +23006,9 @@ fieldset[disabled] .subscribe__field {
   font-weight: 400;
   margin-top: 30px;
   margin-bottom: 0;
-  line-height: 2;
+  line-height: 1.4;
   text-align: center;
-  margin: 0;
+  margin: 10px 0 10px 0;
   min-height: 37px;
   text-align: left;
 }
@@ -23408,7 +23411,7 @@ fieldset[disabled] .subscribe__field {
   font-size: 14px;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
   -webkit-animation: fa-spin 2s infinite linear;
   animation: fa-spin 2s infinite linear;
 }
@@ -23444,15 +23447,15 @@ fieldset[disabled] .subscribe__field {
 }
 
 .button--loading-circle-o-notch .listing__btn--add.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .button--loading-refresh .listing__btn--add.button--loading:before {
-  content: "";
+  content: "ďĄ";
 }
 
 .button--loading-spinner .listing__btn--add.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .listing__btn--add.hover,
@@ -23542,7 +23545,7 @@ fieldset[disabled] .subscribe__field {
   font-size: 15px;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
 }
 
 .listing__dropdown-menu {
@@ -23623,7 +23626,7 @@ fieldset[disabled] .subscribe__field {
   font-size: 11px;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
 }
 
 .listing__empty {
@@ -23837,7 +23840,7 @@ fieldset[disabled] .subscribe__field {
     font-size: 14px;
     display: inline-block;
     font-family: FontAwesome;
-    content: "";
+    content: "ď§";
     border: 1px solid #2c3e50;
     color: #2c3e50;
     display: inline-block;
@@ -23858,7 +23861,7 @@ fieldset[disabled] .subscribe__field {
   }
 
   .form-property__title.active:before {
-    content: "";
+    content: "ď¨";
   }
 }
 
@@ -24379,7 +24382,7 @@ fieldset[disabled] .form-property__control {
   font-size: 14px;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
   -webkit-animation: fa-spin 2s infinite linear;
   animation: fa-spin 2s infinite linear;
 }
@@ -24415,15 +24418,15 @@ fieldset[disabled] .form-property__control {
 }
 
 .button--loading-circle-o-notch .form-property__btn--default.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .button--loading-refresh .form-property__btn--default.button--loading:before {
-  content: "";
+  content: "ďĄ";
 }
 
 .button--loading-spinner .form-property__btn--default.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 @media (min-width: 992px) {
@@ -24523,7 +24526,7 @@ fieldset[disabled] .form-property__control {
   font-size: 14px;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
   -webkit-animation: fa-spin 2s infinite linear;
   animation: fa-spin 2s infinite linear;
 }
@@ -24559,15 +24562,15 @@ fieldset[disabled] .form-property__control {
 }
 
 .button--loading-circle-o-notch .form-property__btn--reset.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .button--loading-refresh .form-property__btn--reset.button--loading:before {
-  content: "";
+  content: "ďĄ";
 }
 
 .button--loading-spinner .form-property__btn--reset.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 @media (min-width: 992px) {
@@ -24675,7 +24678,7 @@ fieldset[disabled] .form-property__control {
   font-size: 14px;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
   -webkit-animation: fa-spin 2s infinite linear;
   animation: fa-spin 2s infinite linear;
 }
@@ -24711,15 +24714,15 @@ fieldset[disabled] .form-property__control {
 }
 
 .button--loading-circle-o-notch .form-property__btn--action.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .button--loading-refresh .form-property__btn--action.button--loading:before {
-  content: "";
+  content: "ďĄ";
 }
 
 .button--loading-spinner .form-property__btn--action.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .form-property__btn--action.hover,
@@ -24935,7 +24938,7 @@ fieldset[disabled] .form-property__control {
   font-size: 14px;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
   -webkit-animation: fa-spin 2s infinite linear;
   animation: fa-spin 2s infinite linear;
 }
@@ -24971,15 +24974,15 @@ fieldset[disabled] .form-property__control {
 }
 
 .button--loading-circle-o-notch .form-property__upload-btn-delete.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .button--loading-refresh .form-property__upload-btn-delete.button--loading:before {
-  content: "";
+  content: "ďĄ";
 }
 
 .button--loading-spinner .form-property__upload-btn-delete.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 @media (min-width: 992px) {
@@ -25336,7 +25339,7 @@ fieldset[disabled] .form-property__control {
   font-size: 14px;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
   -webkit-animation: fa-spin 2s infinite linear;
   animation: fa-spin 2s infinite linear;
 }
@@ -25372,15 +25375,15 @@ fieldset[disabled] .form-property__control {
 }
 
 .button--loading-circle-o-notch .comment__reply.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .button--loading-refresh .comment__reply.button--loading:before {
-  content: "";
+  content: "ďĄ";
 }
 
 .button--loading-spinner .comment__reply.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 @media (min-width: 992px) {
@@ -25564,13 +25567,12 @@ fieldset[disabled] .form-property__control {
 }
 
 .contacts__headline {
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 400;
   margin-top: 30px;
   margin-bottom: 0;
   line-height: 2;
   text-align: center;
-  font-size: 14px;
   text-transform: uppercase;
 }
 
@@ -25596,6 +25598,11 @@ fieldset[disabled] .form-property__control {
   padding-left: 15px;
   padding-right: 15px;
   padding-bottom: 16px;
+}
+
+.contacts__column .worker__list{
+  margin-top: 10px;
+  padding: 0;
 }
 
 @media (min-width: 768px) {
@@ -25658,6 +25665,12 @@ fieldset[disabled] .form-property__control {
   margin-bottom: 10px;
   display: block;
   font-weight: 600;
+  color: #777;
+}
+
+.contacts__address-title i {
+  margin-right: 10px;
+  color: #999;
 }
 
 .contacts__address-street {
@@ -25691,6 +25704,10 @@ fieldset[disabled] .form-property__control {
 .contacts__form {
   margin-top: 31px;
   clear: both;
+  background-color: #e4e4e4;
+  padding: 20px 10px;
+  border: 1px solid #d6d6d6;
+  overflow: hidden;
 }
 
 .contacts__social {
@@ -25751,7 +25768,7 @@ fieldset[disabled] .form-property__control {
   font-size: 14px;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď¨";
   border: 1px solid #01a1bb;
   color: #01a1bb;
   display: inline-block;
@@ -25777,7 +25794,7 @@ fieldset[disabled] .form-property__control {
 }
 
 .faq__expander.collapsed:before {
-  content: "";
+  content: "ď§";
   border: 1px solid #2c3e50;
   color: #2c3e50;
 }
@@ -25848,7 +25865,7 @@ fieldset[disabled] .form-property__control {
   font-size: 14px;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
   border: 1px solid #2c3e50;
   color: #2c3e50;
   padding: 0 5px;
@@ -26231,7 +26248,7 @@ fieldset[disabled] .auth__in {
   font-size: 14px;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
   -webkit-animation: fa-spin 2s infinite linear;
   animation: fa-spin 2s infinite linear;
 }
@@ -26267,15 +26284,15 @@ fieldset[disabled] .auth__in {
 }
 
 .button--loading-circle-o-notch .auth__in--submit.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .button--loading-refresh .auth__in--submit.button--loading:before {
-  content: "";
+  content: "ďĄ";
 }
 
 .button--loading-spinner .auth__in--submit.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .auth__in--submit.hover,
@@ -26669,7 +26686,7 @@ fieldset[disabled] .auth__in {
   font-size: 14px;
   display: inline-block;
   font-family: FontAwesome;
-  content: "";
+  content: "ď";
   -webkit-animation: fa-spin 2s infinite linear;
   animation: fa-spin 2s infinite linear;
 }
@@ -26705,15 +26722,15 @@ fieldset[disabled] .auth__in {
 }
 
 .button--loading-circle-o-notch .map__more.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .button--loading-refresh .map__more.button--loading:before {
-  content: "";
+  content: "ďĄ";
 }
 
 .button--loading-spinner .map__more.button--loading:before {
-  content: "";
+  content: "ď";
 }
 
 .map__more.hover,
@@ -26806,7 +26823,7 @@ fieldset[disabled] .auth__in {
   }
 
   .map__change-map.active:after {
-    content: "";
+    content: "";
   }
 
   .map__change-map:before {
@@ -26873,7 +26890,7 @@ fieldset[disabled] .auth__in {
     font-size: 14px;
     display: inline-block;
     font-family: FontAwesome;
-    content: "";
+    content: "ď";
     border: 1px solid #2c3e50;
     margin-left: 10px;
     width: 22px;
@@ -26885,14 +26902,14 @@ fieldset[disabled] .auth__in {
   }
 
   .map__change-panorama.active:after {
-    content: "";
+    content: "ď¸";
   }
 
   .map__change-panorama:before {
     font-size: 1em;
     display: inline-block;
     font-family: FontAwesome;
-    content: "";
+    content: "ď";
     color: #01a1bb;
     margin-right: 10px;
   }
@@ -27528,7 +27545,7 @@ fieldset[disabled] .auth__in {
 }
 
 .breadcrumbs a:after {
-  content: "";
+  content: "î";
   position: relative;
   top: -1px;
   display: inline-block;
@@ -27545,7 +27562,7 @@ fieldset[disabled] .auth__in {
 }
 
 .breadcrumbs__link:after {
-  content: "";
+  content: "î";
   position: relative;
   top: -1px;
   display: inline-block;
@@ -27628,6 +27645,10 @@ fieldset[disabled] .auth__in {
 	background: #e7e7e7; 
 	color: #777;
 	border-color: #e7e7e7;
+}
+
+#mezes_bodon {
+	display: none;
 }
 
 
